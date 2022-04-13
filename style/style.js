@@ -37,12 +37,9 @@ export default StyleSheet.create({
     },
   
     title:{
-      height:15, 
-      justifyContent: 'flex-end', 
-      alignItems: 'flex-end',
       textAlign: 'center', 
       fontSize: 30,
-      marginBottom:50,
+      marginBottom:25,
     },
   
     infoInput:{
