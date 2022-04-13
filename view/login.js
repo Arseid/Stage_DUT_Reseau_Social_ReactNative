@@ -1,7 +1,7 @@
-import {Text, TextInput, View, Pressable, Linking } from 'react-native';
+import {Text, TextInput, View, Pressable } from 'react-native';
 import styles from '../style/style';
 
-export function LoginScreen(){
+export function LoginScreen({navigation}){
     return (
       <View style={styles.container}>
   
@@ -19,7 +19,7 @@ export function LoginScreen(){
   
           <View style={styles.subscription}>
             <Text style={styles.averageText}>Vous n'avez pas de compte?</Text>
-            <Text style={styles.hyperlinkText} onPress={() => Linking.openURL('https://patelkrunal008.medium.com/navigate-from-one-screen-to-another-in-react-native-navigation-v5-69da74d5c676')}>
+            <Text style={styles.hyperlinkText} onPress={() => navigation.navigate('Register')}>
               Inscrivez-vous!
             </Text>
           </View>

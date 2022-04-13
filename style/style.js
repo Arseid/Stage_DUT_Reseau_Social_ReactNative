@@ -41,8 +41,8 @@ export default StyleSheet.create({
       justifyContent: 'flex-end', 
       alignItems: 'flex-end',
       textAlign: 'center', 
-      fontSize: 35,
-      marginBottom:80,
+      fontSize: 30,
+      marginBottom:50,
     },
   
     infoInput:{
