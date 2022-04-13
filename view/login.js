@@ -7,19 +7,11 @@ export function LoginScreen({navigation}){
   
         <View style={styles.upside}>
   
-<<<<<<< HEAD
           <View style={styles.formLogin}>
             <Text style={styles.titleLogin}>Lorem Ipsum</Text>
             <TextInput style={styles.infoInput} placeholder="Numéro de téléphone ou email"/>
             <TextInput style={styles.infoInput} placeholder="Mot de passe"/>
             <Pressable style={styles.buttonLogin}>
-=======
-          <View style={styles.form}>
-            <Text style={styles.title}>Lorem Ipsum</Text>
-            <TextInput style={styles.infoInput} placeholder="Numéro de téléphone ou email"/>
-            <TextInput style={styles.infoInput} placeholder="Mot de passe"/>
-            <Pressable style={styles.button}>
->>>>>>> c8e38097ea5d400571925ea1c3512dedf57cd06a
               <Text style={styles.averageText}>Se connecter</Text>
             </Pressable>
             <Text style={styles.hyperlinkText}>Mot de passe oublié?</Text>
@@ -27,11 +19,7 @@ export function LoginScreen({navigation}){
   
           <View style={styles.subscription}>
             <Text style={styles.averageText}>Vous n'avez pas de compte?</Text>
-<<<<<<< HEAD
             <Text style={styles.hyperlinkTextLogin} onPress={() => navigation.navigate('Register')}>
-=======
-            <Text style={styles.hyperlinkText} onPress={() => navigation.navigate('Register')}>
->>>>>>> c8e38097ea5d400571925ea1c3512dedf57cd06a
               Inscrivez-vous!
             </Text>
           </View>
