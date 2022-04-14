@@ -17,6 +17,7 @@ export function RegisterScreen(){
           <View style={styles.formRegister}>
             <Text style={styles.titleRegister}>Lorem Ipsum</Text>
             <Text style={styles.subtitle}>Créer un nouveau compte</Text>
+            <Text style={styles.info}>Vous êtes un(e)...</Text>
     <ButtonGroup
       buttons={['Elève','Parent', 'Professeur', 'Professionnel']}
       selectedIndex={selectedIndex}

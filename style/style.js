@@ -67,6 +67,13 @@ export default StyleSheet.create({
         fontSize: 20,
         marginBottom:-400,
       },
+
+      info:{
+        textAlign: 'left', 
+        fontSize: 12,
+        marginBottom:-140,
+        marginTop: -100
+      },
   
     infoInputLogin:{
       width: 300,
