@@ -28,6 +28,7 @@ export default StyleSheet.create({
 
     formRegister:{
         marginTop:40,
+        marginBottom:40,
         borderColor:"#FFFAF0",
         backgroundColor:"#FFFAF0",
         borderWidth:5,
@@ -69,7 +70,6 @@ export default StyleSheet.create({
   
     infoInput:{
       width: 300,
-
       borderWidth: 1,
       padding:5,
       margin:5,
@@ -77,7 +77,7 @@ export default StyleSheet.create({
 
     infoInputFirstName:{
         width: 135,
-
+      
         borderWidth: 1,
         padding:5,
         margin:5,
@@ -108,6 +108,7 @@ export default StyleSheet.create({
         padding:5,
         margin:5,
         marginBottom: 5,
+        marginTop: 80,
         height:40
       },
     
@@ -131,6 +132,14 @@ export default StyleSheet.create({
         color:"#315399",
         marginBottom: -420
       },
+
+    subHeader: {
+        backgroundColor : "#2089dc",
+        color : "white",
+        textAlign : "center",
+        paddingVertical : 5,
+        marginBottom : 10
+        },
 
      
   });
