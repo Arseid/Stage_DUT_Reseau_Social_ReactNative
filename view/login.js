@@ -9,8 +9,8 @@ export function LoginScreen({navigation}){
   
           <View style={styles.formLogin}>
             <Text style={styles.titleLogin}>Lorem Ipsum</Text>
-            <TextInput style={styles.infoInput} placeholder="Numéro de téléphone ou email"/>
-            <TextInput style={styles.infoInput} placeholder="Mot de passe"/>
+            <TextInput style={styles.infoInputLogin} placeholder="Numéro de téléphone ou email"/>
+            <TextInput style={styles.infoInputLogin} placeholder="Mot de passe"/>
             <Pressable style={styles.buttonLogin}>
               <Text style={styles.averageText}>Se connecter</Text>
             </Pressable>
