@@ -1,5 +1,5 @@
 import {Text, TextInput, View, Pressable, Linking } from 'react-native';
-import styles from '../style/style';
+import styles from '../style/loginStyle';
 
 export function RegisterScreen(){
     return(
