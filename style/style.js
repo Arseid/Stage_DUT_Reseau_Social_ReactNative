@@ -87,12 +87,12 @@ export default StyleSheet.create({
       borderWidth: 1,
       padding:5,
       margin:5,
-      marginLeft: 30
+      marginLeft: 45
     },
 
     infoInputFirstName:{
         width: 135,
-        marginLeft: 30,
+        marginLeft: 45,
         borderWidth: 1,
         padding:5,
         margin:5,
@@ -104,7 +104,7 @@ export default StyleSheet.create({
         borderWidth: 1,
         padding:5,
         margin:5,
-        marginLeft: 195
+        marginLeft: 210
       },
   
     buttonLogin:{

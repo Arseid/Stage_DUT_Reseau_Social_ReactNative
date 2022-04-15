@@ -26,7 +26,7 @@ export function RegisterScreen(){
         setSelectedIndex(value);   
         <TextInput style={styles.infoInputFirstName} placeholder="Prénom"/>
       }}
-      containerStyle={{ marginBottom: 20, marginTop: -100,  backgroundColor: '#ffaf7a',width:345}}
+      containerStyle={{ marginBottom: 20, marginTop: -100,  backgroundColor: '#ffaf7a',width:370 }}
       
     />
             <TextInput style={styles.infoInputFirstName} placeholder="Prénom"/>
