@@ -27,8 +27,6 @@ export default StyleSheet.create({
     },
 
     formRegister:{
-        marginTop:40,
-        marginBottom:40,
         borderColor:"#FFFAF0",
         backgroundColor:"#FFFAF0",
         borderWidth:5,
@@ -72,7 +70,7 @@ export default StyleSheet.create({
         textAlign: 'left', 
         fontSize: 12,
         marginBottom:-140,
-        marginTop: -100
+        marginTop: -80
       },
   
     infoInputLogin:{
@@ -87,7 +85,51 @@ export default StyleSheet.create({
       borderWidth: 1,
       padding:5,
       margin:5,
-      marginLeft: 45
+      marginLeft: 45,
+      borderRadius: 7
+    },
+
+    dropDownLeft:{
+      height: 20,
+      width: 150,
+      backgroundColor: "#FFFAF0",
+      bottom: 10,
+      marginLeft: 35,
+      margin: 5,
+      borderRadius: 7
+    },
+
+    dropDown:{
+      height: 20,
+      width: 320,
+      backgroundColor: "#FFFAF0",
+      marginBottom:25,
+      bottom: 10,
+      marginLeft: 35,
+      margin: 5,
+      borderRadius: 7
+    },
+
+    dropDownRight:{
+      height: 20,
+      width: 150,
+      backgroundColor: "#FFFAF0",
+      bottom: 10,
+      marginLeft: 200,
+      margin: 5,
+      borderRadius: 7,
+      bottom: 40
+    },
+
+    infoInputLeft:{
+      width: 150,
+      height:50,
+      marginLeft: 45,
+      borderWidth: 1,
+      padding:5,
+      margin:5,
+      marginBottom: -15,
+      borderRadius: 7
     },
 
     infoInputFirstName:{
@@ -97,6 +139,18 @@ export default StyleSheet.create({
         padding:5,
         margin:5,
         marginBottom: -45,
+        borderRadius: 7
+      },
+
+      infoInputBonjour:{
+        width: 135,
+        marginLeft: 45,
+        borderWidth: 1,
+        padding:5,
+        margin:5,
+        marginBottom: -45,
+        borderRadius: 7,
+        top: 200
       },
     
       infoInputLastName:{
@@ -104,7 +158,8 @@ export default StyleSheet.create({
         borderWidth: 1,
         padding:5,
         margin:5,
-        marginLeft: 210
+        marginLeft: 210,
+        borderRadius: 7
       },
   
     buttonLogin:{
