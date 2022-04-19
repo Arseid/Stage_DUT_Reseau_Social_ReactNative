@@ -1,4 +1,5 @@
 
-# stage_DUT
-Pour l'instant la page de connexion est faite.
-Le passage à la page d'inscription est établie.
+# Cote Nico
+Page d'inscription amélioré en cours.
+L'ajout d'élément après avoir selectionné le type de personne est fait
+
