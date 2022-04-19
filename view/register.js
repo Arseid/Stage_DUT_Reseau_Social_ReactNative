@@ -16,9 +16,8 @@ export function RegisterScreen(){
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([
-    {label: 'Apple', value: 'apple' },
-    {label: 'Banana', value: 'banana'}
   ]);
+  
 
   function displayInput(){
     onDisplay(true);
@@ -53,7 +52,7 @@ export function RegisterScreen(){
             <Text style={styles.info}>Vous êtes un(e)...</Text>
           
     <ButtonGroup 
-      buttons={['Elève','Parent', 'Professeur', 'Professionnel']}
+      buttons={['Elève','Parent', 'Profetestsseur', 'Professionnel']}
       selectedButtonStyle={{backgroundColor: '#ffaf7a'}}
       selectedIndex={selectedIndex}
       onPress={(value) => {
@@ -123,7 +122,8 @@ export function RegisterScreen(){
                 setValue={setValue}
                 setItems={setItems}
                 placeholder="Etablissement" 
-                placeholderStyle={{color: 'darkgrey'}} /></>
+                placeholderStyle={{color: 'darkgrey'}} 
+               /></>
 
           : null}
 
