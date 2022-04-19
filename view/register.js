@@ -52,7 +52,7 @@ export function RegisterScreen(){
             <Text style={styles.info}>Vous êtes un(e)...</Text>
           
     <ButtonGroup 
-      buttons={['Elève','Parent', 'Profetestsseur', 'Professionnel']}
+      buttons={['Elève','Parent', 'Professeur', 'Professionnel']}
       selectedButtonStyle={{backgroundColor: '#ffaf7a'}}
       selectedIndex={selectedIndex}
       onPress={(value) => {
