@@ -16,7 +16,14 @@ export function RegisterScreen(){
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([
+    {label: 'Jules-Verne', value: 'Jules-Verne'},
+    {label: 'Malraux', value: 'Malraux'}
+    
   ]);
+
+  
+
+  
   
 
   function displayInput(){
@@ -99,7 +106,8 @@ export function RegisterScreen(){
                 setValue={setValue}
                 setItems={setItems}
                 placeholder="Etablissement"
-                placeholderStyle={{color: 'darkgrey'}} /><DropDownPicker
+                placeholderStyle={{color: 'darkgrey'}}
+                 /><DropDownPicker
                   style={styles.dropDownRight}
                   open={open}
                   value={value}
