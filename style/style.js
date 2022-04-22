@@ -34,7 +34,8 @@ export default StyleSheet.create({
         padding:10,
         marginLeft: 400,
         marginRight: 400,
-        flex: 1
+        flex: 1,
+        width: 400,
       },
   
     subscription:{
@@ -55,22 +56,31 @@ export default StyleSheet.create({
   
     titleRegister:{
       textAlign: 'center', 
-      fontSize: 30,
-      marginBottom:-350,  
-      marginTop: 25
+      fontSize: 30, 
+      marginTop: 25,
+      flex:2
     },
 
     subtitle:{
         textAlign: 'center', 
         fontSize: 20,
-        marginBottom:-400,
+        flex:2,
+        bottom: 90
+      },
+
+      subtitle2:{
+        textAlign: 'center', 
+        fontSize: 20,
+        bottom: 90
       },
 
       info:{
         textAlign: 'left', 
         fontSize: 12,
-        marginBottom:-140,
-        marginTop: -80
+        marginTop: -80,
+        bottom: 30,
+        flex: 1,
+        marginLeft:10,
       },
   
     infoInputLogin:{
@@ -86,17 +96,21 @@ export default StyleSheet.create({
       padding:5,
       margin:5,
       marginLeft: 45,
-      borderRadius: 7
+      borderRadius: 7,
+      top: 60,
+      backgroundColor: 'white'
     },
 
     dropDownLeft:{
       height: 20,
       width: 150,
       backgroundColor: "#FFFAF0",
-      bottom: 10,
+      bottom: 385,
       marginLeft: 35,
       margin: 5,
-      borderRadius: 7
+      borderRadius: 7,
+      bottom: 325,
+      backgroundColor: 'white'
     },
 
     dropDown:{
@@ -104,21 +118,34 @@ export default StyleSheet.create({
       width: 320,
       backgroundColor: "#FFFAF0",
       marginBottom:25,
-      bottom: 10,
+      bottom: 325,
       marginLeft: 35,
       margin: 5,
-      borderRadius: 7
+      borderRadius: 7,
+      backgroundColor: 'white'
     },
 
     dropDownRight:{
       height: 20,
       width: 150,
       backgroundColor: "#FFFAF0",
-      bottom: 10,
       marginLeft: 200,
       margin: 5,
       borderRadius: 7,
-      bottom: 40
+      bottom: 355,
+      backgroundColor: 'white'
+    },
+
+    dropDownRight2:{
+      height: 20,
+      width: 150,
+      backgroundColor: "#FFFAF0",
+      marginLeft: 200,
+      margin: 5,
+      borderRadius: 7,
+      bottom: 365,
+      left:5,
+      backgroundColor: 'white'
     },
 
     infoInputLeft:{
@@ -129,7 +156,25 @@ export default StyleSheet.create({
       padding:5,
       margin:5,
       marginBottom: -15,
-      borderRadius: 7
+      borderRadius: 7,
+      bottom: 325,
+      right: 5,
+      backgroundColor: 'white'
+    },
+
+    infoInputRight:{
+      width: 150,
+      height:50,
+      marginLeft: 45,
+      borderWidth: 1,
+      padding:5,
+      margin:5,
+      marginBottom: -15,
+      borderRadius: 7,
+      bottom: 325,
+      left:160,
+      bottom: 355,
+      backgroundColor: 'white'
     },
 
     infoInputFirstName:{
@@ -139,18 +184,9 @@ export default StyleSheet.create({
         padding:5,
         margin:5,
         marginBottom: -45,
-        borderRadius: 7
-      },
-
-      infoInputBonjour:{
-        width: 135,
-        marginLeft: 45,
-        borderWidth: 1,
-        padding:5,
-        margin:5,
-        marginBottom: -45,
         borderRadius: 7,
-        top: 200
+        top: 60,
+        backgroundColor: 'white'
       },
     
       infoInputLastName:{
@@ -159,7 +195,32 @@ export default StyleSheet.create({
         padding:5,
         margin:5,
         marginLeft: 210,
-        borderRadius: 7
+        borderRadius: 7,
+        top: 60,
+        backgroundColor: 'white'
+      },
+
+      infoInputFirstNameParent:{
+        width: 135,
+        marginLeft: 45,
+        borderWidth: 1,
+        padding:5,
+        margin:5,
+        marginBottom: -45,
+        borderRadius: 7,
+        top: 60,
+        backgroundColor: 'white'
+      },
+    
+      infoInputLastNameParent:{
+        width: 135,
+        borderWidth: 1,
+        padding:5,
+        margin:5,
+        marginLeft: 210,
+        borderRadius: 7,
+        top: 60,
+        backgroundColor: 'white'
       },
   
     buttonLogin:{
@@ -178,13 +239,14 @@ export default StyleSheet.create({
         margin:5,
         marginBottom: 5,
         marginTop: 80,
+        top: 70,
         height:40
       },
     
     averageText:{
       fontSize: 15,
       textAlign:"center",
-      margin:5
+      margin:5,
     },
   
     hyperlinkTextLogin:{
@@ -199,7 +261,8 @@ export default StyleSheet.create({
         textAlign:"center",
         margin:5,
         color:"#315399",
-        marginBottom: -420
+        marginTop:50,
+        bottom: 20
       },
 
     subHeader: {
