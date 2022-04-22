@@ -62,13 +62,13 @@ export function RegisterScreen(){
     {label: 'Bois / Papier / Carton / Imprimerie', value: 'Bois / Papier / Carton / Imprimerie'},
     {label: 'BTP / Matériaux de construction', value: 'BTP / Matériaux de construction'},
     {label: 'Chimie / Parachimie', value: 'Chimie / Parachimie'},
-    {label: 'Commerce / Négoce / Distribution', value: 'Commerce / Négoce / Distribution'},
-    {label: 'Édition / Communication / Multimédia', value: 'Édition / Communication / Multimédia'},
+    {label: 'Commerce / Négoce', value: 'Commerce / Négoce / Distribution'},
+    {label: 'Édition / Communication', value: 'Édition / Communication / Multimédia'},
     {label: 'Électronique / Électricité', value: 'Électronique / Électricité'},
     {label: 'Etudes et conseils', value: 'Etudes et conseils'},
     {label: 'Industrie phramaceutique', value: 'Industrie phramaceutique'},
     {label: 'Informatique/Télécoms', value: 'Informatique/Télécoms'},
-    {label: 'Machines et équipements/Automobile', value: 'Machines et équipements/Automobile'},
+    {label: 'Machines et équipements', value: 'Machines et équipements/Automobile'},
     {label: 'Métallurgie/Travail du métal', value: 'Métallurgie/Travail du métal'},
     {label: 'Plastique/Caoutchouc', value: 'Plastique/Caoutchouc'},
     {label: 'Services aux entreprises', value: 'Services aux entreprises'},
@@ -214,7 +214,7 @@ export function RegisterScreen(){
                   setValue={setValue}
                   setItems={setItems}
                   placeholder="Nom d'entreprise" /><DropDownPicker
-                    dropDownContainerStyle={{top:-311,width:150, right:15}}
+                    dropDownContainerStyle={{top:-311,width:150, right:15 }}
                     style={styles.dropDownRight2}
                     open={open}
                     value={value}
