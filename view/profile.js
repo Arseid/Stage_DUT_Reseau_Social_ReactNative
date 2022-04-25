@@ -9,6 +9,9 @@ export function ProfileScreen({navigation}){
         <View style={styles.container}>
   
         <View style={styles.upside}>
+        <View style={styles.header}>
+          <Text>Test</Text>
+          </View>
   
           <View style={styles.formLogin}>
             <Text style={styles.titleLogin}>Votre profil</Text>

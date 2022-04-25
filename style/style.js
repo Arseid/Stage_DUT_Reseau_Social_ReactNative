@@ -26,6 +26,13 @@ export default StyleSheet.create({
       padding:10,
     },
 
+    header:{
+      borderColor:"#FFFAF0",
+      backgroundColor:"#FFFAF0",
+      alignItems: 'stretch',
+      bottom: 20,
+    },
+
     formRegister:{
         borderColor:"#FFFAF0",
         backgroundColor:"#FFFAF0",
