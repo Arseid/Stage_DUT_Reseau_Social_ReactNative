@@ -82,6 +82,12 @@ export default StyleSheet.create({
         flex: 1,
         marginLeft:10,
       },
+
+      infoProfile:{
+        textAlign: 'left', 
+        fontSize: 12,
+       
+      },
   
     infoInputLogin:{
       width: 300,

@@ -7,6 +7,7 @@ import RadioButtonRN from 'radio-buttons-react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 
+
 const data = [
   {
     label: 'Elève',
@@ -198,21 +199,9 @@ export function RegisterScreen(){
                   placeholder="Etablissement"
                   placeholderStyle={{ color: 'darkgrey' }} /><TextInput
                     style={styles.infoInputRight}
-                    open={open}
-                    value={value}
-                    items={items}
-                    setOpen={setOpen}
-                    setValue={setValue}
-                    setItems={setItems}
                     placeholder="Chef d'établissement" /></>}
         { selectedUserType == 'Entreprise' && <><TextInput
                   style={styles.infoInputLeft}
-                  open={open}
-                  value={value}
-                  items={items}
-                  setOpen={setOpen}
-                  setValue={setValue}
-                  setItems={setItems}
                   placeholder="Nom d'entreprise" /><DropDownPicker
                     dropDownContainerStyle={{top:-311,width:150, right:15 }}
                     style={styles.dropDownRight2}
