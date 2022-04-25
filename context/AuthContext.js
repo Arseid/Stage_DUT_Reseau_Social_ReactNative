@@ -1,5 +1,4 @@
 import React, {createContext,useState} from 'react';
-import axios from 'axios';
 import { BASE_URL } from '../config';
 import AsyncStorageLib from '@react-native-async-storage/async-storage';
 

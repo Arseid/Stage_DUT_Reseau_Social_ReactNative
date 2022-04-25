@@ -4,15 +4,12 @@ import {useState, useEffect, useContext} from "react";
 import styles from '../style/loginStyle';
 import { useNavigation } from '@react-navigation/native';
 import { BASE_URL } from '../config';
-import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
 import Spinner from 'react-native-loading-spinner-overlay/lib';
 import DropDownPicker from 'react-native-dropdown-picker';
-import RadioButtonRN from 'radio-buttons-react-native';
+import RadioGroup from 'react-native-radio-buttons-group';
 
 export function RegisterScreen(){
-
-  <RadioButtonRN/>
 
   const [forename, setForename] = useState('');
   const [surname, setSurname] = useState('');
