@@ -5,6 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {RegisterScreen} from '../views/Register';
 import { AuthContext } from '../context/AuthContext';
+import { ModifyProfileScreen } from '../views/ModifyProfile';
 
 const Stack = createNativeStackNavigator();
 
@@ -34,7 +35,10 @@ const Navigation = () => {
         <NavigationContainer>
             <Stack.Navigator>
                 {isLoggedIn ? (
+                    <>
                     <Stack.Screen name="Profile" component={ProfileScreen} />
+                    <Stack.Screen name="ModifyProfile" component={ModifyProfileScreen} />
+                    </>
                 ) : (
                     <>
                         <Stack.Screen 

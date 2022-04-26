@@ -131,7 +131,47 @@ export const AuthProvider = ({children}) => {
         setIsLoading(false);
     }
 
+    const modify = (forename,surname,email) => {
+
+        setIsLoading(true);
+
+        var APIURLInsert=`${BASE_URL}/modify.php`;
+
+        var modifyHeaders={
+            'Accept' : 'application/json',
+            'Content-Type':'application.json'
+        };
+
+        var modifyData={
+            forename:forename,
+            surname:surname,
+            email:email
+        };
+
+        fetch(APIURLInsert,
+            {
+                method:'POST',
+                headers:modifyHeaders,
+                body: JSON.stringify(modifyData)
+            })
+            .then((response)=>response.json())
+            .then((response)=>
+            {
+                modifyData.pwd=response[0].Password;
+                console.log(response[0].Message);
+                console.log(modifyData);
+                setUserInfo(modifyData);
+                AsyncStorageLib.setItem('userInfo',JSON.stringify(userInfo));
+                setIsLoading(false);
+            })
+            .catch((e)=>{
+                console.log("Error"+e);
+                setIsLoading(false);
+            })
+        
+    };
+
     return(
-    <AuthContext.Provider value={{isLoading,userInfo,isLoggedIn,register,login,logout}}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{isLoading,userInfo,isLoggedIn,register,login,logout,modify}}>{children}</AuthContext.Provider>
     );
 };
