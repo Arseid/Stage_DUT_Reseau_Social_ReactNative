@@ -1,28 +1,30 @@
-import {Text, TextInput, View, Pressable,Button } from 'react-native';
+import {Text, TextInput, View, Pressable,Button, StyleSheet } from 'react-native';
 import styles from '../style/style';
-import React, {useState} from 'react'
+import React, {useState, Component} from 'react'
 import { useNavigation } from '@react-navigation/native';
 import DropDownPicker from 'react-native-dropdown-picker';
-import RadioButtonRN from 'radio-buttons-react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
 
+const PROP = [
+	{
+		label: 'Elève',
+		value: 'Elève',
+	},
+	{
+		label: 'Parent',
+		value: 'Parent',
+	},
+	{
+		label: 'Enseignant',
+		value: 'Enseignant',
+	},
+	{
+		label: 'Entreprise',
+		value: 'Entreprise',
+  },
+];
 
-
-const data = [
-  {
-    label: 'Elève',
-   },
-   {
-    label: 'Parent',
-   },
-   {
-    label: 'Enseignant',
-   },
-   {
-    label: 'Entreprise',
-   }
-
-  ];
 export function RegisterScreen(){
   const [selectedIndex, setSelectedIndex] = useState();
   const navigation = useNavigation();
@@ -82,17 +84,11 @@ export function RegisterScreen(){
   
 
   const [identificationDone, setIdentificationDone] = useState(false);
-  const [selectedUserType, setSelectedUserTypê] = useState(null);
+  const [selectedUserType, setSelectedUserType] = useState(null);
   
   const ContinueSubscription = () => {
 
     setIdentificationDone(true);
-
-  };
-
-  const RadioButtonSelected = (e) => {
-
-    setSelectedUserTypê(e.label);
 
   };
 
@@ -111,16 +107,17 @@ export function RegisterScreen(){
                 }} />
             { (identificationDone == false) &&
             <><Text style={styles.subtitle}>Créer un nouveau compte</Text><Text style={styles.info}>Vous êtes un(e)...</Text><View>
-                  <RadioButtonRN
-                    style={{ backgroundColor: '#FFFAF0', bottom: 60 }}
-                    data={data}
-                    selectedBtn={(e) => RadioButtonSelected(e)}
-                    icon={<Icon
-                      name="check-circle"
-                      size={25}
-                      color="#2c9dd1" />}
-                    textColor="black" />
-                  <Button
+                   <RadioForm
+                    buttonColor={'#ffaf7a'}
+                    selectedButtonColor={'#ffaf7a'}
+                    labelHorizontal='true'
+                      style={{bottom:40}}
+                      labelStyle={{marginVertical:15}}
+                      radio_props={PROP}
+                      initial={-1}
+                      onPress={(value) => {setSelectedUserType(value)}}
+                    />
+                   <Button
                     title="Continuer >"
                     color="#ffaf7a"
                     onPress={() => ContinueSubscription()} />
@@ -200,6 +197,7 @@ export function RegisterScreen(){
                   placeholderStyle={{ color: 'darkgrey' }} /><TextInput
                     style={styles.infoInputRight}
                     placeholder="Chef d'établissement" /></>}
+
         { selectedUserType == 'Entreprise' && <><TextInput
                   style={styles.infoInputLeft}
                   placeholder="Nom d'entreprise" /><DropDownPicker
