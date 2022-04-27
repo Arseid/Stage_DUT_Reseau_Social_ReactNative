@@ -11,6 +11,9 @@
     $surname=$DecodedData['surname'];
     $email=$DecodedData['email'];
     $pwd=$DecodedData['pwd'];
+    $type=$DecodedData['type'];
+    $option1=$DecodedData['option1'];
+    $option2=$DecodedData['option2'];
 
     $SQ="SELECT * from users WHERE email LIKE '$email'";
 
@@ -21,7 +24,7 @@
         $Message="already exists";
     }
     else{
-        $IQ="INSERT INTO users(forename,surname,email,pwd) values('$forename','$surname','$email','$pwd')";
+        $IQ="INSERT INTO users(forename,surname,email,pwd,type,option1,option2) values('$forename','$surname','$email','$pwd','$type','$option1','$option2')";
         $RQ=mysqli_query($ConnectDB,$IQ);
         if($RQ){
             $Message="user successfully registered";

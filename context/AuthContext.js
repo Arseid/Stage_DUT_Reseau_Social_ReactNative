@@ -29,51 +29,49 @@ export const AuthProvider = ({children}) => {
     };
     */
 
-    const register = (forename,surname,email,pwd) => {
-        if (forename.length==0 || surname.length==0 || email.length==0 || pwd.length==0){
-            alert("FILL PLS")
-        }
-        else {
+    const register = (forename,surname,email,pwd,type,option1,option2) => {
 
-            setIsLoading(true);
+        setIsLoading(true);
 
-            var APIURLInsert=`${BASE_URL}/insert.php`;
+        var APIURLInsert=`${BASE_URL}/insert.php`;
 
-            var registerHeaders={
-                'Accept' : 'application/json',
-                'Content-Type':'application.json'
-            };
+        var registerHeaders={
+            'Accept' : 'application/json',
+            'Content-Type':'application.json'
+        };
 
-            var registerData={
-                forename:forename,
-                surname:surname,
-                email:email,
-                pwd:pwd,
-            };
+        var registerData={
+            forename:forename,
+            surname:surname,
+            email:email,
+            pwd:pwd,
+            type:type,
+            option1:option1,
+            option2:option2,
+        };
 
-            fetch(APIURLInsert,
-                {
-                    method:'POST',
-                    headers:registerHeaders,
-                    body: JSON.stringify(registerData)
-                })
-                .then((response)=>response.json())
-                .then((response)=>
-                {
-                    setUserInfo(registerData);
-                    console.log(userInfo);
-                    AsyncStorageLib.setItem('userInfo',JSON.stringify(userInfo));
-                    setIsLoading(false);
-                    console.log(response[0].Message);
-                    if (response[0].Message=='user successfully registered'){
-                        setIsLoggedIn(true);
-                    }
-                })
-                .catch((e)=>{
-                    console.log("Error"+e);
-                    setIsLoading(false);
-                })
-        }
+        fetch(APIURLInsert,
+            {
+                method:'POST',
+                headers:registerHeaders,
+                body: JSON.stringify(registerData)
+            })
+            .then((response)=>response.json())
+            .then((response)=>
+            {
+                setUserInfo(registerData);
+                console.log(userInfo);
+                AsyncStorageLib.setItem('userInfo',JSON.stringify(userInfo));
+                setIsLoading(false);
+                console.log(response[0].Message);
+                if (response[0].Message=='user successfully registered') setIsLoggedIn(true);
+                if (response[0].Message=='already exists') alert('Email déjà utilisé');
+            })
+            .catch((e)=>{
+                console.log("Error"+e);
+                setIsLoading(false);
+            })
+    
     };
 
     const login = (email,pwd) => {

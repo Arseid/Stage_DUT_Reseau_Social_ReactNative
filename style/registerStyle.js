@@ -26,6 +26,13 @@ export default StyleSheet.create({
       padding:10,
     },
 
+    header:{
+      borderColor:"#FFFAF0",
+      backgroundColor:"#FFFAF0",
+      alignItems: 'stretch',
+      bottom: 20,
+    },
+
     formRegister:{
         borderColor:"#FFFAF0",
         backgroundColor:"#FFFAF0",
@@ -81,6 +88,12 @@ export default StyleSheet.create({
         bottom: 30,
         flex: 1,
         marginLeft:10,
+      },
+
+      infoProfile:{
+        textAlign: 'left', 
+        fontSize: 12,
+       
       },
   
     infoInputLogin:{
