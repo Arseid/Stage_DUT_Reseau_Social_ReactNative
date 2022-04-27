@@ -1,18 +1,11 @@
 import React from 'react';
-import {LoginScreen} from './view/login';
-import {RegisterScreen} from './view/register';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
-const Stack = createNativeStackNavigator();
+import { AuthProvider } from './context/AuthContext';
+import Navigation from './navigation/Navigation';
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName='Login'>
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Register" component={RegisterScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <AuthProvider>
+      <Navigation/>
+    </AuthProvider>
   );
 }

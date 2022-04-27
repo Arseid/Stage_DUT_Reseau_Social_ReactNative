@@ -12,9 +12,8 @@ export default StyleSheet.create({
       alignItems: 'center'
     },
   
-     downside:{
+    downside:{
       flex:1,
-      backgroundColor:"#FFFAF0",
     },
   
     form:{
