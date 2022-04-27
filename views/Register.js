@@ -1,4 +1,4 @@
-import {Text, TextInput, View, TouchableOpacity,Button, Keyboard } from 'react-native';
+import {Text, TextInput, View, TouchableOpacity,Button, Keyboard, KeyboardAvoidingView } from 'react-native';
 import styles from '../style/registerStyle';
 import React, {useState, useContext} from 'react'
 import { useNavigation } from '@react-navigation/native';
@@ -27,7 +27,7 @@ const PROP = [
 ];
 
 export function RegisterScreen(){
-  //Yves part begin
+
   const [forename, setForename] = useState('');
   const [surname, setSurname] = useState('');
   const [email, setEmail] = useState('');
@@ -75,7 +75,6 @@ export function RegisterScreen(){
       }
     }
   }
-  //Yves part stop
 
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
@@ -147,54 +146,51 @@ export function RegisterScreen(){
       <Spinner visible={isLoading}/>
 
       <View style={styles.upside}>
-        <View style={styles.formRegister}>
-          <Text style={styles.titleRegister}>Lorem Ipsum</Text>
-          <View
-              style={{
-                borderBottomColor: 'grey',
-                borderBottomWidth: 1,
-                bottom: 20
-              }} />
+        <View style={styles.form}>
+          <Text style={styles.title}>Lorem Ipsum</Text>
+
+          <View style={styles.cut}/>
+
           { (identificationDone == false) &&
-          <><Text style={styles.subtitle}>Créer un nouveau compte</Text><Text style={styles.info}>Vous êtes un(e)...</Text><View>
-                  <RadioForm
-                  buttonColor={'#ffaf7a'}
-                  selectedButtonColor={'#ffaf7a'}
-                  labelHorizontal='true'
-                    style={{bottom:40}}
-                    labelStyle={{marginVertical:15}}
-                    radio_props={PROP}
-                    initial={-1}
-                    onPress={(value) => {setSelectedUserType(value)}}
-                  />
-                  <Button
-                  title="Continuer >"
-                  color="#ffaf7a"
-                  onPress={() => ContinueSubscription()} />
-              </View></>
-    }
+          <>
+          <Text style={styles.subtitle}>Créer un nouveau compte</Text><Text style={styles.specification}>Vous êtes un(e)...</Text>
+            <View>
+              <RadioForm
+              buttonColor={'#ffaf7a'}
+              selectedButtonColor={'#ffaf7a'}
+              style={styles.radioform}
+              labelHorizontal='true'
+                labelStyle={styles.radioformLabel}
+                radio_props={PROP}
+                initial={-1}
+                onPress={(value) => {setSelectedUserType(value)}}
+              />
+              <Button
+              title="Continuer >"
+              color="#ffaf7a"
+              onPress={() => ContinueSubscription()} />
+              <View style={styles.login}>
+                <Text style={styles.averageText}>Vous avez déjà un compte?</Text>
+                <Text style={styles.hyperlinkText} onPress={() => navigation.navigate('Login')}>
+                  Connectez-vous!
+                </Text>
+              </View>
+            </View>
+          </>
+          }
     { (identificationDone == true) &&
-    <View>
-      <Text>Entrer les infos ici pour {selectedUserType} :</Text>
-      <Text style={styles.subtitle2}>Créer un compte {selectedUserType}</Text>
-
-      <TextInput style={styles.infoInputFirstName} placeholder="Prénom" value={forename} onChangeText={text => setForename(text)}/>
-      <TextInput style={styles.infoInputLastName} placeholder="Nom de famille" value={surname} onChangeText={text => setSurname(text)}/>
-      <TextInput style={styles.infoInputRegister} placeholder=" Entrez une adresse e-mail" autoCapitalize='none' value={email} onChangeText={text => setEmail(text)}/>
-      <TextInput style={styles.infoInputRegister} placeholder=" Entrez un mot de passe" secureTextEntry autoCapitalize='none' value={pwd} onChangeText={text => setPwd(text)}/>
-      <TextInput style={styles.infoInputRegister} placeholder=" Confirmez votre mot de passe" secureTextEntry autoCapitalize='none' value={checkPwd} onChangeText={text => setCheckPwd(text)}/>
-
-      <View style={styles.downside}>
-        <Text style ={{fontSize: 9, height: 110, top: 70}}> En cliquant sur S’inscrire, vous acceptez nos Conditions générales. Découvrez comment nous recueillons,utilisons et partageons vos données en lisant notre Politique d’utilisation des données et comment nous utilisons les cookies et autres technologies similaires en consultant notre Politique d’utilisation des cookies. Vous recevrez peut-être des notifications par texto de notre part et vous pouvez à tout moment vous désabonner.</Text>
-      </View>
-      <TouchableOpacity style={styles.buttonRegister} onPress={handleRegister}>
-        <Text style={styles.averageText}>S'inscrire</Text>
-      </TouchableOpacity>
+    <KeyboardAvoidingView behavior="padding">
+      <Text style={styles.subtitle}>Créer un compte {selectedUserType}</Text>
+      <TextInput style={styles.infoInput} placeholder="Prénom" autoCapitalize='sentences' value={forename} onChangeText={text => setForename(text)}/>
+      <TextInput style={styles.infoInput} placeholder="Nom de famille" autoCapitalize='sentences' value={surname} onChangeText={text => setSurname(text)}/>
+      <TextInput style={styles.infoInput} placeholder="Entrez une adresse e-mail" autoCapitalize='none' value={email} onChangeText={text => setEmail(text)}/>
+      <TextInput style={styles.infoInput} placeholder="Entrez un mot de passe" secureTextEntry autoCapitalize='none' value={pwd} onChangeText={text => setPwd(text)}/>
+      <TextInput style={styles.infoInput} placeholder="Confirmez votre mot de passe" secureTextEntry autoCapitalize='none' value={checkPwd} onChangeText={text => setCheckPwd(text)}/>
 
       { selectedUserType == 'Elève' && 
       <>
+      <View style={styles.cutOption}/>
       <DropDownPicker
-        dropDownContainerStyle={{top:-271,width:150, left:35}}
         style={styles.dropDownLeft}
         open={open}
         value={option1}
@@ -206,7 +202,6 @@ export function RegisterScreen(){
         placeholderStyle={{ color: 'darkgrey' }}
       />
       <DropDownPicker
-        dropDownContainerStyle={{top:-301,width:150, right:20}}
         style={styles.dropDownRight}
         open={open2}
         value={option2}
@@ -217,14 +212,35 @@ export function RegisterScreen(){
         placeholder="Classe"
         placeholderStyle={{ color: 'darkgrey' }} 
       />
+      <TouchableOpacity style={styles.button} onPress={handleRegister}>
+        <Text style={styles.averageText}>S'inscrire</Text>
+      </TouchableOpacity>
+      <View style={styles.login2}>
+        <Text style={styles.averageText}>Vous avez déjà un compte?</Text>
+        <Text style={styles.hyperlinkText} onPress={() => navigation.navigate('Login')}>
+          Connectez-vous!
+        </Text>
+      </View>
       </>
       }
-      { selectedUserType == 'Parent' }
+      { selectedUserType == 'Parent' &&
+      <>
+      <TouchableOpacity style={styles.button} onPress={handleRegister}>
+        <Text style={styles.averageText}>S'inscrire</Text>
+      </TouchableOpacity>
+      <View style={styles.login2}>
+        <Text style={styles.averageText}>Vous avez déjà un compte?</Text>
+        <Text style={styles.hyperlinkText} onPress={() => navigation.navigate('Login')}>
+          Connectez-vous!
+        </Text>
+      </View>
+      </>
+      }
       { selectedUserType == 'Enseignant' && 
       <>
+      <View style={styles.cutOption}/>
       <DropDownPicker
-        dropDownContainerStyle={{ top: -271, width: 150, left: 35 }}
-        style={styles.dropDownLeft}
+        style={styles.dropDownOption}
         open={open}
         value={option1}
         items={items}
@@ -235,24 +251,27 @@ export function RegisterScreen(){
         placeholderStyle={{ color: 'darkgrey' }}
       />
       <TextInput
-        style={styles.infoInputRight}
+        style={styles.infoInputOptionTeacher}
         placeholder="Chef d'établissement"
         value={option2} 
         onChangeText={text => setOption2(text)}
       />
+      <TouchableOpacity style={styles.button} onPress={handleRegister}>
+        <Text style={styles.averageText}>S'inscrire</Text>
+      </TouchableOpacity>
+      <View style={styles.login2}>
+        <Text style={styles.averageText}>Vous avez déjà un compte?</Text>
+        <Text style={styles.hyperlinkText} onPress={() => navigation.navigate('Login')}>
+          Connectez-vous!
+        </Text>
+      </View>
       </>
       }
       { selectedUserType == 'Entreprise' && 
       <>
-      <TextInput
-        style={styles.infoInputLeft}
-        placeholder="Nom d'entreprise" 
-        value={option1} 
-        onChangeText={text => setOption1(text)}
-      />
+      <View style={styles.cutOption}/>
       <DropDownPicker
-        dropDownContainerStyle={{top:-311,width:150, right:15 }}
-        style={styles.dropDownRight2}
+        style={styles.dropDownOption}
         open={open}
         value={option2}
         items={items3}
@@ -262,17 +281,27 @@ export function RegisterScreen(){
         placeholder="Secteur d'activité"
         placeholderStyle={{ color: 'darkgrey' }} 
       />
+      <TextInput
+        style={styles.infoInputOptionCompany}
+        placeholder="Nom d'entreprise" 
+        value={option1} 
+        onChangeText={text => setOption1(text)}
+      />
+      <TouchableOpacity style={styles.button} onPress={handleRegister}>
+        <Text style={styles.averageText}>S'inscrire</Text>
+      </TouchableOpacity>
+      <View style={styles.login2}>
+        <Text style={styles.averageText}>Vous avez déjà un compte?</Text>
+        <Text style={styles.hyperlinkText} onPress={() => navigation.navigate('Login')}>
+          Connectez-vous!
+        </Text>
+      </View>
       </>
       }
-    </View>
+      </KeyboardAvoidingView>
     }
-    <Text style={styles.hyperlinkTextRegister} onPress={() =>navigation.navigate('Login')}>
-      Vous avez déjà un compte?
-    </Text>
         </View>
-
       </View> 
-
     </View>
   );
 }

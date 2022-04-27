@@ -9,27 +9,9 @@ import { ModifyProfileScreen } from '../views/ModifyProfile';
 
 const Stack = createNativeStackNavigator();
 
-/*
-const Navigation = () => {
-
-    return (
-        <NavigationContainer>
-            <Stack.Navigator screenOptions={{headerShown: false}}>
-                <Stack.Screen name="Login" component={LoginScreen} />
-                <Stack.Screen name="Register" component={RegisterScreen} />
-                <Stack.Screen name="Profile" component={ProfileScreen} />
-            </Stack.Navigator>
-        </NavigationContainer>
-    );
-};
-*/
-
-
 const Navigation = () => {
     
     const {isLoggedIn} = useContext(AuthContext);
-    //const isLoggedIn=true;
-    //const {userInfo} = useContext(AuthContext);
 
     return (
         <NavigationContainer>

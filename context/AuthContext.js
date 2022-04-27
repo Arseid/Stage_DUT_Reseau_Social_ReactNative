@@ -10,25 +10,6 @@ export const AuthProvider = ({children}) => {
     const [isLoading, setIsLoading] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-    /*
-    const register =(forname,surname,email,pwd) => {
-        axios
-            .post(`${BASE_URL}/register`, {
-                forname,
-                surname,
-                email,
-                pwd,
-            })
-            .then(results => {
-                let userInfo = results.data;
-                console.log(userInfo);
-            })
-            .catch(e => {
-                console.log(`error : ${e}`);
-            })
-    };
-    */
-
     const register = (forename,surname,email,pwd,type,option1,option2) => {
 
         setIsLoading(true);
