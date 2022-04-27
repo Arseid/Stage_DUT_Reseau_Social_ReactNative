@@ -1,4 +1,5 @@
-
 # stage_DUT
-Login, Register Done
+## Done
+Login, Register
+## In progress
 Profile in progress
