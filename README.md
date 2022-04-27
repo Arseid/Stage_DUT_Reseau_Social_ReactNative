@@ -2,4 +2,4 @@
 ## Done
 Login, Register
 ## In progress
-Profile in progress
+Profile
