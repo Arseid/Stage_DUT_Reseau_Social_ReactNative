@@ -3,7 +3,6 @@ import styles from '../style/style';
 import React, {useState, Component} from 'react'
 import { useNavigation } from '@react-navigation/native';
 import DropDownPicker from 'react-native-dropdown-picker';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
 
 const PROP = [
@@ -31,6 +30,7 @@ export function RegisterScreen(){
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
   const [value, setValue] = useState(null);
+  const [value2, setValue2] = useState(null);
   const [items, setItems] = useState([
     {label: 'Jules-Verne', value: 'Jules-Verne'},
     {label: 'Malraux', value: 'Malraux'},
@@ -153,10 +153,10 @@ export function RegisterScreen(){
                       dropDownContainerStyle={{top:-301,width:150, right:20}}
                       style={styles.dropDownRight}
                       open={open2}
-                      value={value}
+                      value={value2}
                       items={items2}
                       setOpen={setOpen2}
-                      setValue={setValue}
+                      setValue={setValue2}
                       setItems={setItems2}
                       placeholder="Classe"
                       placeholderStyle={{ color: 'darkgrey' }} /></>
@@ -176,10 +176,10 @@ export function RegisterScreen(){
                       dropDownContainerStyle={{top:-301,width:150, right:20}}
                       style={styles.dropDownRight}
                       open={open2}
-                      value={value}
+                      value={value2}
                       items={items2}
                       setOpen={setOpen2}
-                      setValue={setValue}
+                      setValue={setValue2}
                       setItems={setItems2}
                       placeholder="Classe Elève"
                       placeholderStyle={{ color: 'darkgrey' }} /></>
