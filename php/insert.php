@@ -15,18 +15,24 @@
     $option1=$DecodedData['option1'];
     $option2=$DecodedData['option2'];
 
-    $SQ="SELECT * from users WHERE email LIKE '$email'";
+    $SR="SELECT * from users WHERE email LIKE '$email'";
 
-    $SQ=mysqli_query($ConnectDB,$SQ);
+    $SQ=mysqli_query($ConnectDB,$SR);
     $count=mysqli_num_rows($SQ);
 
     if ($count>0){
         $Message="already exists";
     }
     else{
-        $IQ="INSERT INTO users(forename,surname,email,pwd,type,option1,option2) values('$forename','$surname','$email','$pwd','$type','$option1','$option2')";
-        $RQ=mysqli_query($ConnectDB,$IQ);
-        if($RQ){
+        $IR="INSERT INTO users(forename,surname,email,pwd,type,option1,option2) values('$forename','$surname','$email','$pwd','$type','$option1','$option2')";
+        $IQ=mysqli_query($ConnectDB,$IR);
+        if($IQ){
+            $SR="SELECT * from users WHERE email LIKE '$email'";
+            $SQ=mysqli_query($ConnectDB,$SR);
+            $row = mysqli_fetch_row($SQ);
+            $user_id=$row[0];
+            $IR="INSERT INTO profile (user_id,gender,description,pp,followers,following) values ('$user_id','','','','0','0')";
+            $IQ=mysqli_query($ConnectDB,$IR);
             $Message="user successfully registered";
         }
         else{
