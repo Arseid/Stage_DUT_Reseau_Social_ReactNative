@@ -1,5 +1,5 @@
 import {Text, TextInput, View,  } from 'react-native';
-import styles from '../style/styleProfile';
+import styles from '../style/profileStyle';
 import React, {useState} from 'react'
 import { Icon } from 'react-native-elements'
 
@@ -17,7 +17,7 @@ export function ProfileScreen({navigation}){
           <Text style={{right:100, bottom: 170, fontSize:20}}>Prénom Nom</Text>
           <Text style={{right:100, bottom: 160, fontSize:12}}>Fonction + Etablissement</Text>
           <Text style={{right:100, bottom: 150, fontSize:12}}>Localisation + Contact (facultatif)</Text>
-          
+
           </View>
           <View
                 style={{
@@ -27,10 +27,10 @@ export function ProfileScreen({navigation}){
                   borderRadius: 7,
                   width:415
                 }} />
-          
-  
+
+
         </View> 
-  
+
         <View style={styles.downside}>
         <Icon name='home' size={50}  iconStyle={{right:160}} />
         <Icon name='search' size={50}  iconStyle={{right:80}} containerStyle={{bottom:50}}/>

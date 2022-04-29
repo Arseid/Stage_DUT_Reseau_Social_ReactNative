@@ -1,0 +1,1 @@
+export const BASE_URL = 'http://isis.unice.fr/~ey001600/ext';
