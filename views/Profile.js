@@ -2,14 +2,15 @@ import {Text, TextInput, View,  } from 'react-native';
 import styles from '../style/profileStyle';
 import React, {useState} from 'react'
 import { Icon } from 'react-native-elements'
+import { IconButton } from 'react-native-paper';
 
 
 export function ProfileScreen({navigation}){
     return (
         <View style={styles.container}>
     <View style={styles.border}>
-    <Icon name='edit' size={35}  iconStyle={{color:'black'}} containerStyle={{left:320, top:120}}/>
-    <Icon name='menu' size={40}  iconStyle={{color:'black'}} containerStyle={{left:330, top:120}}/>
+    <IconButton icon='border-color' size={35}  iconStyle={{color:'black'}} containerStyle={{left:300, top:110}} onPress={() => navigation.navigate('ModifyProfile')}/>
+    <Icon name='menu' size={40}  iconStyle={{color:'black'}} containerStyle={{left:300, top:120}}/>
     </View>
         <View style={styles.upside}>
         <Icon name='circle' size={100}  iconStyle={{color:'white'}} containerStyle={{right:130, bottom:190}}/>

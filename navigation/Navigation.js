@@ -11,8 +11,7 @@ const Stack = createNativeStackNavigator();
 
 const Navigation = () => {
     
-    //const {isLoggedIn} = useContext(AuthContext);
-    const isLoggedIn=true;
+    const {isLoggedIn} = useContext(AuthContext);
 
     return (
         <NavigationContainer>
@@ -20,7 +19,7 @@ const Navigation = () => {
                 {isLoggedIn ? (
                     <>
                     <Stack.Screen name="Profile" component={ProfileScreen} options={{headerShown: false}}  />
-                    <Stack.Screen name="ModifyProfile" component={ModifyProfileScreen} />
+                    <Stack.Screen name="ModifyProfile" component={ModifyProfileScreen} options={{headerShown: false}} />
                     </>
                 ) : (
                     <>
