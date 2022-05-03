@@ -17,10 +17,6 @@
 
     if ($MR){
         $Message="user successfully modified";
-        $SQ="SELECT * from users WHERE email LIKE '$email'";
-        $SR=mysqli_query($ConnectDB,$SQ);
-        $row = mysqli_fetch_row($SR);
-        $pwd=$row[4];
     }
     else{
         $Message="modification failed";
@@ -28,7 +24,6 @@
 
     $Response[]=array(
         "Message"=>$Message,
-        "Password"=>$pwd
     );
 
     echo json_encode($Response);

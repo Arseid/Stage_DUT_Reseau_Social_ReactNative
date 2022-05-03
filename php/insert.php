@@ -31,7 +31,7 @@
             $SQ=mysqli_query($ConnectDB,$SR);
             $row = mysqli_fetch_row($SQ);
             $user_id=$row[0];
-            $IR="INSERT INTO profile (user_id,gender,description,pp,followers,following) values ('$user_id','','','','0','0')";
+            $IR="INSERT INTO profile (user_id,gender,description,pp,followers,following) values ('$user_id','','','http://isis.unice.fr/~ey001600/ext/profilePicture/default.png','0','0')";
             $IQ=mysqli_query($ConnectDB,$IR);
             $Message="user successfully registered";
         }

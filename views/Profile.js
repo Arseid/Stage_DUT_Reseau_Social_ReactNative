@@ -1,35 +1,66 @@
 import React,{useContext} from 'react';
-import {Text, TextInput, View, Pressable, Linking, Button } from 'react-native';
+import {Text, Image, View, TouchableOpacity, Linking, Button } from 'react-native';
 import { AuthContext } from '../context/AuthContext';
-import styles from '../style/loginStyle';
+import styles from '../style/profileStyle';
 import Spinner from 'react-native-loading-spinner-overlay/lib';
-import { useState } from 'react';
+import * as ImagePicker from 'expo-image-picker';
 
 
 export function ProfileScreen({navigation}){
 
-    const {userInfo,isLoading,logout,retrievedInfo,retrieveUserProfileInfo} = useContext(AuthContext);
+  const {userInfo,isLoading,logout,retrievedInfo,retrieveUserProfileInfo,modifyProfilePicture} = useContext(AuthContext);
 
-    if (!retrievedInfo) retrieveUserProfileInfo(userInfo.email);    
+  if (!retrievedInfo) retrieveUserProfileInfo(userInfo.email);    
 
-    return(
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Spinner visible={isLoading}/>
-            <Text>Profile Screen</Text>
-            <Text>Prénom: {userInfo.forename}</Text>
-            <Text>Nom: {userInfo.surname}</Text>
-            <Text>Email: {userInfo.email}</Text>
-            <Text>Pwd : {userInfo.pwd}</Text>
-            <Text>Option1 : {userInfo.option1}</Text>
-            <Text>Option2 : {userInfo.option2}</Text>
-            <Text>Gender : {userInfo.gender}</Text>
-            <Text>Description : {userInfo.description}</Text>
-            <Text>PP : {userInfo.pp}</Text>
-            <Text>Followers: {userInfo.followers}</Text>
-            <Text>Following: {userInfo.following}</Text>
-            <Button title='Logout' onPress={logout}/>
-            <Button title='Modifier' onPress={() => navigation.navigate('ModifyProfile')}/>
-        </View> 
-    );
+  const [selectedImage, setSelectedImage] = React.useState(null);
+
+  let openImagePickerAsync = async () => {
+    let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+    if (permissionResult.granted === false) {
+      alert("Permission to access camera roll is required!");
+      return;
+    }
+
+    let pickerResult = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+    console.log(pickerResult);
+
+    if (!pickerResult.cancelled){
+      modifyProfilePicture(pickerResult.uri,userInfo.email);
+    }
+
+    if (Platform.OS === 'web') {
+      let remoteUri = await uploadToAnonymousFilesAsync(pickerResult.uri);
+      setSelectedImage({ localUri: pickerResult.uri, remoteUri });
+    } else {
+      setSelectedImage({ localUri: pickerResult.uri, remoteUri: null });
+    } 
+  };
+
+  return(
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Spinner visible={isLoading}/>
+      <Text>Profile Screen</Text>
+      <Image style={styles.image} source={{uri: userInfo.pp}}/>
+      <TouchableOpacity style={styles.button} onPress={openImagePickerAsync}><Text style={styles.averageText}>Upload</Text></TouchableOpacity>
+      <Text>Prénom: {userInfo.forename}</Text>
+      <Text>Nom: {userInfo.surname}</Text>
+      <Text>Email: {userInfo.email}</Text>
+      <Text>Pwd : {userInfo.pwd}</Text>
+      <Text>Option1 : {userInfo.option1}</Text>
+      <Text>Option2 : {userInfo.option2}</Text>
+      <Text>Gender : {userInfo.gender}</Text>
+      <Text>Description : {userInfo.description}</Text>
+      <Text>PP : {userInfo.pp}</Text>
+      <Text>Followers: {userInfo.followers}</Text>
+      <Text>Following: {userInfo.following}</Text>
+      <Button title='Logout' onPress={logout}/>
+      <Button title='Modifier' onPress={() => navigation.navigate('ModifyProfile')}/>
+    </View> 
+  );
 }
-

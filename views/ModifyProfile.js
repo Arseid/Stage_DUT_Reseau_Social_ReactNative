@@ -12,14 +12,15 @@ export function ModifyProfileScreen({navigation}){
     const [surname, setSurname] = useState('');
 
     const handleModification = () =>{
-        if (forename.length==0 || surname.length==0){
-            alert("FILL PLS")
-        }
+
+        if (forename.length==0 && surname.length==0) alert('fill pls');
         else{
+            if (forename.length==0) setForename(userInfo.forename);
+            if (surname.length==0) setSurname(userInfo.surname);
             modify(forename,surname,userInfo.email);
             Keyboard.dismiss();
             navigation.goBack();
-        }
+        }   
     }
 
     return(

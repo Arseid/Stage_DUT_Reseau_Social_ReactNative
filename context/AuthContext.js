@@ -197,7 +197,35 @@ export const AuthProvider = ({children}) => {
             })
     }
 
+    const modifyProfilePicture = (uri,email) =>{
+        var APIURLInsert=`${BASE_URL}/profilePicture.php`;
+
+        var modifyProfilePictureData={
+            uri:uri,
+            email:email,
+        }
+
+        fetch(
+            APIURLInsert,
+            {
+            method:'post',
+            body:JSON.stringify(modifyProfilePictureData),
+            headers:{
+                'Content-Type':'multipart/form-data; ',
+            },
+            }
+        )
+        .then((response)=>response.json())
+        .then((response)=>
+            {
+            console.log(response[0].Message);
+            })
+        .catch((e)=>{
+            console.log("Error"+e);
+        })
+    }
+
     return(
-    <AuthContext.Provider value={{isLoading,userInfo,isLoggedIn,retrievedInfo,register,login,logout,modify,retrieveUserProfileInfo}}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{isLoading,userInfo,isLoggedIn,retrievedInfo,register,login,logout,modify,retrieveUserProfileInfo,modifyProfilePicture}}>{children}</AuthContext.Provider>
     );
 };
