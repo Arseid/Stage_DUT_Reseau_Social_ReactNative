@@ -8,7 +8,7 @@ Les pages login et register sont terminés dans leur intégralité.
 Les pages de profil et d'acceuil.
 
 # Auteurs
-Front end: Nicolas Giliberto
-Back end: Yves-Robert Estrada
-Aide d'un enseignant chercheur de l'INRIA: M.Amar Bouali
+- Front end: Nicolas Giliberto
+- Back end: Yves-Robert Estrada
+- Aide d'un enseignant chercheur de l'INRIA: M.Amar Bouali
 
