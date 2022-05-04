@@ -9,6 +9,7 @@ export const AuthProvider = ({children}) => {
     const[userInfo,setUserInfo] = useState({});
     const [isLoading, setIsLoading] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [retrievedInfo,setRetrievedInfo] = useState(false);
 
     const register = (forename,surname,email,pwd,type,option1,option2) => {
 
@@ -45,7 +46,9 @@ export const AuthProvider = ({children}) => {
                 AsyncStorageLib.setItem('userInfo',JSON.stringify(userInfo));
                 setIsLoading(false);
                 console.log(response[0].Message);
-                if (response[0].Message=='user successfully registered') setIsLoggedIn(true);
+                if (response[0].Message=='user successfully registered'){
+                    setIsLoggedIn(true);
+                } 
                 if (response[0].Message=='already exists') alert('Email déjà utilisé');
             })
             .catch((e)=>{
@@ -83,15 +86,13 @@ export const AuthProvider = ({children}) => {
                 .then((response)=>response.json())
                 .then((response)=>
                 {
+                    setUserInfo(loginData);
+                    console.log(userInfo);
+                    AsyncStorageLib.setItem('userInfo',JSON.stringify(userInfo));
                     setIsLoading(false);
                     console.log(response[0].Message);
                     if (response[0].Message=='found'){
                         setIsLoggedIn(true);
-                        loginData.forename=response[0].Forename;
-                        loginData.surname=response[0].Surname;
-                        console.log(loginData);
-                        setUserInfo(loginData);
-                        AsyncStorageLib.setItem('userInfo',JSON.stringify(userInfo));
                     }
                 })
                 .catch((e)=>{
@@ -106,6 +107,7 @@ export const AuthProvider = ({children}) => {
         AsyncStorageLib.removeItem('userInfo');
         setUserInfo({});
         console.log('user logged out successfully')
+        setRetrievedInfo(false);
         setIsLoggedIn(false);
         setIsLoading(false);
     }
@@ -136,21 +138,92 @@ export const AuthProvider = ({children}) => {
             .then((response)=>response.json())
             .then((response)=>
             {
-                modifyData.pwd=response[0].Password;
-                console.log(response[0].Message);
-                console.log(modifyData);
-                setUserInfo(modifyData);
-                AsyncStorageLib.setItem('userInfo',JSON.stringify(userInfo));
                 setIsLoading(false);
+                setRetrievedInfo(false);
             })
             .catch((e)=>{
                 console.log("Error"+e);
                 setIsLoading(false);
             })
         
-    };
+    }
+
+    const retrieveUserProfileInfo = (email) => {
+        setIsLoading(true);
+
+        var APIURLInsert=`${BASE_URL}/userProfile.php`;
+
+        var profileHeaders={
+            'Accept' : 'application/json',
+            'Content-Type':'application.json'
+        };
+
+        var profileData={
+            email:email
+        };
+
+        fetch(APIURLInsert,
+            {
+                method:'POST',
+                headers:profileHeaders,
+                body: JSON.stringify(profileData)
+            })
+            .then((response)=>response.json())
+            .then((response)=>
+            {
+                profileData.forename=response[0].Forename;
+                profileData.surname=response[0].Surname;
+                profileData.pwd=response[0].Pwd;
+                profileData.type=response[0].Type;
+                profileData.option1=response[0].Option1;
+                profileData.option2=response[0].Option2;
+                profileData.gender=response[0].Gender;
+                profileData.description=response[0].Description;
+                profileData.pp=response[0].PP;
+                profileData.followers=response[0].Followers;
+                profileData.following=response[0].Following;
+
+                console.log(response[0].Message);
+                console.log(profileData);
+                setUserInfo(profileData);
+                AsyncStorageLib.setItem('userInfo',JSON.stringify(userInfo));
+                setIsLoading(false);
+                setRetrievedInfo(true);
+            })
+            .catch((e)=>{
+                console.log("Error"+e);
+                setIsLoading(false);
+            })
+    }
+
+    const modifyProfilePicture = (pickerResult,email,date) =>{
+        setIsLoading(true);
+
+        var APIURLInsert=`${BASE_URL}/profilePicture.php`;
+
+        let data = {
+            method: 'POST',
+            body: JSON.stringify({
+                date:date,
+                email:email,
+                profilePicture: pickerResult,
+            }),
+            headers: {
+                'Accept':       'application/json',
+                'Content-Type': 'application/json',
+            }
+        }
+
+        fetch(APIURLInsert, data)
+        .then((response) => response.json())  // promise
+        .then((response) => {
+            console.log(response);
+            setRetrievedInfo(false);
+            setIsLoading(false);
+        }) 
+    }
 
     return(
-    <AuthContext.Provider value={{isLoading,userInfo,isLoggedIn,register,login,logout,modify}}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{isLoading,userInfo,isLoggedIn,retrievedInfo,register,login,logout,modify,retrieveUserProfileInfo,modifyProfilePicture}}>{children}</AuthContext.Provider>
     );
 };
