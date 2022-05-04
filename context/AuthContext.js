@@ -47,7 +47,6 @@ export const AuthProvider = ({children}) => {
                 setIsLoading(false);
                 console.log(response[0].Message);
                 if (response[0].Message=='user successfully registered'){
-                    setRetrievedInfo(false);
                     setIsLoggedIn(true);
                 } 
                 if (response[0].Message=='already exists') alert('Email déjà utilisé');
@@ -93,7 +92,6 @@ export const AuthProvider = ({children}) => {
                     setIsLoading(false);
                     console.log(response[0].Message);
                     if (response[0].Message=='found'){
-                        setRetrievedInfo(false);
                         setIsLoggedIn(true);
                     }
                 })
@@ -109,6 +107,7 @@ export const AuthProvider = ({children}) => {
         AsyncStorageLib.removeItem('userInfo');
         setUserInfo({});
         console.log('user logged out successfully')
+        setRetrievedInfo(false);
         setIsLoggedIn(false);
         setIsLoading(false);
     }
@@ -197,32 +196,31 @@ export const AuthProvider = ({children}) => {
             })
     }
 
-    const modifyProfilePicture = (uri,email) =>{
+    const modifyProfilePicture = (pickerResult,email,date) =>{
+        setIsLoading(true);
+
         var APIURLInsert=`${BASE_URL}/profilePicture.php`;
 
-        var modifyProfilePictureData={
-            uri:uri,
-            email:email,
+        let data = {
+            method: 'POST',
+            body: JSON.stringify({
+                date:date,
+                email:email,
+                profilePicture: pickerResult,
+            }),
+            headers: {
+                'Accept':       'application/json',
+                'Content-Type': 'application/json',
+            }
         }
 
-        fetch(
-            APIURLInsert,
-            {
-            method:'post',
-            body:JSON.stringify(modifyProfilePictureData),
-            headers:{
-                'Content-Type':'multipart/form-data; ',
-            },
-            }
-        )
-        .then((response)=>response.json())
-        .then((response)=>
-            {
-            console.log(response[0].Message);
-            })
-        .catch((e)=>{
-            console.log("Error"+e);
-        })
+        fetch(APIURLInsert, data)
+        .then((response) => response.json())  // promise
+        .then((response) => {
+            console.log(response);
+            setRetrievedInfo(false);
+            setIsLoading(false);
+        }) 
     }
 
     return(

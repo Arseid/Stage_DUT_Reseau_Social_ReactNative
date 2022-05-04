@@ -5,15 +5,12 @@ import styles from '../style/profileStyle';
 import Spinner from 'react-native-loading-spinner-overlay/lib';
 import * as ImagePicker from 'expo-image-picker';
 
-
 export function ProfileScreen({navigation}){
 
   const {userInfo,isLoading,logout,retrievedInfo,retrieveUserProfileInfo,modifyProfilePicture} = useContext(AuthContext);
 
-  if (!retrievedInfo) retrieveUserProfileInfo(userInfo.email);    
-
-  const [selectedImage, setSelectedImage] = React.useState(null);
-
+  if (!retrievedInfo) retrieveUserProfileInfo(userInfo.email);
+  
   let openImagePickerAsync = async () => {
     let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
@@ -23,24 +20,20 @@ export function ProfileScreen({navigation}){
     }
 
     let pickerResult = await ImagePicker.launchImageLibraryAsync({
+      base64:true,
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
     });
-    console.log(pickerResult);
+    pickerResult.fileName='pp'+userInfo.forename+userInfo.surname+'.jpg';
 
     if (!pickerResult.cancelled){
-      modifyProfilePicture(pickerResult.uri,userInfo.email);
+      let date=new Date();
+      modifyProfilePicture(pickerResult,userInfo.email,date);
     }
-
-    if (Platform.OS === 'web') {
-      let remoteUri = await uploadToAnonymousFilesAsync(pickerResult.uri);
-      setSelectedImage({ localUri: pickerResult.uri, remoteUri });
-    } else {
-      setSelectedImage({ localUri: pickerResult.uri, remoteUri: null });
-    } 
   };
+
 
   return(
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -61,6 +54,7 @@ export function ProfileScreen({navigation}){
       <Text>Following: {userInfo.following}</Text>
       <Button title='Logout' onPress={logout}/>
       <Button title='Modifier' onPress={() => navigation.navigate('ModifyProfile')}/>
+      <Button title='Home' onPress={() => navigation.navigate('Home')}/>
     </View> 
   );
 }
