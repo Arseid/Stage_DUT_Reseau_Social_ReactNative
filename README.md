@@ -5,7 +5,7 @@ Le projet consiste à développer une application fonctionnant comme un réseau 
 Les pages login et register sont terminés dans leur intégralité.
 
 # En cours de développement
-Les pages de profil et d'acceuil.
+Les pages de profil (front end) et d'acceuil (tout).
 
 # Auteurs
 - Front end: Nicolas Giliberto
