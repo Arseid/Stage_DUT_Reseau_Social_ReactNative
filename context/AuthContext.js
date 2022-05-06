@@ -11,7 +11,7 @@ export const AuthProvider = ({children}) => {
     const [isLoading, setIsLoading] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [retrievedInfo,setRetrievedInfo] = useState(0);
-    //const [showProfiles,setShowprofiles] = useState(true);
+    const [showProfiles,setShowprofiles] = useState(0);
 
     const register = (forename,surname,email,pwd,type,option1,option2) => {
 
@@ -110,7 +110,6 @@ export const AuthProvider = ({children}) => {
         setUserInfo({});
         setUserProfilesInfo({});
         console.log('user logged out successfully')
-        //setShowprofiles(true);
         setIsLoggedIn(false);
         setIsLoading(false);
 
@@ -143,7 +142,6 @@ export const AuthProvider = ({children}) => {
             .then((response)=>
             {
                 setIsLoading(false);
-                setRetrievedInfo(false);
             })
             .catch((e)=>{
                 console.log("Error"+e);
@@ -230,8 +228,7 @@ export const AuthProvider = ({children}) => {
         })
     }
 
-    const showUserProfiles = async(email) =>{
-        setIsLoading(true);
+    const showUserProfiles = (email) =>{
 
         var APIURL=`${BASE_URL}/showUserProfiles.php`;
 
@@ -249,19 +246,21 @@ export const AuthProvider = ({children}) => {
         fetch(APIURL, data)
         .then((response) => response.json())
         .then((response) => {
+            console.log(response);
             setUserProfilesInfo(response);
             AsyncStorageLib.setItem('userProfilesInfo',JSON.stringify(userProfilesInfo));
-            //setShowprofiles(false);
             setIsLoading(false);
         })
         .catch((e)=>{
             console.log("Error"+e);
-            //setShowprofiles(false);
-            setIsLoading(false);
         })
     }
 
+    const test = () =>{
+        setShowprofiles(showProfiles+1);
+    }
+
     return(
-    <AuthContext.Provider value={{isLoading,userInfo,userProfilesInfo,isLoggedIn,retrievedInfo,register,login,logout,modify,retrieveUserProfileInfo,modifyProfilePicture,showUserProfiles}}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{isLoading,userInfo,userProfilesInfo,isLoggedIn,retrievedInfo,showProfiles,register,login,logout,modify,retrieveUserProfileInfo,modifyProfilePicture,showUserProfiles,test}}>{children}</AuthContext.Provider>
     );
 };

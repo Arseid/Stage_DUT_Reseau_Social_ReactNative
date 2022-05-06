@@ -7,9 +7,11 @@ import * as ImagePicker from 'expo-image-picker';
 
 export function ProfileScreen({navigation}){
 
-  const {userInfo,isLoading,logout,retrievedInfo,retrieveUserProfileInfo,modifyProfilePicture,showUserProfiles,userProfilesInfo} = useContext(AuthContext);
+  const {userInfo,isLoading,logout,retrievedInfo,retrieveUserProfileInfo,modifyProfilePicture,showUserProfiles,showProfiles} = useContext(AuthContext);
 
   useEffect(()=>{retrieveUserProfileInfo(userInfo.email)},[retrievedInfo]);
+
+  useEffect(()=>{showUserProfiles(userInfo.email)},[showProfiles]);
   
   let openImagePickerAsync = async () => {
     let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -35,7 +37,8 @@ export function ProfileScreen({navigation}){
   };
 
   const handleGoHome = () => {
-    navigation.navigate('Home')
+    showUserProfiles(userInfo.email);
+    navigation.navigate('Home');
   }
 
   return(

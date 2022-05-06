@@ -9,11 +9,11 @@
 
     $email = $DecodedData['email'];
 
-    $SR="SELECT * from users WHERE email!='$email'";
+    $SR="SELECT * from users WHERE email!='$email' ORDER BY RAND() LIMIT 4";
     $SQ=mysqli_query($ConnectDB,$SR);
     $rows=mysqli_fetch_all($SQ);
 
-    /*
+    
     for ($i=0;$i<sizeof($rows);$i++){
         $user_id=$rows[$i][0];
 
@@ -22,7 +22,7 @@
         $row = mysqli_fetch_row($SQ);
         array_push($rows[$i],$row);
     }
-    */
+    
 
     echo json_encode($rows);
 ?>
