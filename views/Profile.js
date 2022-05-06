@@ -37,7 +37,6 @@ export function ProfileScreen({navigation}){
   };
 
   const handleGoHome = () => {
-    showUserProfiles(userInfo.email);
     navigation.navigate('Home');
   }
 
