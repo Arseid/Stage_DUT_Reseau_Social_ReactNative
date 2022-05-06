@@ -15,7 +15,7 @@
     $count=mysqli_num_rows($R);
 
     if ($count>0){
-        $Message="found";
+        $Message="User Info :";
         //Retrieve all info in user
         $row = mysqli_fetch_row($R);
         $user_id=$row[0];

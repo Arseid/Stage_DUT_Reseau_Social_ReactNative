@@ -1,5 +1,4 @@
 <?php
-    header('Content-Type: application/json');
     include("/home/users/etudiant/e/ey001600/www/.ht_mysql.inc");
 
     $EncodedData=file_get_contents('php://input');

@@ -1,4 +1,4 @@
-import React,{useContext} from 'react';
+import React,{useReducer,useState,useContext,useEffect} from 'react';
 import {Text, Image, View, TouchableOpacity, Button } from 'react-native';
 import { AuthContext } from '../context/AuthContext';
 import styles from '../style/profileStyle';
@@ -7,9 +7,9 @@ import * as ImagePicker from 'expo-image-picker';
 
 export function ProfileScreen({navigation}){
 
-  const {userInfo,isLoading,logout,retrievedInfo,retrieveUserProfileInfo,modifyProfilePicture} = useContext(AuthContext);
+  const {userInfo,isLoading,logout,retrievedInfo,retrieveUserProfileInfo,modifyProfilePicture,showUserProfiles,userProfilesInfo} = useContext(AuthContext);
 
-  if (!retrievedInfo) retrieveUserProfileInfo(userInfo.email);
+  useEffect(()=>{retrieveUserProfileInfo(userInfo.email)},[retrievedInfo]);
   
   let openImagePickerAsync = async () => {
     let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -34,6 +34,9 @@ export function ProfileScreen({navigation}){
     }
   };
 
+  const handleGoHome = () => {
+    navigation.navigate('Home')
+  }
 
   return(
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -54,7 +57,7 @@ export function ProfileScreen({navigation}){
       <Text>Following: {userInfo.following}</Text>
       <Button title='Logout' onPress={logout}/>
       <Button title='Modifier' onPress={() => navigation.navigate('ModifyProfile')}/>
-      <Button title='Home' onPress={() => navigation.navigate('Home')}/>
+      <Button title='Home' onPress={handleGoHome}/>
     </View> 
   );
 }

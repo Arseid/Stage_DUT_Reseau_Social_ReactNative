@@ -6,16 +6,18 @@ export const AuthContext=createContext();
 
 export const AuthProvider = ({children}) => {
 
-    const[userInfo,setUserInfo] = useState({});
+    const [userInfo,setUserInfo] = useState({});
+    const [userProfilesInfo,setUserProfilesInfo] = useState({});
     const [isLoading, setIsLoading] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [retrievedInfo,setRetrievedInfo] = useState(false);
+    const [retrievedInfo,setRetrievedInfo] = useState(0);
+    //const [showProfiles,setShowprofiles] = useState(true);
 
     const register = (forename,surname,email,pwd,type,option1,option2) => {
 
         setIsLoading(true);
 
-        var APIURLInsert=`${BASE_URL}/insert.php`;
+        var APIURL=`${BASE_URL}/insert.php`;
 
         var registerHeaders={
             'Accept' : 'application/json',
@@ -32,7 +34,7 @@ export const AuthProvider = ({children}) => {
             option2:option2,
         };
 
-        fetch(APIURLInsert,
+        fetch(APIURL,
             {
                 method:'POST',
                 headers:registerHeaders,
@@ -65,7 +67,7 @@ export const AuthProvider = ({children}) => {
         else {
             setIsLoading(true);
 
-            var APIURLInsert=`${BASE_URL}/login.php`;
+            var APIURL=`${BASE_URL}/login.php`;
 
             var loginHeaders={
                 'Accept' : 'application/json',
@@ -77,7 +79,7 @@ export const AuthProvider = ({children}) => {
                 pwd:pwd,
             };
 
-            fetch(APIURLInsert,
+            fetch(APIURL,
                 {
                     method:'POST',
                     headers:loginHeaders,
@@ -106,17 +108,19 @@ export const AuthProvider = ({children}) => {
         setIsLoading(true);
         AsyncStorageLib.removeItem('userInfo');
         setUserInfo({});
+        setUserProfilesInfo({});
         console.log('user logged out successfully')
-        setRetrievedInfo(false);
+        //setShowprofiles(true);
         setIsLoggedIn(false);
         setIsLoading(false);
+
     }
 
     const modify = (forename,surname,email) => {
 
         setIsLoading(true);
 
-        var APIURLInsert=`${BASE_URL}/modify.php`;
+        var APIURL=`${BASE_URL}/modify.php`;
 
         var modifyHeaders={
             'Accept' : 'application/json',
@@ -129,7 +133,7 @@ export const AuthProvider = ({children}) => {
             email:email
         };
 
-        fetch(APIURLInsert,
+        fetch(APIURL,
             {
                 method:'POST',
                 headers:modifyHeaders,
@@ -151,7 +155,7 @@ export const AuthProvider = ({children}) => {
     const retrieveUserProfileInfo = (email) => {
         setIsLoading(true);
 
-        var APIURLInsert=`${BASE_URL}/userProfile.php`;
+        var APIURL=`${BASE_URL}/userProfile.php`;
 
         var profileHeaders={
             'Accept' : 'application/json',
@@ -162,7 +166,7 @@ export const AuthProvider = ({children}) => {
             email:email
         };
 
-        fetch(APIURLInsert,
+        fetch(APIURL,
             {
                 method:'POST',
                 headers:profileHeaders,
@@ -188,7 +192,6 @@ export const AuthProvider = ({children}) => {
                 setUserInfo(profileData);
                 AsyncStorageLib.setItem('userInfo',JSON.stringify(userInfo));
                 setIsLoading(false);
-                setRetrievedInfo(true);
             })
             .catch((e)=>{
                 console.log("Error"+e);
@@ -199,7 +202,7 @@ export const AuthProvider = ({children}) => {
     const modifyProfilePicture = (pickerResult,email,date) =>{
         setIsLoading(true);
 
-        var APIURLInsert=`${BASE_URL}/profilePicture.php`;
+        var APIURL=`${BASE_URL}/profilePicture.php`;
 
         let data = {
             method: 'POST',
@@ -214,16 +217,51 @@ export const AuthProvider = ({children}) => {
             }
         }
 
-        fetch(APIURLInsert, data)
+        fetch(APIURL, data)
         .then((response) => response.json())  // promise
         .then((response) => {
             console.log(response);
-            setRetrievedInfo(false);
+            setRetrievedInfo(retrievedInfo+1);
             setIsLoading(false);
-        }) 
+        })
+        .catch((e)=>{
+            console.log("Error"+e);
+            setIsLoading(false);
+        })
+    }
+
+    const showUserProfiles = async(email) =>{
+        setIsLoading(true);
+
+        var APIURL=`${BASE_URL}/showUserProfiles.php`;
+
+        let data={
+            method: 'POST',
+            body : JSON.stringify({
+                email:email,
+            }),
+            headers: {
+                'Accept':       'application/json',
+                'Content-Type': 'application/json',
+            }
+        }
+
+        fetch(APIURL, data)
+        .then((response) => response.json())
+        .then((response) => {
+            setUserProfilesInfo(response);
+            AsyncStorageLib.setItem('userProfilesInfo',JSON.stringify(userProfilesInfo));
+            //setShowprofiles(false);
+            setIsLoading(false);
+        })
+        .catch((e)=>{
+            console.log("Error"+e);
+            //setShowprofiles(false);
+            setIsLoading(false);
+        })
     }
 
     return(
-    <AuthContext.Provider value={{isLoading,userInfo,isLoggedIn,retrievedInfo,register,login,logout,modify,retrieveUserProfileInfo,modifyProfilePicture}}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{isLoading,userInfo,userProfilesInfo,isLoggedIn,retrievedInfo,register,login,logout,modify,retrieveUserProfileInfo,modifyProfilePicture,showUserProfiles}}>{children}</AuthContext.Provider>
     );
 };
