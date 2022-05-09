@@ -25,7 +25,7 @@ export function LoginScreen({navigation}){
         <View style={styles.form}>
           <Text style={styles.title}>Lorem Ipsum</Text>
 
-          <TextInput style={styles.infoInput} placeholder="Email" value={email} onChangeText={text => setEmail(text)}/>
+          <TextInput style={styles.infoInput} placeholder="Email" value={email} autoCapitalize='none' onChangeText={text => setEmail(text)}/>
           <TextInput style={styles.infoInput} placeholder="Mot de passe" secureTextEntry value={pwd} onChangeText={text => setPwd(text)}/>
           <TouchableOpacity style={styles.button} onPress={handleLogin}>
             <Text style={styles.averageText}>Se connecter</Text>

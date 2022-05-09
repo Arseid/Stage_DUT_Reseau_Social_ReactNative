@@ -32,6 +32,16 @@ export default StyleSheet.create({
       borderWidth:5,
       borderRadius: 10,
       padding:10,
+      marginBottom:40
+    },
+    form2:{
+      borderColor:"#FFFAF0",
+      backgroundColor:"#FFFAF0",
+      borderWidth:5,
+      borderRadius: 10,
+      padding:10,
+      marginTop:10,
+      marginHorizontal:40,
     },
   
     subscription:{
@@ -47,7 +57,8 @@ export default StyleSheet.create({
     title:{
       textAlign: 'center', 
       fontSize: 30,
-      marginBottom:25,
+      marginBottom:10,
+      fontFamily:'serif'
     },
   
     infoInput:{
@@ -63,7 +74,10 @@ export default StyleSheet.create({
       borderRadius: 4,
       backgroundColor: '#ffaf7a',
       padding:5,
-      margin:5
+      margin:5,
+      marginHorizontal:105,
+      left:55,
+      bottom:80
     },
   
     averageText:{
