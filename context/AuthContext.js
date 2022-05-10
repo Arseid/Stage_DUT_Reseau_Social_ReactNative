@@ -290,6 +290,36 @@ export const AuthProvider = ({children}) => {
         setShowprofiles(showProfiles+1);
     }
 
+    const post = (email,body,pickerResult,date) => {
+
+        var APIURL=`${BASE_URL}/post.php`;
+
+        let data={
+            method: 'POST',
+            body : JSON.stringify({
+                file: pickerResult,
+                body:body,
+                email:email,
+                date:date,
+            }),
+            headers: {
+                'Accept':       'application/json',
+                'Content-Type': 'application/json',
+            }
+        }
+
+        fetch(APIURL, data)
+        .then((response) => response.json())
+        .then((response) => {
+            console.log(response);
+            setIsLoading(false);
+        })
+        .catch((e)=>{
+            console.log("Error"+e);
+            setIsLoading(false);
+        })
+    }
+
     const test = (email) => {
         var APIURL=`${BASE_URL}/test.php`;
 
@@ -317,6 +347,6 @@ export const AuthProvider = ({children}) => {
     }
 
     return(
-    <AuthContext.Provider value={{isLoading,userInfo,userProfilesInfo,isLoggedIn,retrievedInfo,showProfiles,register,login,logout,modify,retrieveUserProfileInfo,modifyProfilePicture,showUserProfiles,followUser,refresh,test}}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{isLoading,userInfo,userProfilesInfo,isLoggedIn,retrievedInfo,showProfiles,register,login,logout,modify,retrieveUserProfileInfo,modifyProfilePicture,showUserProfiles,followUser,refresh,post,test}}>{children}</AuthContext.Provider>
     );
 };

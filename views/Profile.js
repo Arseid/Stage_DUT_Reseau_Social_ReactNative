@@ -40,6 +40,10 @@ export function ProfileScreen({navigation}){
     navigation.navigate('Home');
   }
 
+  const handleGoSearch = () => {
+    navigation.navigate('Search');
+  }
+
   return(
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Spinner visible={isLoading}/>
@@ -60,6 +64,7 @@ export function ProfileScreen({navigation}){
       <Button title='Logout' onPress={logout}/>
       <Button title='Modifier' onPress={() => navigation.navigate('ModifyProfile')}/>
       <Button title='Home' onPress={handleGoHome}/>
+      <Button title='Search' onPress={handleGoSearch}/>
     </View> 
   );
 }
