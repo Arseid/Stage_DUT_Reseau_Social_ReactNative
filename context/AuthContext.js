@@ -253,14 +253,70 @@ export const AuthProvider = ({children}) => {
         })
         .catch((e)=>{
             console.log("Error"+e);
+            setIsLoading(false);
         })
     }
 
-    const test = () =>{
+    const followUser = (email,targetEmail) => {
+
+        var APIURL=`${BASE_URL}/follow.php`;
+
+        let data={
+            method: 'POST',
+            body : JSON.stringify({
+                email:email,
+                targetEmail:targetEmail,
+            }),
+            headers: {
+                'Accept':       'application/json',
+                'Content-Type': 'application/json',
+            }
+        }
+
+        fetch(APIURL, data)
+        .then((response) => response.json())
+        .then((response) => {
+            console.log(response);
+            setRetrievedInfo(retrievedInfo+1);
+            setIsLoading(false);
+        })
+        .catch((e)=>{
+            console.log("Error"+e);
+            setIsLoading(false);
+        })
+    }
+
+    const refresh = (email) =>{
         setShowprofiles(showProfiles+1);
     }
 
+    const test = (email) => {
+        var APIURL=`${BASE_URL}/test.php`;
+
+        let data={
+            method: 'POST',
+            body : JSON.stringify({
+                email:email,
+            }),
+            headers: {
+                'Accept':       'application/json',
+                'Content-Type': 'application/json',
+            }
+        }
+
+        fetch(APIURL, data)
+        .then((response) => response.json())
+        .then((response) => {
+            console.log(response);
+            setIsLoading(false);
+        })
+        .catch((e)=>{
+            console.log("Error"+e);
+            setIsLoading(false);
+        })
+    }
+
     return(
-    <AuthContext.Provider value={{isLoading,userInfo,userProfilesInfo,isLoggedIn,retrievedInfo,showProfiles,register,login,logout,modify,retrieveUserProfileInfo,modifyProfilePicture,showUserProfiles,test}}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{isLoading,userInfo,userProfilesInfo,isLoggedIn,retrievedInfo,showProfiles,register,login,logout,modify,retrieveUserProfileInfo,modifyProfilePicture,showUserProfiles,followUser,refresh,test}}>{children}</AuthContext.Provider>
     );
 };
