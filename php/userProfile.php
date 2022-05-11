@@ -33,8 +33,9 @@
         $gender = $row[1];
         $description = $row[2];
         $pp = $row[3];
-        $followers = $row[4];
-        $following = $row[5];
+        $backgroundProfilePicture = $row[4];
+        $followers = $row[5];
+        $following = $row[6];
     }
     else{
         $Message="not found";
@@ -51,6 +52,7 @@
         "Gender"=>$gender,
         "Description"=>$description,
         "PP"=>$pp,
+        "BackgroundPicture"=>$backgroundProfilePicture,
         "Followers"=>$followers,
         "Following"=>$following,
     );

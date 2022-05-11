@@ -19,7 +19,7 @@
     $forenameSurname=$forename.$surname;
 
     // Verify existing posts
-    $SR="SELECT * FROM post WHERE user_id='$user_id";
+    $SR="SELECT * FROM post";
     $SQ=mysqli_query($ConnectDB,$SR);
     $rows=mysqli_fetch_array($SQ);
     $size=count($rows);

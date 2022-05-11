@@ -1,5 +1,5 @@
 import React,{useReducer,useState,useContext,useEffect} from 'react';
-import {Text, Image, View, TouchableOpacity, Button } from 'react-native';
+import {Text, Image, View,ScrollView, TouchableOpacity, Button } from 'react-native';
 import { AuthContext } from '../context/AuthContext';
 import styles from '../style/profileStyle';
 import Spinner from 'react-native-loading-spinner-overlay/lib';
@@ -45,26 +45,42 @@ export function ProfileScreen({navigation}){
   }
 
   return(
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <View style={styles.container}>
       <Spinner visible={isLoading}/>
-      <Text>Profile Screen</Text>
-      <Image style={styles.image} source={{uri: userInfo.pp}}/>
-      <TouchableOpacity style={styles.button} onPress={openImagePickerAsync}><Text style={styles.averageText}>Upload</Text></TouchableOpacity>
-      <Text>Prénom: {userInfo.forename}</Text>
-      <Text>Nom: {userInfo.surname}</Text>
-      <Text>Email: {userInfo.email}</Text>
-      <Text>Pwd : {userInfo.pwd}</Text>
-      <Text>Option1 : {userInfo.option1}</Text>
-      <Text>Option2 : {userInfo.option2}</Text>
-      <Text>Gender : {userInfo.gender}</Text>
-      <Text>Description : {userInfo.description}</Text>
-      <Text>PP : {userInfo.pp}</Text>
-      <Text>Followers: {userInfo.followers}</Text>
-      <Text>Following: {userInfo.following}</Text>
-      <Button title='Logout' onPress={logout}/>
-      <Button title='Modifier' onPress={() => navigation.navigate('ModifyProfile')}/>
-      <Button title='Home' onPress={handleGoHome}/>
-      <Button title='Search' onPress={handleGoSearch}/>
+        <ScrollView>
+          <View style={styles.focusProfile}>
+              <Image source={{uri:userInfo.backgroundPicture}} style={styles.backgroundPicture}/>
+              <View style={styles.viewPP}>
+                <Image source={{uri:userInfo.pp}} style={styles.image}/>
+              </View>
+              <View style={styles.otherInfo}>
+                <View>
+                  <Text style={styles.averageText}>Followers</Text>
+                  <Text style={styles.averageText}>{userInfo.followers}</Text>
+                </View>
+                <View style={{marginLeft:20}}>
+                  <Text style={styles.averageText}>Following</Text>
+                  <Text style={styles.averageText}>{userInfo.following}</Text>
+                </View>
+                <TouchableOpacity onPress={logout}>
+                  <Image source={{uri:"http://isis.unice.fr/~ey001600/ext/icons/logout.png"}} style={{width:30,height:30,marginLeft:25}}/>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.personalInfo}>
+                <Text style={{fontSize:25, marginBottom:5}}>{userInfo.surname} {userInfo.forename}</Text>
+                <Text style={styles.averageText}>{userInfo.type}</Text>
+                <Text style={styles.averageText}>{userInfo.option1}</Text>
+              </View>
+              <View style={{alignItems:'center', marginBottom:10}}>
+                <TouchableOpacity style={styles.button} onPress={openImagePickerAsync}>
+                  <Text style={styles.buttonText}>Modifier le profil</Text>
+                </TouchableOpacity>
+              </View>
+          </View>
+          <View style={styles.detailsProfile}>
+
+          </View>
+        </ScrollView>
     </View> 
   );
 }

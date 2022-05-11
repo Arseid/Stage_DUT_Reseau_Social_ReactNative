@@ -96,6 +96,7 @@ export const AuthProvider = ({children}) => {
                     if (response[0].Message=='found'){
                         setIsLoggedIn(true);
                     }
+                    else alert('INCORRECT');
                 })
                 .catch((e)=>{
                     console.log("Error"+e);
@@ -182,6 +183,7 @@ export const AuthProvider = ({children}) => {
                 profileData.gender=response[0].Gender;
                 profileData.description=response[0].Description;
                 profileData.pp=response[0].PP;
+                profileData.backgroundPicture=response[0].BackgroundPicture;
                 profileData.followers=response[0].Followers;
                 profileData.following=response[0].Following;
 

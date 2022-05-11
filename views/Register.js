@@ -181,11 +181,11 @@ export function RegisterScreen(){
     { (identificationDone == true) &&
     <KeyboardAvoidingView behavior="padding">
       <Text style={styles.subtitle}>Créer un compte {selectedUserType}</Text>
-      <TextInput style={styles.infoInput} placeholder="Prénom" autoCapitalize='sentences' value={forename} onChangeText={text => setForename(text)}/>
-      <TextInput style={styles.infoInput} placeholder="Nom de famille" autoCapitalize='sentences' value={surname} onChangeText={text => setSurname(text)}/>
-      <TextInput style={styles.infoInput} placeholder="Entrez une adresse e-mail" autoCapitalize='none' value={email} onChangeText={text => setEmail(text)}/>
-      <TextInput style={styles.infoInput} placeholder="Entrez un mot de passe" secureTextEntry autoCapitalize='none' value={pwd} onChangeText={text => setPwd(text)}/>
-      <TextInput style={styles.infoInput} placeholder="Confirmez votre mot de passe" secureTextEntry autoCapitalize='none' value={checkPwd} onChangeText={text => setCheckPwd(text)}/>
+      <TextInput style={styles.infoInput} placeholderTextColor={'#808080'} placeholder="Prénom" autoCapitalize='sentences' value={forename} onChangeText={text => setForename(text)}/>
+      <TextInput style={styles.infoInput} placeholderTextColor={'#808080'} placeholder="Nom de famille" autoCapitalize='sentences' value={surname} onChangeText={text => setSurname(text)}/>
+      <TextInput style={styles.infoInput} placeholderTextColor={'#808080'} placeholder="Entrez une adresse e-mail" autoCapitalize='none' value={email} onChangeText={text => setEmail(text)}/>
+      <TextInput style={styles.infoInput} placeholderTextColor={'#808080'} placeholder="Entrez un mot de passe" secureTextEntry autoCapitalize='none' value={pwd} onChangeText={text => setPwd(text)}/>
+      <TextInput style={styles.infoInput} placeholderTextColor={'#808080'} placeholder="Confirmez votre mot de passe" secureTextEntry autoCapitalize='none' value={checkPwd} onChangeText={text => setCheckPwd(text)}/>
 
       { selectedUserType == 'Elève' && 
       <>
@@ -252,6 +252,7 @@ export function RegisterScreen(){
       />
       <TextInput
         style={styles.infoInputOptionTeacher}
+        placeholderTextColor={'#808080'}
         placeholder="Chef d'établissement"
         value={option2} 
         onChangeText={text => setOption2(text)}
@@ -283,6 +284,7 @@ export function RegisterScreen(){
       />
       <TextInput
         style={styles.infoInputOptionCompany}
+        placeholderTextColor={'#808080'}
         placeholder="Nom d'entreprise" 
         value={option1} 
         onChangeText={text => setOption1(text)}

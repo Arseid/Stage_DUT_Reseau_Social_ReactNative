@@ -20,10 +20,10 @@ const Navigation = () => {
             <Stack.Navigator>
                 {isLoggedIn ? (
                     <>
-                    <Stack.Screen name="Profile" component={ProfileScreen} />
-                    <Stack.Screen name="ModifyProfile" component={ModifyProfileScreen} />
-                    <Stack.Screen name="Search" component={SearchScreen}/>
-                    <Stack.Screen name="Home" component={HomeScreen}/>
+                    <Stack.Screen name="Profile" component={ProfileScreen} options={{headerShown: false}}/>
+                    <Stack.Screen name="ModifyProfile" component={ModifyProfileScreen} options={{headerShown: false}}/>
+                    <Stack.Screen name="Search" component={SearchScreen} options={{headerShown: false}}/>
+                    <Stack.Screen name="Home" component={HomeScreen} options={{headerShown: false}}/>
                     </>
                 ) : (
                     <>

@@ -6,48 +6,66 @@ export default StyleSheet.create({
     backgroundColor: '#eeeeee',
   },
 
-  header:{
-      alignItems: 'stretch',
-      bottom: 20,
-    },
+  averageText:{
+    fontSize: 15,
+    marginBottom:5,
+    textAlign:"center",
+  },
 
-    upside:{
-      flex:4,
-      justifyContent: 'center',
-      alignItems: 'center'
-    },
+  focusProfile:{
+    flex:4,
+    borderColor:"#FFFAF0",
+    backgroundColor:"#FFFAF0",
+    borderRadius: 10,
+  },
 
-  downside:{
-      flex:1,
-      top:60, 
-      backgroundColor:'#FFFAF0',
-    },
+  detailsProfile:{
+    borderColor:"#FFFAF0",
+    backgroundColor:"#FFFAF0",
+    borderRadius: 10,
+  },
 
-    border:{
-      backgroundColor: 'darkgrey', 
-      flex:1,
-      flexDirection:'row',
-    },
+  viewPP:{
+    borderRadius: 100,
+    marginTop:-50,
+    marginLeft:25,
+    marginBottom:10,
+  },
 
-    averageText:{
-      fontSize: 15,
-      textAlign:"center",
-      margin:5
-    },
+  personalInfo:{
+    alignItems:'flex-start',
+    marginLeft:40,
+  },
 
-    button:{
-      width:300,
-      borderRadius: 4,
-      backgroundColor: '#ffaf7a',
-      padding:5,
-      margin:5
-    },
+  otherInfo:{
+    flexDirection:'row',
+    marginTop:-65,
+    marginBottom:25,
+    marginLeft:175
+  },
 
-    image:{
-      width:'100%',
-      height:100,
-      resizeMode:'contain',
-      margin:5
-    }
+  button:{
+    width:300,
+    borderRadius: 4,
+    backgroundColor: '#ffaf7a',
+    padding:5,
+    margin:5
+  },
+
+  buttonText:{
+    fontSize: 15,
+    textAlign:"center",
+  },
+
+  image:{
+    width:120,
+    height:120,
+    borderRadius: 100,
+  },
+
+  backgroundPicture:{
+    width:'100%',
+    height:120,
+  }
 
 });
