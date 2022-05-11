@@ -230,6 +230,37 @@ export const AuthProvider = ({children}) => {
         })
     }
 
+    const backgroundPicture = (pickerResult,email,date) =>{
+        setIsLoading(true);
+
+        var APIURL=`${BASE_URL}/backgroundPicture.php`;
+
+        let data = {
+            method: 'POST',
+            body: JSON.stringify({
+                date:date,
+                email:email,
+                background: pickerResult,
+            }),
+            headers: {
+                'Accept':       'application/json',
+                'Content-Type': 'application/json',
+            }
+        }
+
+        fetch(APIURL, data)
+        .then((response) => response.json())  // promise
+        .then((response) => {
+            console.log(response);
+            setRetrievedInfo(retrievedInfo+1);
+            setIsLoading(false);
+        })
+        .catch((e)=>{
+            console.log("Error"+e);
+            setIsLoading(false);
+        })
+    }
+
     const showUserProfiles = (email) =>{
 
         var APIURL=`${BASE_URL}/showUserProfiles.php`;
@@ -349,6 +380,6 @@ export const AuthProvider = ({children}) => {
     }
 
     return(
-    <AuthContext.Provider value={{isLoading,userInfo,userProfilesInfo,isLoggedIn,retrievedInfo,showProfiles,register,login,logout,modify,retrieveUserProfileInfo,modifyProfilePicture,showUserProfiles,followUser,refresh,post,test}}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{isLoading,userInfo,userProfilesInfo,isLoggedIn,retrievedInfo,showProfiles,register,login,logout,modify,retrieveUserProfileInfo,modifyProfilePicture,backgroundPicture,showUserProfiles,followUser,refresh,post,test}}>{children}</AuthContext.Provider>
     );
 };

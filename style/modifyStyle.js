@@ -40,11 +40,53 @@ export default StyleSheet.create({
     marginLeft:'10%',
   },
 
-  otherInfo:{
+  personalInfoChange:{
+    alignItems:'flex-start',
+    marginTop:5,
+    marginLeft:40,
+    marginRight:40,
+    borderWidth:1,
+    borderColor:'#808080'
+  },
+
+  averageTextChange:{
+    fontSize: 15,
+    marginBottom:5,
+    textAlign:"center",
+  },
+
+  genderField:{
+    width:'100%',
     flexDirection:'row',
-    marginTop:'-16%',
-    marginBottom:'5%',
-    marginLeft:'42%'
+    borderBottomWidth:1,
+    borderBottomColor:'#808080',
+    padding:5
+  },
+
+  leftSide:{
+      width:'20%'
+  },
+
+  inputPronouns:{
+    width:'100%',
+    marginLeft:5,
+    borderLeftWidth:1,
+    borderLeftColor:'#808080',
+    paddingLeft:5
+  },
+
+  bioField:{
+    width:'100%',
+    flexDirection:'row',
+    padding:5
+  },
+
+  inputBio:{
+    width:'75%',
+    marginLeft:5,
+    borderLeftWidth:1,
+    borderLeftColor:'#808080',
+    paddingLeft:5
   },
 
   button:{

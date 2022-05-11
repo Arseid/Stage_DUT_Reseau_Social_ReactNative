@@ -21,7 +21,7 @@ const Navigation = () => {
                 {isLoggedIn ? (
                     <>
                     <Stack.Screen name="Profile" component={ProfileScreen} options={{headerShown: false}}/>
-                    <Stack.Screen name="ModifyProfile" component={ModifyProfileScreen} options={{headerShown: false}}/>
+                    <Stack.Screen name="Modifier le profil" component={ModifyProfileScreen} />
                     <Stack.Screen name="Search" component={SearchScreen} options={{headerShown: false}}/>
                     <Stack.Screen name="Home" component={HomeScreen} options={{headerShown: false}}/>
                     </>

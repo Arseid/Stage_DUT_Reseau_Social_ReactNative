@@ -3,7 +3,6 @@ import {Text, Image, View,ScrollView, TouchableOpacity, Button } from 'react-nat
 import { AuthContext } from '../context/AuthContext';
 import styles from '../style/profileStyle';
 import Spinner from 'react-native-loading-spinner-overlay/lib';
-import * as ImagePicker from 'expo-image-picker';
 
 export function ProfileScreen({navigation}){
 
@@ -12,29 +11,6 @@ export function ProfileScreen({navigation}){
   useEffect(()=>{retrieveUserProfileInfo(userInfo.email)},[retrievedInfo]);
 
   useEffect(()=>{showUserProfiles(userInfo.email)},[showProfiles]);
-  
-  let openImagePickerAsync = async () => {
-    let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
-
-    if (permissionResult.granted === false) {
-      alert("Permission to access camera roll is required!");
-      return;
-    }
-
-    let pickerResult = await ImagePicker.launchImageLibraryAsync({
-      base64:true,
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
-    pickerResult.fileName='pp'+userInfo.forename+userInfo.surname+'.jpg';
-
-    if (!pickerResult.cancelled){
-      let date=new Date();
-      modifyProfilePicture(pickerResult,userInfo.email,date);
-    }
-  };
 
   const handleGoHome = () => {
     navigation.navigate('Home');
@@ -58,12 +34,12 @@ export function ProfileScreen({navigation}){
                   <Text style={styles.averageText}>Followers</Text>
                   <Text style={styles.averageText}>{userInfo.followers}</Text>
                 </View>
-                <View style={{marginLeft:20}}>
+                <View style={{marginLeft:'5%'}}>
                   <Text style={styles.averageText}>Following</Text>
                   <Text style={styles.averageText}>{userInfo.following}</Text>
                 </View>
                 <TouchableOpacity onPress={logout}>
-                  <Image source={{uri:"http://isis.unice.fr/~ey001600/ext/icons/logout.png"}} style={{width:30,height:30,marginLeft:25}}/>
+                  <Image source={{uri:"http://isis.unice.fr/~ey001600/ext/icons/logout.png"}} style={{width:30,height:30,marginLeft:'25%'}}/>
                 </TouchableOpacity>
               </View>
               <View style={styles.personalInfo}>
@@ -72,13 +48,12 @@ export function ProfileScreen({navigation}){
                 <Text style={styles.averageText}>{userInfo.option1}</Text>
               </View>
               <View style={{alignItems:'center', marginBottom:10}}>
-                <TouchableOpacity style={styles.button} onPress={openImagePickerAsync}>
+                <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate('Modifier le profil')}>
                   <Text style={styles.buttonText}>Modifier le profil</Text>
                 </TouchableOpacity>
               </View>
           </View>
           <View style={styles.detailsProfile}>
-
           </View>
         </ScrollView>
     </View> 
