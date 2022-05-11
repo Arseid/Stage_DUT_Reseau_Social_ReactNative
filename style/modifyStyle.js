@@ -64,11 +64,11 @@ export default StyleSheet.create({
   },
 
   leftSide:{
-      width:'20%'
+      width:'30%'
   },
 
   inputPronouns:{
-    width:'100%',
+    width:'68%',
     marginLeft:5,
     borderLeftWidth:1,
     borderLeftColor:'#808080',
@@ -82,7 +82,7 @@ export default StyleSheet.create({
   },
 
   inputBio:{
-    width:'75%',
+    width:'68%',
     marginLeft:5,
     borderLeftWidth:1,
     borderLeftColor:'#808080',
