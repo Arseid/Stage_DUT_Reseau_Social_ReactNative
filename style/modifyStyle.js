@@ -42,9 +42,9 @@ export default StyleSheet.create({
 
   personalInfoChange:{
     alignItems:'flex-start',
-    marginTop:5,
-    marginLeft:40,
-    marginRight:40,
+    marginTop:'5%',
+    marginLeft:'10%',
+    marginRight:'10%',
     borderWidth:1,
     borderColor:'#808080'
   },
@@ -87,6 +87,11 @@ export default StyleSheet.create({
     borderLeftWidth:1,
     borderLeftColor:'#808080',
     paddingLeft:5
+  },
+
+  changeView:{
+    alignItems:'center',
+    marginTop:'5%'
   },
 
   button:{

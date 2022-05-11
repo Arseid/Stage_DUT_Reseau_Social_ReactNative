@@ -101,7 +101,7 @@ export function ModifyProfileScreen({navigation}){
                     <TextInput style={styles.inputBio} multiline={true}></TextInput>
                 </View>
               </View>
-              <View style={{alignItems:'center',marginTop:'5%'}}>
+              <View style={styles.changeView}>
                 <TouchableOpacity style={styles.button}>
                     <Text style={styles.buttonText}>Changer</Text>
                 </TouchableOpacity>
