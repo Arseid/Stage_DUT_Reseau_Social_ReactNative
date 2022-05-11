@@ -92,13 +92,23 @@ export function ModifyProfileScreen({navigation}){
                     <View style={styles.leftSide}>
                         <Text style={styles.averageTextChange}>Pronoms </Text>
                     </View>
-                    <TextInput style={styles.inputPronouns}></TextInput>
+                    <TextInput 
+                        style={styles.inputPronouns}
+                        placeholderTextColor='#808080'
+                        placeholder='Pronoms pour vous identifier...'
+                    />
                 </View>
                 <View style={styles.bioField}>
                     <View style={styles.leftSide}>
                         <Text style={styles.averageTextChange}>Bio </Text>
                     </View>
-                    <TextInput style={styles.inputBio} multiline={true}></TextInput>
+                    <TextInput 
+                        style={styles.inputBio} 
+                        multiline={true} 
+                        maxLength={200} 
+                        placeholderTextColor='#808080'
+                        placeholder='Bio de 200 caractères maximum...'
+                    />
                 </View>
               </View>
               <View style={styles.changeView}>
