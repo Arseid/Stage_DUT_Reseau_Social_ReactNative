@@ -1,24 +1,17 @@
 import React,{useReducer,useState,useContext,useEffect} from 'react';
-import {Text, Image, View,ScrollView, TouchableOpacity, Button } from 'react-native';
+import {Text, Image, View,ScrollView, TouchableOpacity,TouchableWithoutFeedback,TextInput,Keyboard } from 'react-native';
 import { AuthContext } from '../context/AuthContext';
 import styles from '../style/profileStyle';
 import Spinner from 'react-native-loading-spinner-overlay/lib';
 
 export function ProfileScreen({navigation}){
 
-  const {userInfo,isLoading,logout,retrievedInfo,retrieveUserProfileInfo,modifyProfilePicture,showUserProfiles,showProfiles} = useContext(AuthContext);
+  const {userInfo,isLoading,logout,retrievedInfo,retrieveUserProfileInfo,showUserProfiles,showProfiles} = useContext(AuthContext);
 
   useEffect(()=>{retrieveUserProfileInfo(userInfo.email)},[retrievedInfo]);
 
   useEffect(()=>{showUserProfiles(userInfo.email)},[showProfiles]);
 
-  const handleGoHome = () => {
-    navigation.navigate('Home');
-  }
-
-  const handleGoSearch = () => {
-    navigation.navigate('Search');
-  }
 
   return(
     <View style={styles.container}>
@@ -43,8 +36,8 @@ export function ProfileScreen({navigation}){
                 </TouchableOpacity>
               </View>
               <View style={styles.personalInfo}>
-                <Text style={{fontSize:25, marginBottom:5}}>{userInfo.surname} {userInfo.forename} ({userInfo.gender})</Text>
-                <Text style={styles.averageText}>{userInfo.type} | {userInfo.option1}</Text>
+                <Text style={{fontSize:25, marginBottom:5}}>{userInfo.surname} {userInfo.forename}{userInfo.gender ? " ("+userInfo.gender+")" : ""}</Text>
+                <Text style={styles.averageText}>{userInfo.type} {userInfo.option1 ? " | "+userInfo.option1 : ""}</Text>
               </View>
               <View style={{alignItems:'center', marginBottom:10}}>
                 <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate('Modifier le profil')}>
@@ -53,6 +46,14 @@ export function ProfileScreen({navigation}){
               </View>
           </View>
           <View style={styles.detailsProfile}>
+            <View style={styles.bio}>
+              <Text style={styles.subtitle}>Bio</Text>
+              <Text style={styles.bodyText}>{userInfo.description}</Text>
+            </View>
+            <View style={styles.hobbys}>
+              <Text style={styles.subtitle}>Centre d'intérêt</Text>
+              <Text style={styles.bodyText}>Informatique, Physique-Chimie, Mathématiques,  Manga, Anime, Jeux-Vidéo</Text>
+            </View>
           </View>
         </ScrollView>
     </View> 

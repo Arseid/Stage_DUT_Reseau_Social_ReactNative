@@ -36,6 +36,7 @@
         $backgroundProfilePicture = $row[4];
         $followers = $row[5];
         $following = $row[6];
+        $interest = $row[7];
     }
     else{
         $Message="not found";
@@ -55,6 +56,7 @@
         "BackgroundPicture"=>$backgroundProfilePicture,
         "Followers"=>$followers,
         "Following"=>$following,
+        "Interest"=>$interest,
     );
 
     echo json_encode($Response);

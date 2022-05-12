@@ -188,6 +188,7 @@ export const AuthProvider = ({children}) => {
                 profileData.backgroundPicture=response[0].BackgroundPicture;
                 profileData.followers=response[0].Followers;
                 profileData.following=response[0].Following;
+                profileData.interest=response[0].Interest;
 
                 console.log(response[0].Message);
                 console.log(profileData);

@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-export default StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#eeeeee',
@@ -20,6 +20,7 @@ export default StyleSheet.create({
   },
 
   detailsProfile:{
+    marginTop:15,
     borderColor:"#FFFAF0",
     backgroundColor:"#FFFAF0",
     borderRadius: 10,
@@ -49,6 +50,15 @@ export default StyleSheet.create({
     borderColor:'#808080'
   },
 
+  hobbys:{
+    alignItems:'flex-start',
+    marginTop:'5%',
+    marginLeft:'10%',
+    marginRight:'10%',
+    borderWidth:1,
+    borderColor:'#808080'
+  },
+
   averageTextChange:{
     fontSize: 15,
     marginBottom:5,
@@ -64,7 +74,7 @@ export default StyleSheet.create({
   },
 
   leftSide:{
-      width:'30%'
+    width:'30%'
   },
 
   inputPronouns:{
@@ -91,7 +101,8 @@ export default StyleSheet.create({
 
   changeView:{
     alignItems:'center',
-    marginTop:'5%'
+    marginTop:'5%',
+    marginBottom:10
   },
 
   button:{
@@ -116,6 +127,12 @@ export default StyleSheet.create({
   backgroundPicture:{
     width:'100%',
     height:120,
-  }
+  },
+
+  subtitle:{
+    fontSize:20,
+  },
 
 });
+
+export {styles};

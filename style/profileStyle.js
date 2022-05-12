@@ -20,6 +20,9 @@ export default StyleSheet.create({
   },
 
   detailsProfile:{
+    flex:2,
+    marginTop:15,
+    padding:10,
     borderColor:"#FFFAF0",
     backgroundColor:"#FFFAF0",
     borderRadius: 10,
@@ -69,6 +72,31 @@ export default StyleSheet.create({
   backgroundPicture:{
     width:'100%',
     height:120,
+  },
+
+  bio:{
+    marginLeft:30,
+    marginRight:30,
+    paddingBottom:10,
+    borderBottomColor:'#808080',
+    borderBottomWidth:1
+  },
+
+  hobbys:{
+    marginTop:10,
+    marginLeft:30,
+    marginRight:30,
+    paddingBottom:10,
+    borderBottomColor:'#808080',
+    borderBottomWidth:1
+  },
+
+  subtitle:{
+    fontSize:20,
+  },
+
+  bodyText:{
+    fontSize:15,
   }
 
 });
