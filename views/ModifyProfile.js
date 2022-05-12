@@ -1,5 +1,5 @@
 import React,{useState,useContext} from 'react';
-import {Text, Image, View, Keyboard, TouchableOpacity,TextInput,ScrollView,KeyboardAvoidingView } from 'react-native';
+import {Text, Image, View, Keyboard, TouchableOpacity,TextInput,ScrollView} from 'react-native';
 import { AuthContext } from '../context/AuthContext';
 import styles from '../style/modifyStyle';
 import Spinner from 'react-native-loading-spinner-overlay/lib';
