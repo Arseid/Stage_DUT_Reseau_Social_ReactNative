@@ -116,7 +116,7 @@ export const AuthProvider = ({children}) => {
 
     }
 
-    const modify = (forename,surname,email) => {
+    const modify = (pronouns,bio,email) => {
 
         setIsLoading(true);
 
@@ -128,8 +128,8 @@ export const AuthProvider = ({children}) => {
         };
 
         var modifyData={
-            forename:forename,
-            surname:surname,
+            pronouns:pronouns,
+            bio:bio,
             email:email
         };
 
@@ -142,6 +142,8 @@ export const AuthProvider = ({children}) => {
             .then((response)=>response.json())
             .then((response)=>
             {
+                console.log(response[0].Message);
+                setRetrievedInfo(retrievedInfo+1);
                 setIsLoading(false);
             })
             .catch((e)=>{

@@ -1,5 +1,5 @@
 import React,{useState,useContext} from 'react';
-import {Text, Image, View, Keyboard, TouchableOpacity,TextInput } from 'react-native';
+import {Text, Image, View, Keyboard, TouchableOpacity,TextInput,ScrollView,KeyboardAvoidingView } from 'react-native';
 import { AuthContext } from '../context/AuthContext';
 import styles from '../style/modifyStyle';
 import Spinner from 'react-native-loading-spinner-overlay/lib';
@@ -8,19 +8,13 @@ import * as ImagePicker from 'expo-image-picker';
 export function ModifyProfileScreen({navigation}){
 
     const {userInfo,isLoading,modify,modifyProfilePicture,backgroundPicture} = useContext(AuthContext);
-    const [forename, setForename] = useState('');
-    const [surname, setSurname] = useState('');
+    const [pronouns, setPronouns] = useState(userInfo.gender);
+    const [bio, setBio] = useState(userInfo.description);
 
     const handleModification = () =>{
-
-        if (forename.length==0 && surname.length==0) alert('fill pls');
-        else{
-            if (forename.length==0) setForename(userInfo.forename);
-            if (surname.length==0) setSurname(userInfo.surname);
-            modify(forename,surname,userInfo.email);
-            Keyboard.dismiss();
-            navigation.goBack();
-        }   
+        modify(pronouns,bio,userInfo.email);
+        Keyboard.dismiss();
+        navigation.goBack();
     }
 
     let changePP = async () => {
@@ -71,52 +65,58 @@ export function ModifyProfileScreen({navigation}){
 
     return(
         <View style={styles.container}>
-        <Spinner visible={isLoading}/>
-          <View style={styles.focusProfile}>
-              <TouchableOpacity onPress={changeBackgroundPicture}>
-                <Image source={{uri:userInfo.backgroundPicture}} style={styles.backgroundPicture}/>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={changePP}>
-                <View style={styles.viewPP}>
-                    <Image source={{uri:userInfo.pp}} style={styles.image}/>
-                </View>
-              </TouchableOpacity>
-              <View style={styles.personalInfo}>
-                <Text style={{fontSize:25, marginBottom:5}}>{userInfo.surname} {userInfo.forename}</Text>
-                <Text style={styles.averageText}>{userInfo.type}</Text>
-                <Text style={styles.averageText}>{userInfo.option1}</Text>
-              </View>
-
-              <View style={styles.personalInfoChange}>
-                <View style={styles.genderField}>
-                    <View style={styles.leftSide}>
-                        <Text style={styles.averageTextChange}>Pronoms </Text>
-                    </View>
-                    <TextInput 
-                        style={styles.inputPronouns}
-                        placeholderTextColor='#808080'
-                        placeholder='Pronoms pour vous identifier...'
-                    />
-                </View>
-                <View style={styles.bioField}>
-                    <View style={styles.leftSide}>
-                        <Text style={styles.averageTextChange}>Bio </Text>
-                    </View>
-                    <TextInput 
-                        style={styles.inputBio} 
-                        multiline={true} 
-                        maxLength={200} 
-                        placeholderTextColor='#808080'
-                        placeholder='Bio de 200 caractères maximum...'
-                    />
-                </View>
-              </View>
-              <View style={styles.changeView}>
-                <TouchableOpacity style={styles.button}>
-                    <Text style={styles.buttonText}>Changer</Text>
+            <Spinner visible={isLoading}/>
+            <ScrollView>
+            <View style={styles.focusProfile}>
+                <TouchableOpacity onPress={changeBackgroundPicture}>
+                    <Image source={{uri:userInfo.backgroundPicture}} style={styles.backgroundPicture}/>
                 </TouchableOpacity>
+                <TouchableOpacity onPress={changePP}>
+                    <View style={styles.viewPP}>
+                        <Image source={{uri:userInfo.pp}} style={styles.image}/>
+                    </View>
+                </TouchableOpacity>
+                <View style={styles.personalInfo}>
+                    <Text style={{fontSize:25, marginBottom:5}}>{userInfo.surname} {userInfo.forename}</Text>
+                    <Text style={styles.averageText}>{userInfo.type}</Text>
+                    <Text style={styles.averageText}>{userInfo.option1}</Text>
+                </View>
+
+                <View style={styles.personalInfoChange}>
+                    <View style={styles.genderField}>
+                        <View style={styles.leftSide}>
+                            <Text style={styles.averageTextChange}>Pronoms </Text>
+                        </View>
+                        <TextInput 
+                            style={styles.inputPronouns}
+                            placeholderTextColor='#808080'
+                            placeholder='Genre ou Pronoms à utiliser...'
+                            value={pronouns}
+                            onChangeText={text => setPronouns(text)}
+                        />
+                    </View>
+                    <View style={styles.bioField}>
+                        <View style={styles.leftSide}>
+                            <Text style={styles.averageTextChange}>Bio </Text>
+                        </View>
+                        <TextInput 
+                            style={styles.inputBio} 
+                            multiline={true} 
+                            maxLength={200} 
+                            placeholderTextColor='#808080'
+                            placeholder='Bio de 200 caractères maximum...'
+                            value={bio}
+                            onChangeText={text => setBio(text)}
+                        />
+                    </View>
+                </View>
+                <View style={styles.changeView}>
+                    <TouchableOpacity style={styles.button} onPress={handleModification}>
+                        <Text style={styles.buttonText}>Changer</Text>
+                    </TouchableOpacity>
               </View>
-          </View>
+            </View>
+            </ScrollView>
         </View> 
     );
 }

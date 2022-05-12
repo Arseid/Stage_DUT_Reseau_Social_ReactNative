@@ -43,9 +43,8 @@ export function ProfileScreen({navigation}){
                 </TouchableOpacity>
               </View>
               <View style={styles.personalInfo}>
-                <Text style={{fontSize:25, marginBottom:5}}>{userInfo.surname} {userInfo.forename}</Text>
-                <Text style={styles.averageText}>{userInfo.type}</Text>
-                <Text style={styles.averageText}>{userInfo.option1}</Text>
+                <Text style={{fontSize:25, marginBottom:5}}>{userInfo.surname} {userInfo.forename} ({userInfo.gender})</Text>
+                <Text style={styles.averageText}>{userInfo.type} | {userInfo.option1}</Text>
               </View>
               <View style={{alignItems:'center', marginBottom:10}}>
                 <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate('Modifier le profil')}>
