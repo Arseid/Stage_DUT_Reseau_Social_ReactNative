@@ -9,7 +9,7 @@
 
     $email = $DecodedData['email'];
 
-    $SR="SELECT * from users WHERE email!='$email' ORDER BY RAND() LIMIT 4";
+    $SR="SELECT * from users WHERE email!='$email' ORDER BY RAND() LIMIT 6";
     $SQ=mysqli_query($ConnectDB,$SR);
     $rows=mysqli_fetch_all($SQ);
 

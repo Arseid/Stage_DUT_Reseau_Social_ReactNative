@@ -1,4 +1,4 @@
-import React, {useState,useContext} from 'react';
+import React, {useEffect,useState,useContext} from 'react';
 import Spinner from 'react-native-loading-spinner-overlay/lib';
 import {Text, TextInput, View, TouchableOpacity, FlatList, Button } from 'react-native';
 import { AuthContext } from '../context/AuthContext';
@@ -7,7 +7,11 @@ import * as ImagePicker from 'expo-image-picker';
 
 function HomeScreen({navigations}){
 
-    const {isLoading,userProfilesInfo,logout,refresh,userInfo,followUser,post,test} = useContext(AuthContext);
+    const {isLoading,showUserProfiles,retrieveUserProfileInfo,refresh,userInfo,followUser,post,test,retrievedInfo,showProfiles} = useContext(AuthContext);
+
+    useEffect(()=>{retrieveUserProfileInfo(userInfo.email)},[retrievedInfo]);
+    useEffect(()=>{showUserProfiles(userInfo.email)},[showProfiles]);
+
     const [body, setBody] = useState ('');
     let chosenFile={};
 

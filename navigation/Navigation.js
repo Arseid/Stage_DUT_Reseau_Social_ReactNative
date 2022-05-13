@@ -5,11 +5,13 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {RegisterScreen} from '../views/Register';
 import { AuthContext } from '../context/AuthContext';
-import { ModifyProfileScreen } from '../views/ModifyProfile';
 import SearchScreen from '../views/Search';
 import HomeScreen from '../views/Home';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 
 const Navigation = () => {
     
@@ -17,16 +19,35 @@ const Navigation = () => {
 
     return (
         <NavigationContainer>
-            <Stack.Navigator>
                 {isLoggedIn ? (
                     <>
-                    <Stack.Screen name="Profile" component={ProfileScreen} options={{headerShown: false}}/>
-                    <Stack.Screen name="Modifier le profil" component={ModifyProfileScreen} options={{headerStyle:{backgroundColor:'#FFFAF0'}}} />
-                    <Stack.Screen name="Search" component={SearchScreen} options={{headerShown: false}}/>
-                    <Stack.Screen name="Home" component={HomeScreen} options={{headerShown: false}}/>
+                    <Tab.Navigator
+                        screenOptions={({ route }) => ({
+                            tabBarIcon: ({ focused, color, size }) => {
+                                let iconName;
+                                if (route.name === 'Home') {
+                                    iconName = 'home-outline';
+                                } else if (route.name === 'Profile') {
+                                    iconName = 'ellipse-outline';
+                                }
+                                else if (route.name === 'Search') {
+                                    iconName = 'search-outline';
+                                }
+                                return <Ionicons name={iconName} size={size} color={color} />;
+                            },
+                            tabBarStyle: {
+                                backgroundColor: '#FFFAF0',
+                            },
+                        })}
+                    >
+                    <Tab.Screen name="Home" component={HomeScreen} options={{headerShown: false}}/>
+                    <Tab.Screen name="Search" component={SearchScreen} options={{headerShown: false}}/>
+                    <Tab.Screen name="Profile" component={ProfileScreen} options={{headerShown: false}}/>
+                    </Tab.Navigator>
                     </>
                 ) : (
                     <>
+                        <Stack.Navigator>
                         <Stack.Screen 
                             name="Login" 
                             component={LoginScreen}
@@ -37,9 +58,9 @@ const Navigation = () => {
                             component={RegisterScreen}
                             options={{headerShown: false}} 
                         />
+                        </Stack.Navigator>
                     </>
                 )}    
-            </Stack.Navigator>
         </NavigationContainer>
     );
 };

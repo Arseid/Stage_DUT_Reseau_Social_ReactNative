@@ -13,7 +13,6 @@ const styles = StyleSheet.create({
   },
 
   focusProfile:{
-    flex:4,
     borderColor:"#FFFAF0",
     backgroundColor:"#FFFAF0",
     borderRadius: 10,
@@ -63,6 +62,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     marginBottom:5,
     textAlign:"center",
+    alignContent:'center'
   },
 
   genderField:{
@@ -100,13 +100,15 @@ const styles = StyleSheet.create({
   },
 
   changeView:{
+    flexDirection:'row',
     alignItems:'center',
     marginTop:'5%',
-    marginBottom:10
+    marginBottom:10,
+    marginLeft:'12%'
   },
 
   button:{
-    width:'80%',
+    width:'40%',
     borderRadius: 4,
     backgroundColor: '#ffaf7a',
     padding:5,
@@ -127,6 +129,8 @@ const styles = StyleSheet.create({
   backgroundPicture:{
     width:'100%',
     height:120,
+    borderTopLeftRadius:10,
+    borderTopRightRadius:10
   },
 
   subtitle:{
