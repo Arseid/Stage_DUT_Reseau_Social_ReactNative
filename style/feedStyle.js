@@ -73,7 +73,7 @@ export default StyleSheet.create({
       margin:5,
       marginHorizontal:105,
       left:55,
-      bottom:80
+      bottom:60
     },
   
     averageText:{
