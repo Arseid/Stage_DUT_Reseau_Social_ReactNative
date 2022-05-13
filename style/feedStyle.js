@@ -30,11 +30,12 @@ export default StyleSheet.create({
       backgroundColor:"#FFFAF0",
       borderWidth:5,
       borderRadius: 10,
-      marginTop:35,
-      marginHorizontal:40,
+      marginTop:'10%',
+      marginHorizontal:'43%',
       borderColor:'#d2b48c',
       borderWidth:1,
-      height:80
+      height:50,
+      right:'35%'
     },
   
     subscription:{
@@ -50,10 +51,10 @@ export default StyleSheet.create({
     title:{
       textAlign: 'center', 
       fontSize: 30,
-      marginBottom:8,
+      
       fontFamily:'serif',
       marginRight:30,
-      top:'22%'
+      left:'5%',
     },
   
     infoInput:{

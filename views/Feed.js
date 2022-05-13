@@ -5,6 +5,7 @@ import { AuthContext } from '../context/AuthContext';
 import Spinner from 'react-native-loading-spinner-overlay/lib';
 import { Icon } from 'react-native-elements'
 import { IconButton } from 'react-native-paper';
+import { Ionicons } from '@expo/vector-icons'; 
 
 export function FeedScreen({navigation}){
 
@@ -23,10 +24,11 @@ export function FeedScreen({navigation}){
 
     <View style={styles.container}>
       <Spinner visible={isLoading}/>
-      <View style={styles.form2}>
-      <Text style={styles.title}>MyTrainee</Text>
-      <IconButton icon='plus-box-outline' size={35} style={{left:'75%', bottom:'50%'}}  onPress={() => (console.log('lessgo'))} />
+      <View style={styles.form2}><Ionicons name="add-outline" size={50} color="black" style={{alignSelf:'center', left:'2%', bottom:'4%'}}  onPress={() => (console.log('lessgo'))} /></View>
+      <View>
+      <Text style={styles.title}>Lorem Ipsum</Text>
       </View>
+      
       <View style={styles.upside}>
 
         <ScrollView style={styles.form} alwaysBounceHorizontal={false}>
