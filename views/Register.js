@@ -79,6 +79,7 @@ export function RegisterScreen(){
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
   const [items, setItems] = useState([
+    {label: 'Carnot', value: 'Carnot'},
     {label: 'Jules-Verne', value: 'Jules-Verne'},
     {label: 'Malraux', value: 'Malraux'},
     {label: 'International', value: 'International'},

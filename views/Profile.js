@@ -13,13 +13,15 @@ export function ProfileScreen({navigation}){
         style={{
           borderBottomColor: 'red',
           borderBottomWidth: 6,
-          marginTop: 80,
+          top:'35%',
+          position:'absolute',
+          zIndex:1,
           borderRadius: 7,
           width: 415
         }} ></View><View style={styles.container}>
           <View style={styles.border}>
-            <IconButton icon='border-color' size={35} iconStyle={{ color: 'black' }} containerStyle={{ left: 300, top: 110 }} onPress={() => navigation.navigate('ModifyProfile')} />
-            <Icon name='menu' size={40} iconStyle={{ color: 'black' }} containerStyle={{ left: 300, top: 120 }} />
+            <IconButton icon='border-color' size={35}  containerStyle={{ left: '90%', top: 110 }} onPress={() => navigation.navigate('ModifyProfile')} />
+            <Icon name='menu' size={40} iconStyle={{ color: 'black' }} containerStyle={{ left: '10%', top: 120 }} />
           </View>
           <View style={styles.upside}>
             <Icon name='circle' size={100} iconStyle={{ color: 'white' }} containerStyle={{ right: 130, marginTop: 0 }} />
@@ -34,13 +36,7 @@ export function ProfileScreen({navigation}){
 
           </View>
 
-          <View style={styles.downside}>
-            <Icon name='home' size={50} iconStyle={{ right: 160 }} />
-            <Icon name='search' size={50} iconStyle={{ right: 80 }} containerStyle={{ bottom: 50 }} />
-            <Icon name='notifications' size={50} iconStyle={{}} containerStyle={{ bottom: 100 }} />
-            <Icon name='chat' size={50} iconStyle={{ left: 80 }} containerStyle={{ bottom: 150 }} />
-            <Icon name='circle' size={50} iconStyle={{ left: 160, color: 'grey' }} containerStyle={{ bottom: 200 }} />
-          </View>
+         
         </View>
         </View>
     );

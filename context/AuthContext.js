@@ -93,6 +93,7 @@ export const AuthProvider = ({children}) => {
                         setUserInfo(loginData);
                         AsyncStorageLib.setItem('userInfo',JSON.stringify(userInfo));
                     }
+                    else alert('RECOMMENCE T NUL');
                 })
                 .catch((e)=>{
                     console.log("Error"+e);
