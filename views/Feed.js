@@ -36,7 +36,7 @@ export function FeedScreen({navigation}){
         <Text style={{alignSelf:'flex-end'}}>Voici une liste de personnes que vous pourriez suivre :</Text>
         <View style={{ flex: 1, borderWidth: 1, borderColor: 'lightgrey', flexDirection:'column', marginVertical:10}}/>
         <View style={{ flex: 2, borderWidth: 2, borderColor: '#d2b48c', borderRadius:10, height:120, marginBottom:10 }}>
-        <Image name='circle'  style={{width: 80, height: 80,left:'15%', top:'15%', borderRadius:100 }} source={{  uri: 'https://reactnative.dev/img/tiny_logo.png'}} />
+        <Image name='circle'  style={{width: 80, height: 80,left:'12%', top:'15%', borderRadius:100 }} source={{  uri: 'https://reactnative.dev/img/tiny_logo.png'}} />
         <Text style={{alignSelf: 'flex-end',bottom:60, marginRight:'15%',  fontSize:20}}>Prénom Nom</Text>
         <TouchableOpacity style={styles.button}  onPress={() => cpt++ &&(console.log(cpt))}  >
            
@@ -44,7 +44,7 @@ export function FeedScreen({navigation}){
          </TouchableOpacity>
          </View>
          <View style={{ flex: 2, borderWidth: 2, borderColor: '#d2b48c', borderRadius:10, height:120, marginBottom:10 }}>
-         <Image name='circle'  style={{width: 80, height: 80,left:'15%', top:'15%', borderRadius:100 }} source={{  uri: 'https://reactnative.dev/img/tiny_logo.png'}} />
+         <Image name='circle'  style={{width: 80, height: 80,left:'12%', top:'15%', borderRadius:100 }} source={{  uri: 'https://reactnative.dev/img/tiny_logo.png'}} />
         <Text style={{alignSelf: 'flex-end',bottom:60, marginRight:'15%',  fontSize:20}}>Prénom Nom</Text>
         <TouchableOpacity style={styles.button}  onPress={() => cpt++ &&(console.log(cpt))} >
            
@@ -52,7 +52,7 @@ export function FeedScreen({navigation}){
          </TouchableOpacity>
          </View>
          <View style={{ flex: 2, borderWidth: 2, borderColor: '#d2b48c', borderRadius:10, height:120, marginBottom:10 }}>
-         <Image name='circle'  style={{width: 80, height: 80,left:'15%', top:'15%', borderRadius:100 }} source={{  uri: 'https://reactnative.dev/img/tiny_logo.png'}} />
+         <Image name='circle'  style={{width: 80, height: 80,left:'12%', top:'15%', borderRadius:100 }} source={{  uri: 'https://reactnative.dev/img/tiny_logo.png'}} />
         <Text style={{alignSelf: 'flex-end',bottom:60, marginRight:'15%',  fontSize:20}}>Prénom Nom</Text>
         <TouchableOpacity style={styles.button}  onPress={() => cpt++ &&(console.log(cpt))} >
            
@@ -60,7 +60,7 @@ export function FeedScreen({navigation}){
          </TouchableOpacity>
          </View>
          <View style={{ flex: 2, borderWidth: 2, borderColor: '#d2b48c', borderRadius:10, height:120, marginBottom:10 }}>
-         <Image name='circle'  style={{width: 80, height: 80,left:'15%', top:'15%', borderRadius:100 }} source={{  uri: 'https://reactnative.dev/img/tiny_logo.png'}} />
+         <Image name='circle'  style={{width: 80, height: 80,left:'12%', top:'15%', borderRadius:100 }} source={{  uri: 'https://reactnative.dev/img/tiny_logo.png'}} />
         <Text style={{alignSelf: 'flex-end',bottom:60, marginRight:'15%',  fontSize:20}}>Prénom Nom</Text>
         <TouchableOpacity style={styles.button}  onPress={() => cpt++ &&(console.log(cpt))}>
            
@@ -68,7 +68,7 @@ export function FeedScreen({navigation}){
          </TouchableOpacity>
          </View>
          <View style={{ flex: 2, borderWidth: 2, borderColor: '#d2b48c', borderRadius:10, height:120, marginBottom:10 }}>
-         <Image name='circle'  style={{width: 80, height: 80,left:'15%', top:'15%', borderRadius:100 }} source={{  uri: 'https://reactnative.dev/img/tiny_logo.png'}} />
+         <Image name='circle'  style={{width: 80, height: 80,left:'12%', top:'15%', borderRadius:100 }} source={{  uri: 'https://reactnative.dev/img/tiny_logo.png'}} />
         <Text style={{alignSelf: 'flex-end',bottom:60, marginRight:'15%',  fontSize:20}}>Prénom Nom</Text>
         <TouchableOpacity style={styles.button}  onPress={() => cpt++ &&(console.log(cpt))}>
            
