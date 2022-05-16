@@ -15,7 +15,7 @@ export default StyleSheet.create({
     downside:{
       flex:1,
     },
-  
+
     form:{
       marginTop:40,
       borderColor:"#FFFAF0",
@@ -23,6 +23,19 @@ export default StyleSheet.create({
       borderWidth:5,
       borderRadius: 10,
       padding:10,
+      marginBottom:40,
+    },
+    form2:{
+      borderColor:"#FFFAF0",
+      backgroundColor:"#FFFAF0",
+      borderWidth:5,
+      borderRadius: 10,
+      marginTop:'10%',
+      marginHorizontal:'43%',
+      borderColor:'#d2b48c',
+      borderWidth:1,
+      height:50,
+      right:'35%'
     },
   
     subscription:{
@@ -38,7 +51,10 @@ export default StyleSheet.create({
     title:{
       textAlign: 'center', 
       fontSize: 30,
-      marginBottom:25,
+      
+      fontFamily:'serif',
+      marginRight:30,
+      left:'5%',
     },
   
     infoInput:{
@@ -54,7 +70,10 @@ export default StyleSheet.create({
       borderRadius: 4,
       backgroundColor: '#ffaf7a',
       padding:5,
-      margin:5
+      margin:5,
+      marginHorizontal:105,
+      left:55,
+      bottom:60
     },
   
     averageText:{

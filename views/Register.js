@@ -4,7 +4,6 @@ import React, {useState, useContext} from 'react'
 import { useNavigation } from '@react-navigation/native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { AuthContext } from '../context/AuthContext';
-import Spinner from 'react-native-loading-spinner-overlay/lib';
 import RadioForm from 'react-native-simple-radio-button';
 
 const PROP = [
@@ -79,24 +78,25 @@ export function RegisterScreen(){
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
   const [items, setItems] = useState([
-    {label: 'Jules-Verne', value: 'Jules-Verne'},
-    {label: 'Malraux', value: 'Malraux'},
-    {label: 'International', value: 'International'},
-    {label: 'Notre-Dame de la Tramontane', value: 'Notre-Dame de la Tramontane'},
-    {label: 'Saint Barthélemy', value: 'Saint Barthélemy'},
-    {label: 'Mont Saint Jean', value: 'Mont Saint Jean'},
-    {label: 'Nazareth', value: 'Nazareth'},
-    {label: 'Blanche de Castille', value: 'Blanche de Castille'},
-    {label: 'Baous', value: 'Baous'},
-    {label: 'Niki de Saint Phalle', value: 'Niki de Saint Phalle'},
-    {label: 'Fénélon', value: 'Fénélon'},
-    {label: 'Sasserno', value: 'Sasserno'},
-    {label: 'Sainte-Marie', value: 'Sainte-Marie'},
-    {label: 'Albert Camus', value: 'Albert Camus'},
-    {label: 'Or Torah', value: 'Or Torah'},
-    {label: 'Saint Philippe Néri', value: 'Saint Philippe Néri'},
-    {label: 'Kerem Menahem', value: 'Kerem Menahem'},
-    {label: 'Colombier Sainte Thérèse', value: 'Colombier Sainte Thérèse'}
+    {label: 'Collège Carnot (Grasse)', value: 'Collège Carnot (Grasse)'},
+    {label: 'Collège Jules-Verne (Cagnes sur Mer)', value: 'Collège Jules-Verne (Cagnes sur Mer)'},
+    {label: 'Collège Malraux (Cagnes sur Mer)', value: 'Collège Malraux (Cagnes sur Mer)'},
+    {label: 'Collège International (Sophia Antipolis)', value: 'Collège International (Sophia Antipolis)'},
+    {label: 'Collège Notre-Dame de la Tramontane (Antibes)', value: 'Collège Notre-Dame de la Tramontane (Antibes)'},
+    {label: 'Collège Saint Barthélemy (Nice)', value: 'Collège Saint Barthélemy (Nice)'},
+    {label: 'Collège Mont Saint Jean (Antibes)', value: 'Collège Mont Saint Jean (Antibes)'},
+    {label: 'Collège Nazareth (Nice)', value: 'Collège Nazareth (Nice)'},
+    {label: 'Collège Blanche de Castille (Nice)', value: 'Collège Blanche de Castille (Nice)'},
+    {label: 'Collège Baous (Saint Jeannet)', value: 'Collège Baous (Saint Jeannet)'},
+    {label: 'Collège Niki de Saint Phalle (Valbonne)', value: 'Collège Niki de Saint Phalle (Valbonne)'},
+    {label: 'Collège Fénelon (Grasse)', value: 'Collège Fénelon (Grasse)'},
+    {label: 'Collège Sasserno (Nice)', value: 'Collège Sasserno (Nice)'},
+    {label: 'Collège Sainte-Marie (Cannes)', value: 'Collège Sainte-Marie (Cannes)'},
+    {label: 'Collège Albert Camus (Mandelieu)', value: 'Collège Albert Camus (Mandelieu)'},
+    {label: 'Collège Or Torah (Nice)', value: 'Collège Or Torah (Nice)'},
+    {label: 'Collège Saint Philippe Néri (Antibes)', value: 'Collège Saint Philippe Néri (Antibes)'},
+    {label: 'Collège Kerem Menahem (Nice)', value: 'Collège Kerem Menahem (Nice)'},
+    {label: 'Collège Colombier Sainte Thérèse (Nice)', value: 'Collège Colombier Sainte Thérèse (Nice)'}
   ]);
 
   const [items2, setItems2] = useState([
@@ -143,7 +143,6 @@ export function RegisterScreen(){
 
   return(
       <View style={styles.container}>
-      <Spinner visible={isLoading}/>
 
       <View style={styles.upside}>
         <View style={styles.form}>
@@ -181,11 +180,11 @@ export function RegisterScreen(){
     { (identificationDone == true) &&
     <KeyboardAvoidingView behavior="padding">
       <Text style={styles.subtitle}>Créer un compte {selectedUserType}</Text>
-      <TextInput style={styles.infoInput} placeholder="Prénom" autoCapitalize='sentences' value={forename} onChangeText={text => setForename(text)}/>
-      <TextInput style={styles.infoInput} placeholder="Nom de famille" autoCapitalize='sentences' value={surname} onChangeText={text => setSurname(text)}/>
-      <TextInput style={styles.infoInput} placeholder="Entrez une adresse e-mail" autoCapitalize='none' value={email} onChangeText={text => setEmail(text)}/>
-      <TextInput style={styles.infoInput} placeholder="Entrez un mot de passe" secureTextEntry autoCapitalize='none' value={pwd} onChangeText={text => setPwd(text)}/>
-      <TextInput style={styles.infoInput} placeholder="Confirmez votre mot de passe" secureTextEntry autoCapitalize='none' value={checkPwd} onChangeText={text => setCheckPwd(text)}/>
+      <TextInput style={styles.infoInput} placeholderTextColor={'#808080'} placeholder="Prénom" autoCapitalize='sentences' value={forename} onChangeText={text => setForename(text)}/>
+      <TextInput style={styles.infoInput} placeholderTextColor={'#808080'} placeholder="Nom de famille" autoCapitalize='sentences' value={surname} onChangeText={text => setSurname(text)}/>
+      <TextInput style={styles.infoInput} placeholderTextColor={'#808080'} placeholder="Entrez une adresse e-mail" autoCapitalize='none' value={email} onChangeText={text => setEmail(text)}/>
+      <TextInput style={styles.infoInput} placeholderTextColor={'#808080'} placeholder="Entrez un mot de passe" secureTextEntry autoCapitalize='none' value={pwd} onChangeText={text => setPwd(text)}/>
+      <TextInput style={styles.infoInput} placeholderTextColor={'#808080'} placeholder="Confirmez votre mot de passe" secureTextEntry autoCapitalize='none' value={checkPwd} onChangeText={text => setCheckPwd(text)}/>
 
       { selectedUserType == 'Elève' && 
       <>
@@ -252,6 +251,7 @@ export function RegisterScreen(){
       />
       <TextInput
         style={styles.infoInputOptionTeacher}
+        placeholderTextColor={'#808080'}
         placeholder="Chef d'établissement"
         value={option2} 
         onChangeText={text => setOption2(text)}
@@ -283,6 +283,7 @@ export function RegisterScreen(){
       />
       <TextInput
         style={styles.infoInputOptionCompany}
+        placeholderTextColor={'#808080'}
         placeholder="Nom d'entreprise" 
         value={option1} 
         onChangeText={text => setOption1(text)}

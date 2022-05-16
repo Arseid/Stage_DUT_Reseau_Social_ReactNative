@@ -2,7 +2,6 @@ import React, {useState,useContext} from 'react';
 import {Text, TextInput, View, TouchableOpacity, Keyboard } from 'react-native';
 import styles from '../style/loginStyle';
 import { AuthContext } from '../context/AuthContext';
-import Spinner from 'react-native-loading-spinner-overlay/lib';
 
 export function LoginScreen({navigation}){
 
@@ -18,15 +17,14 @@ export function LoginScreen({navigation}){
   return (
 
     <View style={styles.container}>
-      <Spinner visible={isLoading}/>
 
       <View style={styles.upside}>
 
         <View style={styles.form}>
           <Text style={styles.title}>Lorem Ipsum</Text>
 
-          <TextInput style={styles.infoInput} placeholder="Email" value={email} onChangeText={text => setEmail(text)}/>
-          <TextInput style={styles.infoInput} placeholder="Mot de passe" secureTextEntry value={pwd} onChangeText={text => setPwd(text)}/>
+          <TextInput style={styles.infoInput} placeholderTextColor={'#808080'} placeholder="Email" value={email} onChangeText={text => setEmail(text)}/>
+          <TextInput style={styles.infoInput} placeholderTextColor={'#808080'} placeholder="Mot de passe" secureTextEntry value={pwd} onChangeText={text => setPwd(text)}/>
           <TouchableOpacity style={styles.button} onPress={handleLogin}>
             <Text style={styles.averageText}>Se connecter</Text>
           </TouchableOpacity>

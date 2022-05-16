@@ -7,15 +7,19 @@
     $EncodedData=file_get_contents('php://input');
     $DecodedData=json_decode($EncodedData,true);
 
-    $forename=$DecodedData['forename'];
-    $surname=$DecodedData['surname'];
+    $pronouns=$DecodedData['pronouns'];
+    $bio=$DecodedData['bio'];
     $email=$DecodedData['email'];
 
-    $MQ="UPDATE users SET forename = '$forename', surname = '$surname' WHERE users.email = '$email'";
+    $SR="SELECT * from users WHERE email LIKE '$email'";
+    $SQ=mysqli_query($ConnectDB,$SR);
+    $row = mysqli_fetch_row($SQ);
+    $user_id=$row[0];
 
-    $MR=mysqli_query($ConnectDB,$MQ);
+    $MR="UPDATE profile SET gender = '$pronouns', description = '$bio' WHERE profile.user_id = '$user_id'";
+    $MQ=mysqli_query($ConnectDB,$MR);
 
-    if ($MR){
+    if ($MQ){
         $Message="user successfully modified";
     }
     else{

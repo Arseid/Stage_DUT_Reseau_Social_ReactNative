@@ -15,7 +15,7 @@
     $count=mysqli_num_rows($R);
 
     if ($count>0){
-        $Message="found";
+        $Message="User Info :";
         //Retrieve all info in user
         $row = mysqli_fetch_row($R);
         $user_id=$row[0];
@@ -33,8 +33,25 @@
         $gender = $row[1];
         $description = $row[2];
         $pp = $row[3];
-        $followers = $row[4];
-        $following = $row[5];
+        $backgroundProfilePicture = $row[4];
+
+        $followers = $row[5];
+        if(strlen($followers)==0){
+            $followersCounter=0;
+        } else {
+            $followersArray=explode(',',$followers);
+            $followersCounter=sizeof($followersArray);    
+        }
+
+        $following = $row[6];
+        if(strlen($following)==0){
+            $followingCounter=0;
+        } else {
+            $followingArray=explode(',',$following);
+            $followingCounter=sizeof($followingArray);
+        }
+
+        $interest = $row[7];
     }
     else{
         $Message="not found";
@@ -51,8 +68,12 @@
         "Gender"=>$gender,
         "Description"=>$description,
         "PP"=>$pp,
+        "BackgroundPicture"=>$backgroundProfilePicture,
         "Followers"=>$followers,
+        "FollowersCounter"=>$followersCounter,
         "Following"=>$following,
+        "FollowingCounter"=>$followingCounter,
+        "Interest"=>$interest,
     );
 
     echo json_encode($Response);
