@@ -34,8 +34,23 @@
         $description = $row[2];
         $pp = $row[3];
         $backgroundProfilePicture = $row[4];
+
         $followers = $row[5];
+        if(strlen($followers)==0){
+            $followersCounter=0;
+        } else {
+            $followersArray=explode(',',$followers);
+            $followersCounter=sizeof($followersArray);    
+        }
+
         $following = $row[6];
+        if(strlen($following)==0){
+            $followingCounter=0;
+        } else {
+            $followingArray=explode(',',$following);
+            $followingCounter=sizeof($followingArray);
+        }
+
         $interest = $row[7];
     }
     else{
@@ -55,7 +70,9 @@
         "PP"=>$pp,
         "BackgroundPicture"=>$backgroundProfilePicture,
         "Followers"=>$followers,
+        "FollowersCounter"=>$followersCounter,
         "Following"=>$following,
+        "FollowingCounter"=>$followingCounter,
         "Interest"=>$interest,
     );
 

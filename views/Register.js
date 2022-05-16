@@ -4,7 +4,6 @@ import React, {useState, useContext} from 'react'
 import { useNavigation } from '@react-navigation/native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { AuthContext } from '../context/AuthContext';
-import Spinner from 'react-native-loading-spinner-overlay/lib';
 import RadioForm from 'react-native-simple-radio-button';
 
 const PROP = [
@@ -144,7 +143,6 @@ export function RegisterScreen(){
 
   return(
       <View style={styles.container}>
-      <Spinner visible={isLoading}/>
 
       <View style={styles.upside}>
         <View style={styles.form}>

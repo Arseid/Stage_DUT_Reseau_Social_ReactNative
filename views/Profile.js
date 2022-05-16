@@ -3,16 +3,12 @@ import {Text, Image, View,ScrollView, TouchableOpacity,TouchableWithoutFeedback,
 import { AuthContext } from '../context/AuthContext';
 import styles from '../style/profileStyle';
 import * as Modify from '../style/modifyStyle';
-import Spinner from 'react-native-loading-spinner-overlay/lib';
 import { Overlay } from 'react-native-elements';
 import * as ImagePicker from 'expo-image-picker';
 
 export function ProfileScreen({navigation}){
 
-  const {userInfo,isLoading,logout,modify,modifyProfilePicture,backgroundPicture,retrieveUserProfileInfo,showUserProfiles,retrievedInfo,showProfiles,test} = useContext(AuthContext);
-
-  useEffect(()=>{retrieveUserProfileInfo(userInfo.email)},[retrievedInfo]);
-  useEffect(()=>{showUserProfiles(userInfo.email)},[showProfiles]);
+  const {userInfo,logout,modify,modifyProfilePicture,backgroundPicture,test} = useContext(AuthContext);
 
   const [visible, setVisible] = useState(false);
 
@@ -78,7 +74,6 @@ export function ProfileScreen({navigation}){
 
   return(
     <View style={styles.container}>
-      <Spinner visible={isLoading}/>
         <ScrollView>
           <View style={styles.focusProfile}>
               <Image source={{uri:userInfo.backgroundPicture}} style={styles.backgroundPicture}/>
@@ -88,11 +83,11 @@ export function ProfileScreen({navigation}){
               <View style={styles.otherInfo}>
                 <View>
                   <Text style={styles.averageText}>Abonnés</Text>
-                  <Text style={styles.averageText}>{userInfo.followers}</Text>
+                  <Text style={styles.averageText}>{userInfo.followersCounter}</Text>
                 </View>
                 <View style={{marginLeft:'5%'}}>
                   <Text style={styles.averageText}>Abonnements</Text>
-                  <Text style={styles.averageText}>{userInfo.following}</Text>
+                  <Text style={styles.averageText}>{userInfo.followingCounter}</Text>
                 </View>
                 <TouchableOpacity onPress={logout}>
                   <Image source={{uri:"http://isis.unice.fr/~ey001600/ext/icons/logout.png"}} style={{width:30,height:30,marginLeft:'25%'}}/>

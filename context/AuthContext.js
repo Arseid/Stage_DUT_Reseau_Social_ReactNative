@@ -65,8 +65,6 @@ export const AuthProvider = ({children}) => {
             alert("FILL PLS")
         }
         else {
-            setIsLoading(true);
-
             var APIURL=`${BASE_URL}/login.php`;
 
             var loginHeaders={
@@ -91,12 +89,14 @@ export const AuthProvider = ({children}) => {
                     setUserInfo(loginData);
                     console.log(userInfo);
                     AsyncStorageLib.setItem('userInfo',JSON.stringify(userInfo));
-                    setIsLoading(false);
                     console.log(response[0].Message);
                     if (response[0].Message=='found'){
+                        setIsLoading(true);
                         setIsLoggedIn(true);
+                        setIsLoading(false);
                     }
                     else alert('INCORRECT');
+                    
                 })
                 .catch((e)=>{
                     console.log("Error"+e);
@@ -106,20 +106,14 @@ export const AuthProvider = ({children}) => {
     }
 
     const logout = () =>{
-        setIsLoading(true);
         AsyncStorageLib.removeItem('userInfo');
         setUserInfo({});
         setUserProfilesInfo({});
         console.log('user logged out successfully')
         setIsLoggedIn(false);
-        setIsLoading(false);
-
     }
 
     const modify = (pronouns,bio,email) => {
-
-        setIsLoading(true);
-
         var APIURL=`${BASE_URL}/modify.php`;
 
         var modifyHeaders={
@@ -144,17 +138,13 @@ export const AuthProvider = ({children}) => {
             {
                 console.log(response[0].Message);
                 setRetrievedInfo(retrievedInfo+1);
-                setIsLoading(false);
             })
             .catch((e)=>{
                 console.log("Error"+e);
-                setIsLoading(false);
             })
-        
     }
 
     const retrieveUserProfileInfo = (email) => {
-        setIsLoading(true);
 
         var APIURL=`${BASE_URL}/userProfile.php`;
 
@@ -187,24 +177,22 @@ export const AuthProvider = ({children}) => {
                 profileData.pp=response[0].PP;
                 profileData.backgroundPicture=response[0].BackgroundPicture;
                 profileData.followers=response[0].Followers;
+                profileData.followersCounter=response[0].FollowersCounter;
                 profileData.following=response[0].Following;
+                profileData.followingCounter=response[0].FollowingCounter;
                 profileData.interest=response[0].Interest;
 
                 console.log(response[0].Message);
                 console.log(profileData);
                 setUserInfo(profileData);
                 AsyncStorageLib.setItem('userInfo',JSON.stringify(userInfo));
-                setIsLoading(false);
             })
             .catch((e)=>{
                 console.log("Error"+e);
-                setIsLoading(false);
             })
     }
 
     const modifyProfilePicture = (pickerResult,email,date) =>{
-        setIsLoading(true);
-
         var APIURL=`${BASE_URL}/profilePicture.php`;
 
         let data = {
@@ -229,12 +217,10 @@ export const AuthProvider = ({children}) => {
         })
         .catch((e)=>{
             console.log("Error"+e);
-            setIsLoading(false);
         })
     }
 
     const backgroundPicture = (pickerResult,email,date) =>{
-        setIsLoading(true);
 
         var APIURL=`${BASE_URL}/backgroundPicture.php`;
 
@@ -256,11 +242,9 @@ export const AuthProvider = ({children}) => {
         .then((response) => {
             console.log(response);
             setRetrievedInfo(retrievedInfo+1);
-            setIsLoading(false);
         })
         .catch((e)=>{
             console.log("Error"+e);
-            setIsLoading(false);
         })
     }
 
@@ -285,11 +269,9 @@ export const AuthProvider = ({children}) => {
             console.log(response);
             setUserProfilesInfo(response);
             AsyncStorageLib.setItem('userProfilesInfo',JSON.stringify(userProfilesInfo));
-            setIsLoading(false);
         })
         .catch((e)=>{
             console.log("Error"+e);
-            setIsLoading(false);
         })
     }
 
@@ -312,13 +294,11 @@ export const AuthProvider = ({children}) => {
         fetch(APIURL, data)
         .then((response) => response.json())
         .then((response) => {
+            retrieveUserProfileInfo(userInfo.email);
             console.log(response);
-            setRetrievedInfo(retrievedInfo+1);
-            setIsLoading(false);
         })
         .catch((e)=>{
             console.log("Error"+e);
-            setIsLoading(false);
         })
     }
 
@@ -348,11 +328,9 @@ export const AuthProvider = ({children}) => {
         .then((response) => response.json())
         .then((response) => {
             console.log(response);
-            setIsLoading(false);
         })
         .catch((e)=>{
             console.log("Error"+e);
-            setIsLoading(false);
         })
     }
 

@@ -2,7 +2,6 @@ import React, {useState,useContext} from 'react';
 import {Text, TextInput, View, TouchableOpacity, Keyboard } from 'react-native';
 import styles from '../style/loginStyle';
 import { AuthContext } from '../context/AuthContext';
-import Spinner from 'react-native-loading-spinner-overlay/lib';
 
 export function LoginScreen({navigation}){
 
@@ -18,7 +17,6 @@ export function LoginScreen({navigation}){
   return (
 
     <View style={styles.container}>
-      <Spinner visible={isLoading}/>
 
       <View style={styles.upside}>
 

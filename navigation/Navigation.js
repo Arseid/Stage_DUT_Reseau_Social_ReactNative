@@ -9,17 +9,26 @@ import SearchScreen from '../views/Search';
 import HomeScreen from '../views/Home';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { LoadingScreen } from '../views/Loading';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const Navigation = () => {
     
-    const {isLoggedIn} = useContext(AuthContext);
+    const {isLoggedIn,isLoading} = useContext(AuthContext);
 
     return (
         <NavigationContainer>
-                {isLoggedIn ? (
+            {isLoading ? (
+                <>
+                <Stack.Navigator>
+                    <Tab.Screen name="Loading" component={LoadingScreen} options={{headerShown: false}}/>
+                </Stack.Navigator>
+                </>
+            ): (
+                <>
+                    {isLoggedIn ? (
                     <>
                     <Tab.Navigator
                         screenOptions={({ route }) => ({
@@ -44,22 +53,27 @@ const Navigation = () => {
                     <Tab.Screen name="Home" component={HomeScreen} options={{headerShown: false}}/>
                     </Tab.Navigator>
                     </>
-                ) : (
-                    <>
-                        <Stack.Navigator>
-                        <Stack.Screen 
-                            name="Login" 
-                            component={LoginScreen}
-                            options={{headerShown: false}}
-                        />
-                        <Stack.Screen 
-                            name="Register" 
-                            component={RegisterScreen}
-                            options={{headerShown: false}} 
-                        />
-                        </Stack.Navigator>
-                    </>
-                )}    
+                    ) : (
+                        <>
+                            <Stack.Navigator>
+                            <Stack.Screen 
+                                name="Login" 
+                                component={LoginScreen}
+                                options={{headerShown: false}}
+                            />
+                            <Stack.Screen 
+                                name="Register" 
+                                component={RegisterScreen}
+                                options={{headerShown: false}} 
+                            />
+                            </Stack.Navigator>
+                        </>
+                    )}    
+                </>
+            )}
+            
+            
+                
         </NavigationContainer>
     );
 };

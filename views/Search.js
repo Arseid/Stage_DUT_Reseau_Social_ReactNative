@@ -1,5 +1,4 @@
 import React, {useEffect,useContext} from 'react';
-import Spinner from 'react-native-loading-spinner-overlay/lib';
 import {Text, Image, View, TouchableOpacity, ScrollView, Button } from 'react-native';
 import { AuthContext } from '../context/AuthContext';
 import styles from '../style/searchStyle';
@@ -7,12 +6,11 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 function SearchScreen({navigations}){
 
-    const {isLoading,userProfilesInfo} = useContext(AuthContext);
+    const {userProfilesInfo} = useContext(AuthContext);
 
     return (
 
         <View style={styles.container}>
-          <Spinner visible={isLoading}/>
           <View style={styles.form2}><Ionicons name="add-outline" size={50} color="black" style={{alignSelf:'center', left:'2%', bottom:'4%'}}  onPress={() => (console.log('lessgo'))} /></View>
           <View>
           <Text style={styles.title}>Lorem Ipsum</Text>
