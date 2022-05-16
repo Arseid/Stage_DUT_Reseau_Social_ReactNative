@@ -40,9 +40,8 @@ const Navigation = () => {
                             },
                         })}
                     >
-                    <Tab.Screen name="Home" component={HomeScreen} options={{headerShown: false}}/>
-                    <Tab.Screen name="Search" component={SearchScreen} options={{headerShown: false}}/>
                     <Tab.Screen name="Profile" component={ProfileScreen} options={{headerShown: false}}/>
+                    <Tab.Screen name="Home" component={HomeScreen} options={{headerShown: false}}/>
                     </Tab.Navigator>
                     </>
                 ) : (

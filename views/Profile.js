@@ -9,7 +9,10 @@ import * as ImagePicker from 'expo-image-picker';
 
 export function ProfileScreen({navigation}){
 
-  const {userInfo,isLoading,logout,modify,modifyProfilePicture,backgroundPicture} = useContext(AuthContext);
+  const {userInfo,isLoading,logout,modify,modifyProfilePicture,backgroundPicture,retrieveUserProfileInfo,showUserProfiles,retrievedInfo,showProfiles,test} = useContext(AuthContext);
+
+  useEffect(()=>{retrieveUserProfileInfo(userInfo.email)},[retrievedInfo]);
+  useEffect(()=>{showUserProfiles(userInfo.email)},[showProfiles]);
 
   const [visible, setVisible] = useState(false);
 
@@ -31,22 +34,22 @@ export function ProfileScreen({navigation}){
     let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
     if (permissionResult.granted === false) {
-        alert("Permission to access camera roll is required!");
-        return;
+      alert("Permission to access camera roll is required!");
+      return;
     }
 
     let pickerResult = await ImagePicker.launchImageLibraryAsync({
-        base64:true,
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        allowsEditing: true,
-        aspect: [5, 5],
-        quality: 1,
+      base64:true,
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [5, 5],
+      quality: 1,
     });
     pickerResult.fileName='pp'+userInfo.forename+userInfo.surname+'.jpg';
 
     if (!pickerResult.cancelled){
-        let date=new Date();
-        modifyProfilePicture(pickerResult,userInfo.email,date);
+      let date=new Date();
+      modifyProfilePicture(pickerResult,userInfo.email,date);
     }
   };
 
@@ -54,22 +57,22 @@ export function ProfileScreen({navigation}){
     let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
     if (permissionResult.granted === false) {
-        alert("Permission to access camera roll is required!");
-        return;
+      alert("Permission to access camera roll is required!");
+      return;
     }
 
     let pickerResult = await ImagePicker.launchImageLibraryAsync({
-        base64:true,
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        allowsEditing: true,
-        aspect: [6, 3],
-        quality: 1,
+      base64:true,
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [6, 3],
+      quality: 1,
     });
     pickerResult.fileName='pp'+userInfo.forename+userInfo.surname+'.jpg';
 
     if (!pickerResult.cancelled){
-        let date=new Date();
-        backgroundPicture(pickerResult,userInfo.email,date);
+      let date=new Date();
+      backgroundPicture(pickerResult,userInfo.email,date);
     }
   };
 
@@ -102,6 +105,11 @@ export function ProfileScreen({navigation}){
               <View style={{alignItems:'center', marginBottom:10}}>
                 <TouchableOpacity style={styles.button} onPress={toggleOverlay}>
                   <Text style={styles.buttonText}>Modifier le profil</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={{alignItems:'center', marginBottom:10}}>
+                <TouchableOpacity style={styles.button} onPress={()=>test(userInfo.email)}>
+                  <Text style={styles.buttonText}>Test</Text>
                 </TouchableOpacity>
               </View>
           </View>

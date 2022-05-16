@@ -30,11 +30,12 @@ export default StyleSheet.create({
       backgroundColor:"#FFFAF0",
       borderWidth:5,
       borderRadius: 10,
-      marginTop:50,
-      marginHorizontal:40,
+      marginTop:'10%',
+      marginHorizontal:'43%',
       borderColor:'#d2b48c',
       borderWidth:1,
-      height:80
+      height:50,
+      right:'35%'
     },
   
     subscription:{
@@ -50,10 +51,10 @@ export default StyleSheet.create({
     title:{
       textAlign: 'center', 
       fontSize: 30,
-      marginBottom:8,
+      
       fontFamily:'serif',
       marginRight:30,
-      top:'22%'
+      left:'5%',
     },
   
     infoInput:{
@@ -72,7 +73,7 @@ export default StyleSheet.create({
       margin:5,
       marginHorizontal:105,
       left:55,
-      bottom:80
+      bottom:60
     },
   
     averageText:{
@@ -87,4 +88,4 @@ export default StyleSheet.create({
       margin:5,
       color:"#315399",
     }
-});
+  });

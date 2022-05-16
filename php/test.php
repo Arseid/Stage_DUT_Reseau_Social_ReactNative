@@ -9,8 +9,25 @@
 
     $email=$DecodedData['email'];
 
-    $IR="INSERT INTO test(list_follow) values('{"testKey": "testValue"}')";
-    $IQ=mysqli_query($ConnectDB,$IR);
+    $testArray='1,2,3,4,5,6,7,8,9';
+    
+    //$IR="INSERT INTO test(list_follow) values('$testArray')";
+    //$IQ=mysqli_query($ConnectDB,$IR);
 
-    echo json_encode('Test Done');
+    //$MR="UPDATE test SET list_follow = '$array' WHERE test.user_id = 2";
+    //$MQ=mysqli_query($ConnectDB,$MR);
+
+    $SR="SELECT list_follow from test WHERE test_id='4'";
+    $SQ=mysqli_query($ConnectDB,$SR);
+    $row = mysqli_fetch_row($SQ);
+
+    $array=explode(',',$row[0]);
+    $toEcho=0;
+
+    for ($i=0;$i<sizeof($array);$i++){
+        $toEcho=$array[$i];
+    }   
+
+    echo json_encode($array);
+    //echo json_encode('done');
 ?>
