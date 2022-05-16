@@ -5,7 +5,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {RegisterScreen} from '../views/Register';
 import { AuthContext } from '../context/AuthContext';
-import SearchScreen from '../views/Search';
 import HomeScreen from '../views/Home';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';

@@ -54,8 +54,6 @@ const styles = StyleSheet.create({
     marginTop:'5%',
     marginLeft:'10%',
     marginRight:'10%',
-    borderWidth:1,
-    borderColor:'#808080'
   },
 
   averageTextChange:{
