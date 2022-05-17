@@ -9,7 +9,7 @@ import { CheckBox } from 'react-native-elements'
 
 export function ProfileScreen({navigation}){
 
-  const {userInfo,logout,modify,modifyProfilePicture,backgroundPicture} = useContext(AuthContext);
+  const {userInfo,logout,modify,modifyProfilePicture,backgroundPicture,test} = useContext(AuthContext);
 
   const [visible, setVisible] = useState(false);
 
