@@ -37,6 +37,18 @@ export default StyleSheet.create({
       height:50,
       right:'35%'
     },
+
+    
+    form3:{
+      marginTop:40,
+      borderColor:"#FFFAF0",
+      backgroundColor:"#FFFAF0",
+      borderWidth:5,
+      borderRadius: 10,
+      padding:10,
+      marginBottom:40,
+      width:'80%'
+    },
   
     subscription:{
       marginTop:15,

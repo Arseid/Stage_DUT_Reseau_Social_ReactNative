@@ -6,10 +6,11 @@ import Spinner from 'react-native-loading-spinner-overlay/lib';
 
 export function LoadingScreen({navigation}){
 
-    const {userInfo,retrieveUserProfileInfo,showUserProfiles,retrievedInfo,showProfiles} = useContext(AuthContext);
+    const {userInfo,retrieveUserProfileInfo,showUserProfiles,getListFollowersFollowing} = useContext(AuthContext);
 
-    useEffect(()=>{retrieveUserProfileInfo(userInfo.email)},[retrievedInfo]);
-    useEffect(()=>{showUserProfiles(userInfo.email)},[showProfiles]);
+    retrieveUserProfileInfo(userInfo.email);
+    showUserProfiles(userInfo.email);
+    getListFollowersFollowing(userInfo.email);
 
     return (
         <View style={styles.container}>

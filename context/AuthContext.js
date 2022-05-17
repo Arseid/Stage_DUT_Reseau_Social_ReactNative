@@ -334,6 +334,32 @@ export const AuthProvider = ({children}) => {
         })
     }
 
+    let listFollowersFollowing;
+    const getListFollowersFollowing = (email) => {
+        var APIURL=`${BASE_URL}/followersFollowingList.php`;
+
+        let data={
+            method: 'POST',
+            body : JSON.stringify({
+                email:email,
+            }),
+            headers: {
+                'Accept':       'application/json',
+                'Content-Type': 'application/json',
+            }
+        }
+
+        fetch(APIURL, data)
+        .then((response) => response.json())
+        .then((response) => {
+            console.log(response);
+            listFollowersFollowing=response;
+        })
+        .catch((e)=>{
+            console.log("Error"+e);
+        })
+    }
+
     const test = (email) => {
         var APIURL=`${BASE_URL}/test.php`;
 
@@ -352,15 +378,16 @@ export const AuthProvider = ({children}) => {
         .then((response) => response.json())
         .then((response) => {
             console.log(response);
-            setIsLoading(false);
         })
         .catch((e)=>{
             console.log("Error"+e);
-            setIsLoading(false);
         })
     }
 
     return(
-    <AuthContext.Provider value={{isLoading,userInfo,userProfilesInfo,isLoggedIn,retrievedInfo,showProfiles,register,login,logout,modify,retrieveUserProfileInfo,modifyProfilePicture,backgroundPicture,showUserProfiles,followUser,refresh,post,test}}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{isLoading,userInfo,userProfilesInfo,isLoggedIn,retrievedInfo,showProfiles,listFollowersFollowing,
+        register,login,logout,modify,retrieveUserProfileInfo,modifyProfilePicture,backgroundPicture,showUserProfiles,followUser,refresh,post,getListFollowersFollowing,test}}>
+            {children}
+    </AuthContext.Provider>
     );
 };
