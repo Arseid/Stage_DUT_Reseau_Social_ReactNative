@@ -1,14 +1,14 @@
 {
   "expo": {
-    "name": "stage_DUT",
-    "slug": "stage_DUT",
+    "name": "testRadioButton",
+    "slug": "testRadioButton",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#000000"
+      "backgroundColor": "#ffffff"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
