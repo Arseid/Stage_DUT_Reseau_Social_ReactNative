@@ -97,6 +97,46 @@ export default StyleSheet.create({
 
   bodyText:{
     fontSize:15,
+  },
+  
+  noSubscribe:{
+    fontSize:15,
+    marginBottom:10,
+    textAlign:'center'
+  },
+
+  dataView:{
+    borderBottomColor:'#808080',
+    borderBottomWidth:1,
+    padding:10
+  },
+
+  dataAlignment:{
+    flexDirection:'row',
+    alignItems:'center'
+  },
+
+  imageData:{
+    borderRadius:100,
+    width:'15%',
+    height:'100%',
+    left:5
+  },
+
+  textData:{
+    left:25,
+    top:18,
+    fontSize:15,
+    height:60
+  },
+
+  buttonData:{
+    backgroundColor: '#ffaf7a',
+    borderRadius: 4,
+    padding:5,
+    position:'absolute',
+    left:'65%'
   }
+
 
 });

@@ -28,6 +28,7 @@
         $follower=array();
 
         $follower_id=$arrayFollowers[$i];
+        array_push($follower,$follower_id);
         $SR="SELECT * from users WHERE user_id='$follower_id'";
         $SQ=mysqli_query($ConnectDB,$SR);
         $row = mysqli_fetch_row($SQ);
@@ -50,6 +51,7 @@
         $following=array();
 
         $following_id=$arrayFollowing[$i];
+        array_push($following,$following_id);
         $SR="SELECT * from users WHERE user_id='$following_id'";
         $SQ=mysqli_query($ConnectDB,$SR);
         $row = mysqli_fetch_row($SQ);
@@ -65,9 +67,10 @@
         array_push($listFollowing,$following);
     }
 
-    $bothLists=array();
-    array_push($bothLists,$listFollowers);
-    array_push($bothLists,$listFollowing);
+    $Response[]=array(
+        "ListFollowing"=>$listFollowing,
+        "ListFollowers"=>$listFollowers,
+    );
 
-    echo json_encode($bothLists);
+    echo json_encode($Response);
 ?>

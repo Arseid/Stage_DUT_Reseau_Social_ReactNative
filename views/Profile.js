@@ -1,5 +1,5 @@
 import React,{useEffect,useState,useContext} from 'react';
-import {Text, Image, View,ScrollView, TouchableOpacity,TextInput,Keyboard } from 'react-native';
+import {Text, Image, View,ScrollView, TouchableOpacity,TextInput,Keyboard,FlatList } from 'react-native';
 import { AuthContext } from '../context/AuthContext';
 import styles from '../style/profileStyle';
 import * as Modify from '../style/modifyStyle';
@@ -9,13 +9,45 @@ import { CheckBox } from 'react-native-elements'
 
 export function ProfileScreen({navigation}){
 
-  const {userInfo,logout,modify,modifyProfilePicture,backgroundPicture,test} = useContext(AuthContext);
+  const {userInfo,logout,modify,modifyProfilePicture,backgroundPicture,listFollowersFollowing,test} = useContext(AuthContext);
 
   const [visible, setVisible] = useState(false);
+  const [followersVisible, setFollowersVisible] = useState(false);
+  const [followingVisible, setFollowingVisible] = useState(false);
 
   const toggleOverlay = () => {
     setVisible(!visible);
   };
+
+  const toggleFollowersOverlay = () => {
+    setFollowersVisible(!followersVisible);
+  };
+
+  const toggleFollowingOverlay = () => {
+    setFollowingVisible(!followingVisible);
+  };
+
+  let listFollowers=listFollowersFollowing.listFollowers;
+  let followersData=[];
+  for (let i=0;i<listFollowers.length;i++){
+    let follower = {};
+    follower.key=listFollowers[i][0];
+    follower.forename=listFollowers[i][1];
+    follower.surname=listFollowers[i][2];
+    follower.ppPath=listFollowers[i][3];
+    followersData.push(follower);
+  }
+
+  let listFollowing=listFollowersFollowing.listFollowing;
+  let followingData=[];
+  for (let i=0;i<listFollowing.length;i++){
+    let following = {};
+    following.key=listFollowing[i][0];
+    following.forename=listFollowing[i][1];
+    following.surname=listFollowing[i][2];
+    following.ppPath=listFollowing[i][3];
+    followingData.push(following);
+  }
 
   // Modification Part
   const [pronouns, setPronouns] = useState(userInfo.gender);
@@ -27,7 +59,8 @@ export function ProfileScreen({navigation}){
   const [trip,setTrip] = useState(false);
   const [draw,setDraw] = useState(false);
   const [foundInterest,setFoundInterest] = useState(false);
-  const interestList=[];
+  const [interest,setInterest] = useState({});
+  var interestList={};
 
   const handleModification = () =>{
     modify(pronouns,bio,userInfo.email);
@@ -35,35 +68,90 @@ export function ProfileScreen({navigation}){
     toggleOverlay();
   }
 
-  useEffect(() => {
-    if (interestList.includes('Jeux Vidéo')){
-      let index = interestList.indexOf('Jeux Vidéo');
-      interestList.splice(index,1);
+  const addVideoGames = () => {
+
+    if (videogames){
+      interestList.videogames=true;
     } else {
-      interestList.push('Jeux Vidéo');
-    }
-  }, [videogames])
-
-  const addInterest = (interest) => {
-    for (let i=0;i<interestList.length;i++){
-      if (interestList[i]==interest){
-        interestList.splice(i,1);
-        setFoundInterest(true);
-      } 
+      interestList.videogames=false;
     }
 
-    if (foundInterest===false){
-      interestList.push(interest);
-    }
+    console.log(interestList);
+  }
 
-    /*
-    if (interestList.includes(interest,0)){
-      let index = interestList.indexOf(interest);
-      interestList.splice(index,1);
+  const addMusic = () => {
+
+    if (music){
+      for (let i=0;i<interestList.length;i++){
+        if (interestList[i]==='Musique'){
+          interestList.splice(i,1);
+        } 
+      }
     } else {
-      interestList.push(interest);
+      interestList.push('Musique');
     }
-    */
+
+    console.log(interestList);
+  }
+
+  const addIT = () => {
+
+    if (it){
+      for (let i=0;i<interestList.length;i++){
+        if (interestList[i]==='Informatique'){
+          interestList.splice(i,1);
+        } 
+      }
+    } else {
+      interestList.push('Informatique');
+    }
+
+    console.log(interestList);
+  }
+
+  const addTrip = () => {
+
+    if (trip){
+      for (let i=0;i<interestList.length;i++){
+        if (interestList[i]==='Voyage'){
+          interestList.splice(i,1);
+        } 
+      }
+    } else {
+      interestList.push('Voyage');
+    }
+
+    console.log(interestList);
+  }
+
+  const addSport = () => {
+
+    if (sport){
+      for (let i=0;i<interestList.length;i++){
+        if (interestList[i]==='Sport'){
+          interestList.splice(i,1);
+        } 
+      }
+    } else {
+      interestList.push('Sport');
+    }
+
+    console.log(interestList);
+  }
+
+  const addDraw = () => {
+
+    if (draw){
+      for (let i=0;i<interestList.length;i++){
+        if (interestList[i]==='Dessiner'){
+          interestList.splice(i,1);
+        } 
+      }
+    } else {
+      interestList.push('Dessiner');
+    }
+
+    console.log(interestList);
   }
 
   let changePP = async () => {
@@ -122,12 +210,16 @@ export function ProfileScreen({navigation}){
               </View>
               <View style={styles.otherInfo}>
                 <View>
-                  <Text style={styles.averageText}>Abonnés</Text>
-                  <Text style={styles.averageText}>{userInfo.followersCounter}</Text>
+                  <TouchableOpacity onPress={toggleFollowersOverlay}>
+                    <Text style={styles.averageText}>Abonnés</Text>
+                    <Text style={styles.averageText}>{userInfo.followersCounter}</Text>
+                  </TouchableOpacity>
                 </View>
                 <View style={{marginLeft:'5%'}}>
-                  <Text style={styles.averageText}>Abonnements</Text>
-                  <Text style={styles.averageText}>{userInfo.followingCounter}</Text>
+                  <TouchableOpacity onPress={toggleFollowingOverlay}>
+                    <Text style={styles.averageText}>Abonnements</Text>
+                    <Text style={styles.averageText}>{userInfo.followingCounter}</Text>
+                  </TouchableOpacity>
                 </View>
                 <TouchableOpacity onPress={logout}>
                   <Image source={{uri:"http://isis.unice.fr/~ey001600/ext/icons/logout.png"}} style={{width:30,height:30,marginLeft:'25%'}}/>
@@ -140,6 +232,11 @@ export function ProfileScreen({navigation}){
               <View style={{alignItems:'center', marginBottom:10}}>
                 <TouchableOpacity style={styles.button} onPress={toggleOverlay}>
                   <Text style={styles.buttonText}>Modifier le profil</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={{alignItems:'center', marginBottom:10}}>
+                <TouchableOpacity style={styles.button} onPress={() => {console.log(followingData)}}>
+                  <Text style={styles.buttonText}>Test</Text>
                 </TouchableOpacity>
               </View>
           </View>
@@ -163,7 +260,7 @@ export function ProfileScreen({navigation}){
             </View>
           </>:<></>}
           <Overlay isVisible={visible} onBackdropPress={toggleOverlay} fullScreen overlayStyle={{backgroundColor: '#eeeeee',}}>
-            <View style={{marginTop:'1%'}}>
+            <View style={{marginTop:'5%'}}>
               <View style={Modify.styles.focusProfile}>
                 <TouchableOpacity onPress={changeBackgroundPicture}>
                   <Image source={{uri:userInfo.backgroundPicture}} style={Modify.styles.backgroundPicture}/>
@@ -198,19 +295,19 @@ export function ProfileScreen({navigation}){
                 {userInfo.type=='Eleve' &&
                   <>
                   <View style={Modify.styles.hobbys}>
-                  <Text style={Modify.styles.subtitle}>Centre d'intérêt...</Text>
-                  <View style={{flexDirection:'row', width:'100%'}}>
-                    <View>
-                      <CheckBox title='Jeux Vidéo' checked={videogames} onPress={() => {setVideogames(!videogames), console.log(interestList)}}/>
-                      <CheckBox title='Musique' checked={music} onPress={() => {setMusic(!music)}}/>
-                      <CheckBox title='Informatique' checked={it} onPress={() => {setIT(!it)}}/>
+                    <Text style={Modify.styles.subtitle}>Centre d'intérêt...</Text>
+                    <View style={{flexDirection:'row', width:'100%'}}>
+                      <View>
+                        <CheckBox title='Jeux Vidéo' checked={videogames} onPress={() => {addVideoGames(),setVideogames(!videogames)}}/>
+                        <CheckBox title='Musique' checked={music} onPress={() => {addMusic(),setMusic(!music)}}/>
+                        <CheckBox title='Informatique' checked={it} onPress={() => {addIT(),setIT(!it)}}/>
+                      </View>
+                      <View>
+                        <CheckBox title='Voyage' checked={trip} onPress={() => {addTrip(),setTrip(!trip)}}/>
+                        <CheckBox title='Dessiner' checked={draw} onPress={() => {addDraw(),setDraw(!draw)}}/>
+                        <CheckBox title='Sport' checked={sport} onPress={() => {addSport(),setSport(!sport)}}/>
+                      </View>
                     </View>
-                    <View>
-                      <CheckBox title='Voyage' checked={trip} onPress={() => {setTrip(!trip)}}/>
-                      <CheckBox title='Dessiner' checked={draw} onPress={() => {setDraw(!draw)}}/>
-                      <CheckBox title='Sport' checked={sport} onPress={() => {setSport(!sport)}}/>
-                    </View>
-                  </View>
                   </View>
                   </>
                 }
@@ -222,6 +319,72 @@ export function ProfileScreen({navigation}){
                     <Text style={Modify.styles.buttonText}>Enregistrer</Text>
                   </TouchableOpacity>
                 </View>
+              </View>
+            </View>
+          </Overlay>
+          <Overlay isVisible={followersVisible} onBackdropPress={toggleFollowersOverlay} fullScreen overlayStyle={{backgroundColor: '#eeeeee',}}>
+            <View style={{marginTop:'5%'}}>
+              {userInfo.followersCounter<1 && 
+                <>
+                  <Text style={styles.noSubscribe}>Vous avez 0 abonné</Text>
+                </>
+              }
+              {userInfo.followersCounter>=1 &&
+                <>
+                  <FlatList
+                    data={followersData} renderItem={({item}) => 
+                      <>
+                        <View style={styles.dataView}>
+                          <View style={styles.dataAlignment}>
+                            <Image source={{uri:item.ppPath}} style={styles.imageData}/>  
+                            <Text style={styles.textData}>{item.forename} {item.surname}</Text>
+                            <TouchableOpacity style={styles.buttonData}>
+                              <Text style={styles.buttonText}>Supprimer</Text>
+                            </TouchableOpacity>
+                          </View>
+                        </View>
+                      </>
+                    }
+                  /> 
+                </>
+              }
+                <View style={{alignItems:'center'}}>
+                  <TouchableOpacity style={styles.button} onPress={toggleFollowersOverlay}>
+                    <Text style={styles.buttonText}>Retour</Text>
+                  </TouchableOpacity>
+                </View>
+            </View>
+          </Overlay>
+          <Overlay isVisible={followingVisible} onBackdropPress={toggleFollowingOverlay} fullScreen overlayStyle={{backgroundColor: '#eeeeee',}}>
+            <View style={{marginTop:'5%'}}>
+              {userInfo.followingCounter<1 &&
+                <>
+                  <Text style={styles.noSubscribe}>Vous êtes abonné à aucun utilisateur</Text>
+                </>
+              }
+              {userInfo.followingCounter>=1 &&
+                <>
+                  <FlatList
+                    data={followingData} renderItem={({item}) => 
+                      <>
+                        <View style={styles.dataView}>
+                          <View style={styles.dataAlignment}>
+                            <Image source={{uri:item.ppPath}} style={styles.imageData}/>  
+                            <Text style={styles.textData}>{item.forename} {item.surname}</Text>
+                            <TouchableOpacity style={styles.buttonData}>
+                              <Text style={styles.buttonText}>Se désabonner</Text>
+                            </TouchableOpacity>
+                          </View>
+                        </View>
+                      </>
+                    }
+                  /> 
+                </>
+              }
+              <View style={{alignItems:'center'}}>
+                <TouchableOpacity style={styles.button} onPress={toggleFollowingOverlay}>
+                  <Text style={styles.buttonText}>Retour</Text>
+                </TouchableOpacity>
               </View>
             </View>
           </Overlay>

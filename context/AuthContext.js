@@ -8,6 +8,7 @@ export const AuthProvider = ({children}) => {
 
     const [userInfo,setUserInfo] = useState({});
     const [userProfilesInfo,setUserProfilesInfo] = useState({});
+    const [listFollowersFollowing,setListFollowersFollowing] = useState({});
     const [isLoading, setIsLoading] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [retrievedInfo,setRetrievedInfo] = useState(0);
@@ -334,7 +335,6 @@ export const AuthProvider = ({children}) => {
         })
     }
 
-    let listFollowersFollowing;
     const getListFollowersFollowing = (email) => {
         var APIURL=`${BASE_URL}/followersFollowingList.php`;
 
@@ -349,11 +349,15 @@ export const AuthProvider = ({children}) => {
             }
         }
 
+        let list={};
+
         fetch(APIURL, data)
         .then((response) => response.json())
         .then((response) => {
             console.log(response);
-            listFollowersFollowing=response;
+            list.listFollowers=response[0].ListFollowers;
+            list.listFollowing=response[0].ListFollowing;
+            setListFollowersFollowing(list);
         })
         .catch((e)=>{
             console.log("Error"+e);
