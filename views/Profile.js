@@ -5,11 +5,12 @@ import styles from '../style/profileStyle';
 import * as Modify from '../style/modifyStyle';
 import { Overlay } from 'react-native-elements';
 import * as ImagePicker from 'expo-image-picker';
-import { CheckBox } from 'react-native-elements'
+import { CheckBox } from 'react-native-elements';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 export function ProfileScreen({navigation}){
 
-  const {userInfo,logout,modify,modifyProfilePicture,backgroundPicture,listFollowersFollowing,test} = useContext(AuthContext);
+  const {userInfo,logout,modify,modifyProfilePicture,backgroundPicture,showUserProfiles,followersList,followingList} = useContext(AuthContext);
 
   const [visible, setVisible] = useState(false);
   const [followersVisible, setFollowersVisible] = useState(false);
@@ -26,28 +27,6 @@ export function ProfileScreen({navigation}){
   const toggleFollowingOverlay = () => {
     setFollowingVisible(!followingVisible);
   };
-
-  let listFollowers=listFollowersFollowing.listFollowers;
-  let followersData=[];
-  for (let i=0;i<listFollowers.length;i++){
-    let follower = {};
-    follower.key=listFollowers[i][0];
-    follower.forename=listFollowers[i][1];
-    follower.surname=listFollowers[i][2];
-    follower.ppPath=listFollowers[i][3];
-    followersData.push(follower);
-  }
-
-  let listFollowing=listFollowersFollowing.listFollowing;
-  let followingData=[];
-  for (let i=0;i<listFollowing.length;i++){
-    let following = {};
-    following.key=listFollowing[i][0];
-    following.forename=listFollowing[i][1];
-    following.surname=listFollowing[i][2];
-    following.ppPath=listFollowing[i][3];
-    followingData.push(following);
-  }
 
   // Modification Part
   const [pronouns, setPronouns] = useState(userInfo.gender);
@@ -202,6 +181,7 @@ export function ProfileScreen({navigation}){
 
   return(
     <View style={styles.container}>
+      <Spinner visible={false} textContent={'Loading...'} textStyle={{color: '#FFF'}}/>
         <ScrollView>
           <View style={styles.focusProfile}>
               <Image source={{uri:userInfo.backgroundPicture}} style={styles.backgroundPicture}/>
@@ -235,7 +215,7 @@ export function ProfileScreen({navigation}){
                 </TouchableOpacity>
               </View>
               <View style={{alignItems:'center', marginBottom:10}}>
-                <TouchableOpacity style={styles.button} onPress={() => {console.log(followingData)}}>
+                <TouchableOpacity style={styles.button} onPress={() => {showUserProfiles(userInfo.email)}}>
                   <Text style={styles.buttonText}>Test</Text>
                 </TouchableOpacity>
               </View>
@@ -332,7 +312,7 @@ export function ProfileScreen({navigation}){
               {userInfo.followersCounter>=1 &&
                 <>
                   <FlatList
-                    data={followersData} renderItem={({item}) => 
+                    data={followersList} renderItem={({item}) => 
                       <>
                         <View style={styles.dataView}>
                           <View style={styles.dataAlignment}>
@@ -365,7 +345,7 @@ export function ProfileScreen({navigation}){
               {userInfo.followingCounter>=1 &&
                 <>
                   <FlatList
-                    data={followingData} renderItem={({item}) => 
+                    data={followingList} renderItem={({item}) => 
                       <>
                         <View style={styles.dataView}>
                           <View style={styles.dataAlignment}>

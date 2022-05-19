@@ -8,12 +8,13 @@ export const AuthProvider = ({children}) => {
 
     const [userInfo,setUserInfo] = useState({});
     const [userProfilesInfo,setUserProfilesInfo] = useState({});
-    const [listFollowersFollowing,setListFollowersFollowing] = useState({});
     const [isLoading, setIsLoading] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [retrievedInfo,setRetrievedInfo] = useState(0);
     const [showProfiles,setShowprofiles] = useState(0);
-
+    const [followersList,setFollowersList] = useState([]);
+    const [followingList,setFollowingList] = useState([]);
+    
     const register = (forename,surname,email,pwd,type,option1,option2) => {
 
         setIsLoading(true);
@@ -269,7 +270,6 @@ export const AuthProvider = ({children}) => {
         .then((response) => {
             console.log(response);
             setUserProfilesInfo(response);
-            AsyncStorageLib.setItem('userProfilesInfo',JSON.stringify(userProfilesInfo));
         })
         .catch((e)=>{
             console.log("Error"+e);
@@ -296,6 +296,7 @@ export const AuthProvider = ({children}) => {
         .then((response) => response.json())
         .then((response) => {
             retrieveUserProfileInfo(userInfo.email);
+            getListFollowersFollowing(userInfo.email);
             console.log(response);
         })
         .catch((e)=>{
@@ -349,22 +350,45 @@ export const AuthProvider = ({children}) => {
             }
         }
 
-        let list={};
-
         fetch(APIURL, data)
         .then((response) => response.json())
         .then((response) => {
             console.log(response);
-            list.listFollowers=response[0].ListFollowers;
-            list.listFollowing=response[0].ListFollowing;
-            setListFollowersFollowing(list);
+
+            let listFollowers=response[0].ListFollowers;
+            let followersData=[];
+            
+            for (let i=0;i<listFollowers.length;i++){
+              let follower = {};
+              follower.key=listFollowers[i][0];
+              follower.forename=listFollowers[i][1];
+              follower.surname=listFollowers[i][2];
+              follower.ppPath=listFollowers[i][3];
+              followersData.push(follower);
+            }
+            setFollowersList(followersData);
+            
+            let listFollowing=response[0].ListFollowing;
+            let followingData=[]; 
+            
+            for (let i=0;i<listFollowing.length;i++){
+              let following = {};
+              following.key=listFollowing[i][0];
+              following.forename=listFollowing[i][1];
+              following.surname=listFollowing[i][2];
+              following.ppPath=listFollowing[i][3];
+              followingData.push(following);
+            }
+            setFollowingList(followingData);
         })
         .catch((e)=>{
             console.log("Error"+e);
         })
     }
 
-    const test = (email) => {
+    const test = () => {
+        setSpinnerLoading(!spinnerLoading);
+        /*
         var APIURL=`${BASE_URL}/test.php`;
 
         let data={
@@ -386,10 +410,11 @@ export const AuthProvider = ({children}) => {
         .catch((e)=>{
             console.log("Error"+e);
         })
+        */
     }
 
     return(
-    <AuthContext.Provider value={{isLoading,userInfo,userProfilesInfo,isLoggedIn,retrievedInfo,showProfiles,listFollowersFollowing,
+    <AuthContext.Provider value={{isLoading,userInfo,userProfilesInfo,isLoggedIn,retrievedInfo,showProfiles,followersList,followingList,
         register,login,logout,modify,retrieveUserProfileInfo,modifyProfilePicture,backgroundPicture,showUserProfiles,followUser,refresh,post,getListFollowersFollowing,test}}>
             {children}
     </AuthContext.Provider>
