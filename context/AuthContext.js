@@ -12,7 +12,10 @@ export const AuthProvider = ({children}) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [retrievedInfo,setRetrievedInfo] = useState(0);
     const [showProfiles,setShowprofiles] = useState(0);
-
+    const [randomProfiles,setRandomProfiles] = useState([]);
+    const [followersList,setFollowersList] = useState([]);
+    const [followingList,setFollowingList] = useState([]);
+    
     const register = (forename,surname,email,pwd,type,option1,option2) => {
 
         setIsLoading(true);
@@ -268,7 +271,20 @@ export const AuthProvider = ({children}) => {
         .then((response) => {
             console.log(response);
             setUserProfilesInfo(response);
-            AsyncStorageLib.setItem('userProfilesInfo',JSON.stringify(userProfilesInfo));
+            
+            let listRandomProfiles=response;
+            let randomProfilesData=[];
+            
+            for (let i=0;i<listRandomProfiles.length;i++){
+              let randomProfile = {};
+              randomProfile.key=listRandomProfiles[i][0];
+              randomProfile.forename=listRandomProfiles[i][1];
+              randomProfile.surname=listRandomProfiles[i][2];
+              randomProfile.email=listRandomProfiles[i][3];
+              randomProfile.ppPath=listRandomProfiles[i][8][3];
+              randomProfilesData.push(randomProfile);
+            }
+            setRandomProfiles(randomProfilesData);
         })
         .catch((e)=>{
             console.log("Error"+e);
@@ -295,6 +311,61 @@ export const AuthProvider = ({children}) => {
         .then((response) => response.json())
         .then((response) => {
             retrieveUserProfileInfo(userInfo.email);
+            getListFollowersFollowing(userInfo.email);
+            console.log(response);
+        })
+        .catch((e)=>{
+            console.log("Error"+e);
+        })
+    }
+
+    const unfollowUser = (email,targetEmail) => {
+        var APIURL=`${BASE_URL}/unfollow.php`;
+
+        let data={
+            method: 'POST',
+            body : JSON.stringify({
+                email:email,
+                targetEmail:targetEmail,
+            }),
+            headers: {
+                'Accept':       'application/json',
+                'Content-Type': 'application/json',
+            }
+        }
+
+        fetch(APIURL, data)
+        .then((response) => response.json())
+        .then((response) => {
+            retrieveUserProfileInfo(userInfo.email);
+            getListFollowersFollowing(userInfo.email);
+            console.log(response);
+        })
+        .catch((e)=>{
+            console.log("Error"+e);
+        })
+    }
+
+    const removeFollower = (email,targetEmail) => {
+        var APIURL=`${BASE_URL}/removeFollower.php`;
+
+        let data={
+            method: 'POST',
+            body : JSON.stringify({
+                email:email,
+                targetEmail:targetEmail,
+            }),
+            headers: {
+                'Accept':       'application/json',
+                'Content-Type': 'application/json',
+            }
+        }
+
+        fetch(APIURL, data)
+        .then((response) => response.json())
+        .then((response) => {
+            retrieveUserProfileInfo(userInfo.email);
+            getListFollowersFollowing(userInfo.email);
             console.log(response);
         })
         .catch((e)=>{
@@ -334,7 +405,6 @@ export const AuthProvider = ({children}) => {
         })
     }
 
-    let listFollowersFollowing;
     const getListFollowersFollowing = (email) => {
         var APIURL=`${BASE_URL}/followersFollowingList.php`;
 
@@ -353,14 +423,43 @@ export const AuthProvider = ({children}) => {
         .then((response) => response.json())
         .then((response) => {
             console.log(response);
-            listFollowersFollowing=response;
+
+            let listFollowers=response[0].ListFollowers;
+            let followersData=[];
+            
+            for (let i=0;i<listFollowers.length;i++){
+              let follower = {};
+              follower.key=listFollowers[i][0];
+              follower.forename=listFollowers[i][1];
+              follower.surname=listFollowers[i][2];
+              follower.email=listFollowers[i][3];
+              follower.ppPath=listFollowers[i][4];
+              followersData.push(follower);
+            }
+            setFollowersList(followersData);
+            
+            let listFollowing=response[0].ListFollowing;
+            let followingData=[]; 
+            
+            for (let i=0;i<listFollowing.length;i++){
+              let following = {};
+              following.key=listFollowing[i][0];
+              following.forename=listFollowing[i][1];
+              following.surname=listFollowing[i][2];
+              following.email=listFollowing[i][3];
+              following.ppPath=listFollowing[i][4];
+              followingData.push(following);
+            }
+            setFollowingList(followingData);
         })
         .catch((e)=>{
             console.log("Error"+e);
         })
     }
 
-    const test = (email) => {
+    const test = () => {
+        setSpinnerLoading(!spinnerLoading);
+        /*
         var APIURL=`${BASE_URL}/test.php`;
 
         let data={
@@ -382,11 +481,12 @@ export const AuthProvider = ({children}) => {
         .catch((e)=>{
             console.log("Error"+e);
         })
+        */
     }
 
     return(
-    <AuthContext.Provider value={{isLoading,userInfo,userProfilesInfo,isLoggedIn,retrievedInfo,showProfiles,listFollowersFollowing,
-        register,login,logout,modify,retrieveUserProfileInfo,modifyProfilePicture,backgroundPicture,showUserProfiles,followUser,refresh,post,getListFollowersFollowing,test}}>
+    <AuthContext.Provider value={{isLoading,userInfo,userProfilesInfo,isLoggedIn,retrievedInfo,showProfiles,followersList,followingList,randomProfiles,
+        register,login,logout,modify,retrieveUserProfileInfo,modifyProfilePicture,backgroundPicture,showUserProfiles,followUser,unfollowUser,removeFollower,refresh,post,getListFollowersFollowing,test}}>
             {children}
     </AuthContext.Provider>
     );

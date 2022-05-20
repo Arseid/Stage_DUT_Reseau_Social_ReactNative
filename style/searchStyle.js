@@ -88,6 +88,16 @@ export default StyleSheet.create({
       bottom:60
     },
   
+
+    buttonO:{
+      alignItems: 'center',
+      borderRadius: 4,
+      backgroundColor: '#ffaf7a',
+      padding:5,
+      margin:5,
+      marginHorizontal:'10%',
+      marginTop:'30%'
+    },
     averageText:{
       fontSize: 15,
       textAlign:"center",

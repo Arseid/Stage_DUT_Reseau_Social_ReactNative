@@ -1,5 +1,5 @@
 import React, {useEffect,useState,useContext} from 'react';
-import {Text, Image, View, TouchableOpacity, ScrollView,SafeAreaView } from 'react-native';
+import {Text, Image, View, TouchableOpacity, ScrollView,SafeAreaView,TextInput } from 'react-native';
 import { AuthContext } from '../context/AuthContext';
 import * as ImagePicker from 'expo-image-picker';
 import styles from '../style/searchStyle';
@@ -58,9 +58,14 @@ function HomeScreen({navigations}){
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.form2}>
-        <Ionicons name="add-outline" size={50} color="black" style={{alignSelf:'center', left:'2%', bottom:'4%'}} onPress={() => {(toggleOverlay);console.log("test")}} />
-        <Overlay isVisible={visible} onBackdropPress={toggleOverlay}>
-          <Text>Hello from Overlay!</Text>
+        <Ionicons name="add-outline" size={50} color="black" style={{alignSelf:'center', left:'2%', bottom:'4%'}} onPress={() => {toggleOverlay()}} />
+        <Overlay  isVisible={visible} onBackdropPress={toggleOverlay} fullScreen overlayStyle={{backgroundColor:'#FFFAF0', borderWidth:3, borderColor:'#d2b48c'}}>
+          <Ionicons name="close-outline" size={50} color="black" style={{alignSelf:'flex-start'}} onPress={() =>{toggleOverlay(null)} } />
+          <TextInput  style={{backgroundColor:'white', height:'40%', width:'80%', marginTop:'25%', borderRadius:10, padding:5}} fontSize={20} maxLength={200} multiline={true} alignSelf='center' numberOfLines={5} textAlignVertical='top' height={50} placeholder='Ecrivez quelque chose ici...'/>
+          <TouchableOpacity style={styles.buttonO}  >        
+            <Text style={styles.averageText}>Publier</Text>
+          </TouchableOpacity>
+          <Ionicons name="image-outline" size={50} color="black" style={{alignSelf:'flex-end',marginLeft:'15%', position:'absolute',top:'1%'}} />
         </Overlay>
       </View>
       <View>
