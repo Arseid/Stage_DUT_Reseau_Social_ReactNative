@@ -10,7 +10,7 @@ import Spinner from 'react-native-loading-spinner-overlay';
 
 export function ProfileScreen({navigation}){
 
-  const {userInfo,logout,modify,modifyProfilePicture,backgroundPicture,showUserProfiles,followersList,followingList} = useContext(AuthContext);
+  const {userInfo,logout,modify,modifyProfilePicture,backgroundPicture,showUserProfiles,followersList,followingList,unfollowUser,removeFollower} = useContext(AuthContext);
 
   const [visible, setVisible] = useState(false);
   const [followersVisible, setFollowersVisible] = useState(false);
@@ -46,90 +46,28 @@ export function ProfileScreen({navigation}){
     Keyboard.dismiss();
     toggleOverlay();
   }
-
+ 
   const addVideoGames = () => {
 
     if (videogames){
       interestList.videogames=true;
+      setInterest(interestList);
     } else {
       interestList.videogames=false;
+      setInterest(interestList);
     }
-
     console.log(interestList);
   }
 
   const addMusic = () => {
 
     if (music){
-      for (let i=0;i<interestList.length;i++){
-        if (interestList[i]==='Musique'){
-          interestList.splice(i,1);
-        } 
-      }
+      interestList.music=true;
+      setInterest(interestList);
     } else {
-      interestList.push('Musique');
+      interestList.music=false;
+      setInterest(interestList);
     }
-
-    console.log(interestList);
-  }
-
-  const addIT = () => {
-
-    if (it){
-      for (let i=0;i<interestList.length;i++){
-        if (interestList[i]==='Informatique'){
-          interestList.splice(i,1);
-        } 
-      }
-    } else {
-      interestList.push('Informatique');
-    }
-
-    console.log(interestList);
-  }
-
-  const addTrip = () => {
-
-    if (trip){
-      for (let i=0;i<interestList.length;i++){
-        if (interestList[i]==='Voyage'){
-          interestList.splice(i,1);
-        } 
-      }
-    } else {
-      interestList.push('Voyage');
-    }
-
-    console.log(interestList);
-  }
-
-  const addSport = () => {
-
-    if (sport){
-      for (let i=0;i<interestList.length;i++){
-        if (interestList[i]==='Sport'){
-          interestList.splice(i,1);
-        } 
-      }
-    } else {
-      interestList.push('Sport');
-    }
-
-    console.log(interestList);
-  }
-
-  const addDraw = () => {
-
-    if (draw){
-      for (let i=0;i<interestList.length;i++){
-        if (interestList[i]==='Dessiner'){
-          interestList.splice(i,1);
-        } 
-      }
-    } else {
-      interestList.push('Dessiner');
-    }
-
     console.log(interestList);
   }
 
@@ -215,7 +153,7 @@ export function ProfileScreen({navigation}){
                 </TouchableOpacity>
               </View>
               <View style={{alignItems:'center', marginBottom:10}}>
-                <TouchableOpacity style={styles.button} onPress={() => {showUserProfiles(userInfo.email)}}>
+                <TouchableOpacity style={styles.button} onPress={() => {console.log(interest)}}>
                   <Text style={styles.buttonText}>Test</Text>
                 </TouchableOpacity>
               </View>
@@ -251,7 +189,7 @@ export function ProfileScreen({navigation}){
                   </View>
                 </TouchableOpacity>
                 <View style={Modify.styles.personalInfo}>
-                  <Text style={{fontSize:25, marginBottom:5}}>{userInfo.surname} {userInfo.forename}{userInfo.gender ? " ("+userInfo.gender+")" : ""}</Text>
+                  <Text style={{fontSize:25, marginBottom:5}}>{userInfo.surname} {userInfo.forename}</Text>
                   <Text style={Modify.styles.averageText}>{userInfo.type} {userInfo.option1 ? " | "+userInfo.option1 : ""}</Text>
                 </View>
               </View>
@@ -280,12 +218,12 @@ export function ProfileScreen({navigation}){
                       <View>
                         <CheckBox title='Jeux Vidéo' checked={videogames} onPress={() => {addVideoGames(),setVideogames(!videogames)}}/>
                         <CheckBox title='Musique' checked={music} onPress={() => {addMusic(),setMusic(!music)}}/>
-                        <CheckBox title='Informatique' checked={it} onPress={() => {addIT(),setIT(!it)}}/>
+                        <CheckBox title='Informatique' checked={it} onPress={() => {setIT(!it)}}/>
                       </View>
                       <View>
-                        <CheckBox title='Voyage' checked={trip} onPress={() => {addTrip(),setTrip(!trip)}}/>
-                        <CheckBox title='Dessiner' checked={draw} onPress={() => {addDraw(),setDraw(!draw)}}/>
-                        <CheckBox title='Sport' checked={sport} onPress={() => {addSport(),setSport(!sport)}}/>
+                        <CheckBox title='Voyage' checked={trip} onPress={() => {setTrip(!trip)}}/>
+                        <CheckBox title='Dessiner' checked={draw} onPress={() => {setDraw(!draw)}}/>
+                        <CheckBox title='Sport' checked={sport} onPress={() => {setSport(!sport)}}/>
                       </View>
                     </View>
                   </View>
@@ -318,7 +256,7 @@ export function ProfileScreen({navigation}){
                           <View style={styles.dataAlignment}>
                             <Image source={{uri:item.ppPath}} style={styles.imageData}/>  
                             <Text style={styles.textData}>{item.forename} {item.surname}</Text>
-                            <TouchableOpacity style={styles.buttonData}>
+                            <TouchableOpacity style={styles.buttonData} onPress={() => removeFollower(userInfo.email,item.email)}>
                               <Text style={styles.buttonText}>Supprimer</Text>
                             </TouchableOpacity>
                           </View>
@@ -351,7 +289,7 @@ export function ProfileScreen({navigation}){
                           <View style={styles.dataAlignment}>
                             <Image source={{uri:item.ppPath}} style={styles.imageData}/>  
                             <Text style={styles.textData}>{item.forename} {item.surname}</Text>
-                            <TouchableOpacity style={styles.buttonData}>
+                            <TouchableOpacity style={styles.buttonData} onPress={()=>unfollowUser(userInfo.email,item.email)}>
                               <Text style={styles.buttonText}>Se désabonner</Text>
                             </TouchableOpacity>
                           </View>

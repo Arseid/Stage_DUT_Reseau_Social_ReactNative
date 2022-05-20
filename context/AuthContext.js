@@ -304,6 +304,60 @@ export const AuthProvider = ({children}) => {
         })
     }
 
+    const unfollowUser = (email,targetEmail) => {
+        var APIURL=`${BASE_URL}/unfollow.php`;
+
+        let data={
+            method: 'POST',
+            body : JSON.stringify({
+                email:email,
+                targetEmail:targetEmail,
+            }),
+            headers: {
+                'Accept':       'application/json',
+                'Content-Type': 'application/json',
+            }
+        }
+
+        fetch(APIURL, data)
+        .then((response) => response.json())
+        .then((response) => {
+            retrieveUserProfileInfo(userInfo.email);
+            getListFollowersFollowing(userInfo.email);
+            console.log(response);
+        })
+        .catch((e)=>{
+            console.log("Error"+e);
+        })
+    }
+
+    const removeFollower = (email,targetEmail) => {
+        var APIURL=`${BASE_URL}/removeFollower.php`;
+
+        let data={
+            method: 'POST',
+            body : JSON.stringify({
+                email:email,
+                targetEmail:targetEmail,
+            }),
+            headers: {
+                'Accept':       'application/json',
+                'Content-Type': 'application/json',
+            }
+        }
+
+        fetch(APIURL, data)
+        .then((response) => response.json())
+        .then((response) => {
+            retrieveUserProfileInfo(userInfo.email);
+            getListFollowersFollowing(userInfo.email);
+            console.log(response);
+        })
+        .catch((e)=>{
+            console.log("Error"+e);
+        })
+    }
+
     const refresh = (email) =>{
         setShowprofiles(showProfiles+1);
     }
@@ -363,7 +417,8 @@ export const AuthProvider = ({children}) => {
               follower.key=listFollowers[i][0];
               follower.forename=listFollowers[i][1];
               follower.surname=listFollowers[i][2];
-              follower.ppPath=listFollowers[i][3];
+              follower.email=listFollowers[i][3];
+              follower.ppPath=listFollowers[i][4];
               followersData.push(follower);
             }
             setFollowersList(followersData);
@@ -376,7 +431,8 @@ export const AuthProvider = ({children}) => {
               following.key=listFollowing[i][0];
               following.forename=listFollowing[i][1];
               following.surname=listFollowing[i][2];
-              following.ppPath=listFollowing[i][3];
+              following.email=listFollowing[i][3];
+              following.ppPath=listFollowing[i][4];
               followingData.push(following);
             }
             setFollowingList(followingData);
@@ -415,7 +471,7 @@ export const AuthProvider = ({children}) => {
 
     return(
     <AuthContext.Provider value={{isLoading,userInfo,userProfilesInfo,isLoggedIn,retrievedInfo,showProfiles,followersList,followingList,
-        register,login,logout,modify,retrieveUserProfileInfo,modifyProfilePicture,backgroundPicture,showUserProfiles,followUser,refresh,post,getListFollowersFollowing,test}}>
+        register,login,logout,modify,retrieveUserProfileInfo,modifyProfilePicture,backgroundPicture,showUserProfiles,followUser,unfollowUser,removeFollower,refresh,post,getListFollowersFollowing,test}}>
             {children}
     </AuthContext.Provider>
     );

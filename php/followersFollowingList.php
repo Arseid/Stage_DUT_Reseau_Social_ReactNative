@@ -35,6 +35,7 @@
 
         array_push($follower,$row[1]);
         array_push($follower,$row[2]);
+        array_push($follower,$row[3]);
 
         $SR="SELECT * from profile WHERE user_id='$follower_id'";
         $SQ=mysqli_query($ConnectDB,$SR);
@@ -58,6 +59,7 @@
 
         array_push($following,$row[1]);
         array_push($following,$row[2]);
+        array_push($following,$row[3]);
 
         $SR="SELECT * from profile WHERE user_id='$following_id'";
         $SQ=mysqli_query($ConnectDB,$SR);
