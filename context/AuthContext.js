@@ -12,6 +12,7 @@ export const AuthProvider = ({children}) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [retrievedInfo,setRetrievedInfo] = useState(0);
     const [showProfiles,setShowprofiles] = useState(0);
+    const [randomProfiles,setRandomProfiles] = useState([]);
     const [followersList,setFollowersList] = useState([]);
     const [followingList,setFollowingList] = useState([]);
     
@@ -270,6 +271,20 @@ export const AuthProvider = ({children}) => {
         .then((response) => {
             console.log(response);
             setUserProfilesInfo(response);
+            
+            let listRandomProfiles=response;
+            let randomProfilesData=[];
+            
+            for (let i=0;i<listRandomProfiles.length;i++){
+              let randomProfile = {};
+              randomProfile.key=listRandomProfiles[i][0];
+              randomProfile.forename=listRandomProfiles[i][1];
+              randomProfile.surname=listRandomProfiles[i][2];
+              randomProfile.email=listRandomProfiles[i][3];
+              randomProfile.ppPath=listRandomProfiles[i][8][3];
+              randomProfilesData.push(randomProfile);
+            }
+            setRandomProfiles(randomProfilesData);
         })
         .catch((e)=>{
             console.log("Error"+e);
@@ -470,7 +485,7 @@ export const AuthProvider = ({children}) => {
     }
 
     return(
-    <AuthContext.Provider value={{isLoading,userInfo,userProfilesInfo,isLoggedIn,retrievedInfo,showProfiles,followersList,followingList,
+    <AuthContext.Provider value={{isLoading,userInfo,userProfilesInfo,isLoggedIn,retrievedInfo,showProfiles,followersList,followingList,randomProfiles,
         register,login,logout,modify,retrieveUserProfileInfo,modifyProfilePicture,backgroundPicture,showUserProfiles,followUser,unfollowUser,removeFollower,refresh,post,getListFollowersFollowing,test}}>
             {children}
     </AuthContext.Provider>
