@@ -150,4 +150,14 @@ export default StyleSheet.create({
     left:210,
     top:20
   },
+
+  viewSearchBar:{
+    flexDirection:'row',
+    marginHorizontal:20,
+    marginTop:60,
+    padding:5,
+    borderWidth:1,
+    borderColor:'#808080',
+    borderRadius:10
+  }
 });

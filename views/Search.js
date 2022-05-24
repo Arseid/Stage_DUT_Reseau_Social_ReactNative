@@ -10,8 +10,9 @@ function SearchScreen({navigations}){
 
     return (
         <View style={styles.container}>
-          <View style={{marginTop:80,borderWidth:1,bordercolor:1}}>
-            <TextInput></TextInput>
+          <View style={styles.viewSearchBar}>
+            <Ionicons style={{margin:5}} name='search-outline' size={25} color={'#808080'}/>
+            <TextInput placeholder='Rechercher un compte...' style={{marginLeft:5,width:'85%'}}></TextInput>
           </View>
           <View style={{marginTop:20}}>
             <Text style={styles.textSuggestion}>Voici une liste de personnes que vous pourriez suivre :</Text>
