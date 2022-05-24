@@ -178,7 +178,7 @@ export function ProfileScreen({navigation}){
             </View>
           </>:<></>}
           <Overlay isVisible={visible} onBackdropPress={toggleOverlay} fullScreen overlayStyle={{backgroundColor: '#eeeeee',}}>
-            <View style={{marginTop:'5%'}}>
+            <View style={{marginTop:'15%'}}>
               <View style={Modify.styles.focusProfile}>
                 <TouchableOpacity onPress={changeBackgroundPicture}>
                   <Image source={{uri:userInfo.backgroundPicture}} style={Modify.styles.backgroundPicture}/>
@@ -241,7 +241,7 @@ export function ProfileScreen({navigation}){
             </View>
           </Overlay>
           <Overlay isVisible={followersVisible} onBackdropPress={toggleFollowersOverlay} fullScreen overlayStyle={{backgroundColor: '#eeeeee',}}>
-            <View style={{marginTop:'5%'}}>
+            <View style={{marginTop:'15%'}}>
               {userInfo.followersCounter<1 && 
                 <>
                   <Text style={styles.noSubscribe}>Vous avez 0 abonné</Text>
@@ -274,7 +274,7 @@ export function ProfileScreen({navigation}){
             </View>
           </Overlay>
           <Overlay isVisible={followingVisible} onBackdropPress={toggleFollowingOverlay} fullScreen overlayStyle={{backgroundColor: '#eeeeee',}}>
-            <View style={{marginTop:'5%'}}>
+            <View style={{marginTop:'15%'}}>
               {userInfo.followingCounter<1 &&
                 <>
                   <Text style={styles.noSubscribe}>Vous êtes abonné à aucun utilisateur</Text>
