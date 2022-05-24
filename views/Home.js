@@ -10,14 +10,16 @@ function HomeScreen({navigations}){
 
   const {userInfo,followUser,post} = useContext(AuthContext);
 
-  const [body, setBody] = useState ('');
-  let chosenFile={};
-
   const [visible, setVisible] = useState(false);
 
   const toggleOverlay = () => {
     setVisible(!visible);
   };
+
+  // For posting
+
+  const [body, setBody] = useState ('');
+  let chosenFile={};
 
   let openImagePickerAsync = async () => {
     let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -50,6 +52,7 @@ function HomeScreen({navigations}){
       post(userInfo.email,body,chosenFile,date);
       setBody('');
       chosenFile={};
+      toggleOverlay(null);
     }
   }
 
@@ -59,13 +62,22 @@ function HomeScreen({navigations}){
     <SafeAreaView style={styles.container}>
       <View style={styles.form2}>
         <Ionicons name="add-outline" size={50} color="black" style={{alignSelf:'center', left:'2%', bottom:'4%'}} onPress={() => {toggleOverlay()}} />
-        <Overlay  isVisible={visible} onBackdropPress={toggleOverlay} fullScreen overlayStyle={{backgroundColor:'#FFFAF0', borderWidth:3, borderColor:'#d2b48c'}}>
-          <Ionicons name="close-outline" size={50} color="black" style={{alignSelf:'flex-start'}} onPress={() =>{toggleOverlay(null)} } />
-          <TextInput  style={{backgroundColor:'white', height:'40%', width:'80%', marginTop:'25%', borderRadius:10, padding:5}} fontSize={20} maxLength={200} multiline={true} alignSelf='center' numberOfLines={5} textAlignVertical='top' height={50} placeholder='Ecrivez quelque chose ici...'/>
-          <TouchableOpacity style={styles.buttonO}  >        
-            <Text style={styles.averageText}>Publier</Text>
-          </TouchableOpacity>
-          <Ionicons name="image-outline" size={50} color="black" style={{alignSelf:'flex-end',marginLeft:'15%', position:'absolute',top:'1%'}} />
+        <Overlay  isVisible={visible} onBackdropPress={toggleOverlay} fullScreen overlayStyle={{backgroundColor:'#FFFAF0'}}>
+          <View style={{marginTop:'15%',padding:5}}>
+            <View style={{flexDirection:'row',marginHorizontal:'10%'}}>
+              <Ionicons name="close-outline" size={50} color="black" style={{alignSelf:'flex-start'}} onPress={() =>{toggleOverlay(null)} } />
+              <Ionicons name="image-outline" size={50} color="black" style={{marginLeft:'60%'}} />
+            </View>
+            <TextInput 
+              style={{backgroundColor:'white', width:'80%', marginTop:'10%', borderRadius:10, padding:5}} 
+              fontSize={20} maxLength={200} multiline={true} alignSelf='center' numberOfLines={5} textAlignVertical='top' height={200} 
+              value={body} onChangeText={text => setBody(text)}
+              placeholder='Ecrivez quelque chose ici...'
+            />
+            <TouchableOpacity style={styles.buttonO} onPress={handlePost}>        
+              <Text style={styles.averageText}>Publier</Text>
+            </TouchableOpacity>
+          </View>
         </Overlay>
       </View>
       <View>
@@ -75,7 +87,7 @@ function HomeScreen({navigations}){
       <View style={styles.upside}>
         { (userInfo.followingCounter<1) &&
           <ScrollView style={styles.form} alwaysBounceHorizontal={false}>
-            <Text style={{alignSelf:'center', right:'2%'}}>Pour le moment, vous ne suivez personne !</Text>
+            <Text style={{alignSelf:'center', right:'2%'}}>Cet endroit est un peu vide de post !</Text>
             <Text style={{alignSelf:'flex-end'}}>Voici une liste de personnes que vous pourriez suivre :</Text>
             <View style={{ flex: 1, borderWidth: 1, borderColor: 'lightgrey', flexDirection:'column', marginVertical:10}}/>
             <View style={{ flex: 2, borderWidth: 2, borderColor: '#d2b48c', borderRadius:10, height:120, marginBottom:10 }}>

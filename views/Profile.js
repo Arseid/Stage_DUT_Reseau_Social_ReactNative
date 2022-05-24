@@ -10,7 +10,7 @@ import Spinner from 'react-native-loading-spinner-overlay';
 
 export function ProfileScreen({navigation}){
 
-  const {userInfo,logout,modify,modifyProfilePicture,backgroundPicture,showUserProfiles,followersList,followingList,unfollowUser,removeFollower} = useContext(AuthContext);
+  const {userInfo,logout,modify,modifyProfilePicture,backgroundPicture,showUserProfiles,followersList,followingList,unfollowUser,removeFollower,retrievePosts} = useContext(AuthContext);
 
   const [visible, setVisible] = useState(false);
   const [followersVisible, setFollowersVisible] = useState(false);
@@ -153,7 +153,7 @@ export function ProfileScreen({navigation}){
                 </TouchableOpacity>
               </View>
               <View style={{alignItems:'center', marginBottom:10}}>
-                <TouchableOpacity style={styles.button} onPress={() => {console.log(interestList)}}>
+                <TouchableOpacity style={styles.button} onPress={() => {retrievePosts(userInfo.email,userInfo.following)}}>
                   <Text style={styles.buttonText}>Test</Text>
                 </TouchableOpacity>
               </View>

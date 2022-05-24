@@ -405,6 +405,32 @@ export const AuthProvider = ({children}) => {
         })
     }
 
+    const retrievePosts = (email,listFollowing) => {
+
+        var APIURL=`${BASE_URL}/retrievePosts.php`;
+
+        let data={
+            method: 'POST',
+            body : JSON.stringify({
+                email:email,
+                listFollowing:listFollowing,
+            }),
+            headers: {
+                'Accept':       'application/json',
+                'Content-Type': 'application/json',
+            }
+        }
+
+        fetch(APIURL, data)
+        .then((response) => response.json())
+        .then((response) => {
+            console.log(response);
+        })
+        .catch((e)=>{
+            console.log("Error"+e);
+        })
+    }
+
     const getListFollowersFollowing = (email) => {
         var APIURL=`${BASE_URL}/followersFollowingList.php`;
 
@@ -486,7 +512,7 @@ export const AuthProvider = ({children}) => {
 
     return(
     <AuthContext.Provider value={{isLoading,userInfo,userProfilesInfo,isLoggedIn,retrievedInfo,showProfiles,followersList,followingList,randomProfiles,
-        register,login,logout,modify,retrieveUserProfileInfo,modifyProfilePicture,backgroundPicture,showUserProfiles,followUser,unfollowUser,removeFollower,refresh,post,getListFollowersFollowing,test}}>
+        register,login,logout,modify,retrieveUserProfileInfo,modifyProfilePicture,backgroundPicture,showUserProfiles,followUser,unfollowUser,removeFollower,refresh,post,getListFollowersFollowing,retrievePosts,test}}>
             {children}
     </AuthContext.Provider>
     );

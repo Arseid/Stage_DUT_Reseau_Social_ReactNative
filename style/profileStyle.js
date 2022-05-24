@@ -118,7 +118,7 @@ export default StyleSheet.create({
 
   imageData:{
     borderRadius:100,
-    width:'15%',
+    width:'17%',
     height:'100%',
     left:5
   },

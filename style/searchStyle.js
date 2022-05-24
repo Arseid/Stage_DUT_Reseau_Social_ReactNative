@@ -96,7 +96,7 @@ export default StyleSheet.create({
     padding:5,
     margin:5,
     marginHorizontal:'10%',
-    marginTop:'30%'
+    marginTop:'10%'
   },
   averageText:{
     fontSize: 15,

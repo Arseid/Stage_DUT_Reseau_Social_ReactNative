@@ -6,7 +6,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 function SearchScreen({navigations}){
 
-    const {randomProfiles,followUser} = useContext(AuthContext);
+    const {randomProfiles,followUser,userInfo} = useContext(AuthContext);
 
     return (
         <View style={styles.container}>
