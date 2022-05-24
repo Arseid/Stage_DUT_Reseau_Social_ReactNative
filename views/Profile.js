@@ -153,7 +153,7 @@ export function ProfileScreen({navigation}){
                 </TouchableOpacity>
               </View>
               <View style={{alignItems:'center', marginBottom:10}}>
-                <TouchableOpacity style={styles.button} onPress={() => {console.log(interest)}}>
+                <TouchableOpacity style={styles.button} onPress={() => {console.log(interestList)}}>
                   <Text style={styles.buttonText}>Test</Text>
                 </TouchableOpacity>
               </View>
