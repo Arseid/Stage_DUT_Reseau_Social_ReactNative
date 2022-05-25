@@ -88,6 +88,19 @@ export default StyleSheet.create({
     bottom:60
   },
 
+  buttonReload:{
+    width:'80%',
+    borderRadius: 4,
+    backgroundColor: '#ffaf7a',
+    padding:5,
+    margin:5,
+    marginTop:10
+  },
+
+  buttonText:{
+    fontSize: 15,
+    textAlign:"center",
+  },
 
   buttonO:{
     alignItems: 'center',

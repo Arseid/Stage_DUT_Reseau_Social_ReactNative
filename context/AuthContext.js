@@ -15,7 +15,9 @@ export const AuthProvider = ({children}) => {
     const [randomProfiles,setRandomProfiles] = useState([]);
     const [followersList,setFollowersList] = useState([]);
     const [followingList,setFollowingList] = useState([]);
-    
+    const [retrievedPosts,setRetrievedPosts] = useState([]);
+    const [checkPosts,setCheckPosts] = useState(0);
+
     const register = (forename,surname,email,pwd,type,option1,option2) => {
 
         setIsLoading(true);
@@ -312,6 +314,7 @@ export const AuthProvider = ({children}) => {
         .then((response) => {
             retrieveUserProfileInfo(userInfo.email);
             getListFollowersFollowing(userInfo.email);
+            setCheckPosts(checkPosts+1);
             console.log(response);
         })
         .catch((e)=>{
@@ -339,6 +342,7 @@ export const AuthProvider = ({children}) => {
         .then((response) => {
             retrieveUserProfileInfo(userInfo.email);
             getListFollowersFollowing(userInfo.email);
+            setCheckPosts(checkPosts+1);
             console.log(response);
         })
         .catch((e)=>{
@@ -399,6 +403,7 @@ export const AuthProvider = ({children}) => {
         .then((response) => response.json())
         .then((response) => {
             console.log(response);
+            setCheckPosts(checkPosts+1);
         })
         .catch((e)=>{
             console.log("Error"+e);
@@ -424,7 +429,23 @@ export const AuthProvider = ({children}) => {
         fetch(APIURL, data)
         .then((response) => response.json())
         .then((response) => {
-            console.log(response);
+            let postsData=[];
+            
+            for (let i=0;i<response.length;i++){
+              let post = {};
+              post.key=response[i][0];
+              post.date=response[i][2];
+              post.body=response[i][3];
+              post.file=response[i][4];
+              post.likes=response[i][5];
+              post.forename=response[i][6];
+              post.surname=response[i][7];
+              post.type=response[i][8];
+              post.pp=response[i][9];
+              postsData.push(post);
+            }
+            setRetrievedPosts(postsData);
+            console.log(retrievedPosts);
         })
         .catch((e)=>{
             console.log("Error"+e);
@@ -511,7 +532,7 @@ export const AuthProvider = ({children}) => {
     }
 
     return(
-    <AuthContext.Provider value={{isLoading,userInfo,userProfilesInfo,isLoggedIn,retrievedInfo,showProfiles,followersList,followingList,randomProfiles,
+    <AuthContext.Provider value={{isLoading,userInfo,userProfilesInfo,isLoggedIn,retrievedInfo,showProfiles,followersList,followingList,randomProfiles,retrievedPosts,checkPosts,
         register,login,logout,modify,retrieveUserProfileInfo,modifyProfilePicture,backgroundPicture,showUserProfiles,followUser,unfollowUser,removeFollower,refresh,post,getListFollowersFollowing,retrievePosts,test}}>
             {children}
     </AuthContext.Provider>

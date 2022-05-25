@@ -1,5 +1,5 @@
 import React, {useEffect,useState,useContext} from 'react';
-import {Text, Image, View, TouchableOpacity, ScrollView,SafeAreaView,TextInput } from 'react-native';
+import {Text, Image, View, TouchableOpacity, ScrollView,SafeAreaView,TextInput,FlatList } from 'react-native';
 import { AuthContext } from '../context/AuthContext';
 import * as ImagePicker from 'expo-image-picker';
 import styles from '../style/searchStyle';
@@ -8,7 +8,7 @@ import { Overlay } from 'react-native-elements';
 
 function HomeScreen({navigations}){
 
-  const {userInfo,followUser,post} = useContext(AuthContext);
+  const {userInfo,followUser,post,retrievedPosts} = useContext(AuthContext);
 
   const [visible, setVisible] = useState(false);
 
@@ -52,7 +52,7 @@ function HomeScreen({navigations}){
       post(userInfo.email,body,chosenFile,date);
       setBody('');
       chosenFile={};
-      toggleOverlay(null);
+      toggleOverlay();
     }
   }
 
@@ -65,7 +65,7 @@ function HomeScreen({navigations}){
         <Overlay  isVisible={visible} onBackdropPress={toggleOverlay} fullScreen overlayStyle={{backgroundColor:'#FFFAF0'}}>
           <View style={{marginTop:'15%',padding:5}}>
             <View style={{flexDirection:'row',marginHorizontal:'10%'}}>
-              <Ionicons name="close-outline" size={50} color="black" style={{alignSelf:'flex-start'}} onPress={() =>{toggleOverlay(null)} } />
+              <Ionicons name="close-outline" size={50} color="black" style={{alignSelf:'flex-start'}} onPress={() =>{toggleOverlay()} } />
               <Ionicons name="image-outline" size={50} color="black" style={{marginLeft:'60%'}} />
             </View>
             <TextInput 
@@ -85,10 +85,10 @@ function HomeScreen({navigations}){
       </View>
       
       <View style={styles.upside}>
-        { (userInfo.followingCounter<1) &&
+        { (retrievedPosts.length<1) &&
           <ScrollView style={styles.form} alwaysBounceHorizontal={false}>
-            <Text style={{alignSelf:'center', right:'2%'}}>Cet endroit est un peu vide de post !</Text>
-            <Text style={{alignSelf:'flex-end'}}>Voici une liste de personnes que vous pourriez suivre :</Text>
+            <Text style={{alignSelf:'center', right:'2%'}}>Cet endroit est un peu vide !</Text>
+            <Text style={{alignSelf:'flex-end'}}>Postez ou suivez des personnes pour alimenter votre feed.</Text>
             <View style={{ flex: 1, borderWidth: 1, borderColor: 'lightgrey', flexDirection:'column', marginVertical:10}}/>
             <View style={{ flex: 2, borderWidth: 2, borderColor: '#d2b48c', borderRadius:10, height:120, marginBottom:10 }}>
               <Image name='circle'  style={{width: 80, height: 80,left:'12%', top:'15%', borderRadius:100 }} source={{  uri: userProfilesInfo[0][8][3]}} />
@@ -128,8 +128,20 @@ function HomeScreen({navigations}){
             <View style={{ flex: 1, borderWidth: 1, borderColor: 'lightgrey', flexDirection:'column', marginVertical:10}}/>
           </ScrollView>
         } 
-        { (userInfo.followingCounter>=1) &&
-          <ScrollView style={styles.form3}><Text>Ici apparaitront les posts !</Text></ScrollView>
+        { (retrievedPosts.length>=1) &&
+          <FlatList style={styles.form3}
+          data={retrievedPosts} renderItem={({item}) => 
+            <>
+                <View style={{borderBottomWidth:1,borderColor:'#d2b48c', marginBottom:20}}>
+                  <View style={{flexDirection:'row'}}>
+                    <Image source={{uri:item.pp}} style={{width:'20%',height:'100%',borderRadius:100}}/>  
+                    <Text style={{fontSize:15, height:60, top:20, marginLeft:20}}>{item.forename} {item.surname}</Text>
+                  </View>
+                    <Text style={{marginVertical:10}}>{item.body}</Text>
+                </View>
+            </>
+            }
+          />
         }
       </View> 
     </SafeAreaView>

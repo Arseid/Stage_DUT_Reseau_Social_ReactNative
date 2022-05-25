@@ -10,7 +10,7 @@ import Spinner from 'react-native-loading-spinner-overlay';
 
 export function ProfileScreen({navigation}){
 
-  const {userInfo,logout,modify,modifyProfilePicture,backgroundPicture,showUserProfiles,followersList,followingList,unfollowUser,removeFollower,retrievePosts} = useContext(AuthContext);
+  const {userInfo,logout,modify,modifyProfilePicture,backgroundPicture,checkPosts,followersList,followingList,unfollowUser,removeFollower,retrievePosts} = useContext(AuthContext);
 
   const [visible, setVisible] = useState(false);
   const [followersVisible, setFollowersVisible] = useState(false);
@@ -27,6 +27,8 @@ export function ProfileScreen({navigation}){
   const toggleFollowingOverlay = () => {
     setFollowingVisible(!followingVisible);
   };
+
+  useEffect(()=> retrievePosts(userInfo.email,userInfo.following),[checkPosts]);
 
   // Modification Part
   const [pronouns, setPronouns] = useState(userInfo.gender);

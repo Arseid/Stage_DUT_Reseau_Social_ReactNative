@@ -54,7 +54,24 @@
         }  
     }
 
-    
+    // Fetch other infos
+    for ($i=0;$i<sizeof($listPosts);$i++){
+        $post_user_id=$listPosts[$i][1];
 
+        $SR="SELECT * from users WHERE user_id='$post_user_id'";
+        $SQ=mysqli_query($ConnectDB,$SR);
+        $row = mysqli_fetch_row($SQ);
+
+        array_push($listPosts[$i],$row[1]);
+        array_push($listPosts[$i],$row[2]);
+        array_push($listPosts[$i],$row[5]);
+
+        $SR="SELECT * from profile WHERE user_id='$post_user_id'";
+        $SQ=mysqli_query($ConnectDB,$SR);
+        $row = mysqli_fetch_row($SQ);   
+        
+        array_push($listPosts[$i],$row[3]);
+    }
+    
     echo json_encode($listPosts);
 ?>
