@@ -35,7 +35,7 @@ function SearchScreen({navigations}){
             </View>
             <View style={{alignItems:'center'}}>
               <TouchableOpacity style={styles.buttonReload} onPress={() => {showUserProfiles(userInfo.email)}}>
-                <Text style={styles.buttonText}>Reload</Text>
+                <Text style={styles.buttonText}>Recharger</Text>
               </TouchableOpacity>
             </View>
           </View>

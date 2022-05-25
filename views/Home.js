@@ -8,7 +8,7 @@ import { Overlay } from 'react-native-elements';
 
 function HomeScreen({navigations}){
 
-  const {userInfo,followUser,post,retrievedPosts} = useContext(AuthContext);
+  const {userInfo,followUser,post,retrievedPosts,retrievePosts} = useContext(AuthContext);
 
   const [visible, setVisible] = useState(false);
 
@@ -129,19 +129,24 @@ function HomeScreen({navigations}){
           </ScrollView>
         } 
         { (retrievedPosts.length>=1) &&
-          <FlatList style={styles.form3}
-          data={retrievedPosts} renderItem={({item}) => 
+          <>
+            <FlatList style={styles.form3}
+            data={retrievedPosts} renderItem={({item}) => 
             <>
                 <View style={{borderBottomWidth:1,borderColor:'#d2b48c', marginBottom:20}}>
                   <View style={{flexDirection:'row'}}>
-                    <Image source={{uri:item.pp}} style={{width:'20%',height:'100%',borderRadius:100}}/>  
-                    <Text style={{fontSize:15, height:60, top:20, marginLeft:20}}>{item.forename} {item.surname}</Text>
+                    <Image source={{uri:item.pp}} style={{width:'21%',height:'100%',borderRadius:100}}/>  
+                    <Text style={{fontSize:15, height:60, top:20, marginLeft:20}}>{item.forename} {item.surname} | {item.type}</Text>
                   </View>
                     <Text style={{marginVertical:10}}>{item.body}</Text>
                 </View>
             </>
             }
-          />
+            />
+            <TouchableOpacity style={styles.buttonReload2} onPress={() => {retrievePosts(userInfo.email,userInfo.following)}}>
+              <Text style={styles.buttonText}>Recharger</Text>
+            </TouchableOpacity>
+          </>
         }
       </View> 
     </SafeAreaView>

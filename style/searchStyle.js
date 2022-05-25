@@ -97,6 +97,14 @@ export default StyleSheet.create({
     marginTop:10
   },
 
+  buttonReload2:{
+    width:'80%',
+    borderRadius: 4,
+    backgroundColor: '#ffaf7a',
+    padding:5,
+    marginBottom:'10%'
+  },
+
   buttonText:{
     fontSize: 15,
     textAlign:"center",
