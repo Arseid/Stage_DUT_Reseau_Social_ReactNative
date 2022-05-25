@@ -130,7 +130,7 @@ export default StyleSheet.create({
   },
 
   imageList:{
-    width:'20%',
+    width:'21%',
     height:'100%',
     borderRadius:100
   },
