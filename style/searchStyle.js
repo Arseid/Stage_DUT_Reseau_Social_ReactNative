@@ -47,7 +47,7 @@ export default StyleSheet.create({
       borderRadius: 10,
       padding:10,
       marginBottom:40,
-      width:'80%'
+      width:'90%'
     },
   
     subscription:{

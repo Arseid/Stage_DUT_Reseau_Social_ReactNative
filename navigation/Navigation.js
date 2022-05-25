@@ -30,7 +30,7 @@ const Navigation = () => {
                 <>
                     {isLoggedIn ? (
                     <>
-                    <Tab.Navigator
+                    <Tab.Navigator 
                         screenOptions={({ route }) => ({
                             tabBarIcon: ({ focused, color, size }) => {
                                 let iconName;
@@ -49,9 +49,10 @@ const Navigation = () => {
                             },
                         })}
                     >
-                    <Tab.Screen name="Profile" component={ProfileScreen} options={{headerShown: false}}/>
-                    <Tab.Screen name="Home" component={HomeScreen} options={{headerShown: false}}/>
-                    <Tab.Screen name="Search" component={SearchScreen} options={{headerShown: false}}/>
+                   
+                    <Tab.Screen  name="Home" component={HomeScreen} options={{headerShown: false, tabBarActiveTintColor : '#ffaf7a'}}/>
+                    <Tab.Screen name="Search" component={SearchScreen} options={{headerShown: false, tabBarActiveTintColor : '#ffaf7a'}}/>
+                    <Tab.Screen name="Profile" component={ProfileScreen} options={{headerShown: false, tabBarActiveTintColor : '#ffaf7a'}}/>
                     </Tab.Navigator>
                     </>
                     ) : (

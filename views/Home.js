@@ -1,5 +1,5 @@
 import React, {useEffect,useState,useContext} from 'react';
-import {Text, Image, View, TouchableOpacity, ScrollView,SafeAreaView,TextInput } from 'react-native';
+import {Text, Image, View, TouchableOpacity, ScrollView,SafeAreaView,TextInput,FlatList } from 'react-native';
 import { AuthContext } from '../context/AuthContext';
 import * as ImagePicker from 'expo-image-picker';
 import styles from '../style/searchStyle';
@@ -7,7 +7,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Overlay } from 'react-native-elements';
 
 function HomeScreen({navigations}){
-
+  const {randomProfiles} = useContext(AuthContext);
   const {userInfo,followUser,post} = useContext(AuthContext);
 
   const [body, setBody] = useState ('');
@@ -117,7 +117,19 @@ function HomeScreen({navigations}){
           </ScrollView>
         } 
         { (userInfo.followingCounter>=1) &&
-          <ScrollView style={styles.form3}><Text>Ici apparaitront les posts !</Text></ScrollView>
+          <FlatList style={styles.form3}
+          data={randomProfiles} renderItem={({item}) => 
+              <>
+                  <View style={{borderBottomWidth:1,borderColor:'#d2b48c', marginBottom:20}}>
+                      <View style={{flexDirection:'row'}}>
+                          <Image source={{uri:item.ppPath}} style={{width:'20%',height:'100%',borderRadius:100}}/>  
+                              <Text style={{fontSize:15, height:60, top:20, marginLeft:20}}>{item.forename} {item.surname}</Text>
+                      </View>
+                      <Text style={{marginVertical:10}}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi amet.</Text>
+                  </View>
+              </>
+          }
+      />
         }
       </View> 
     </SafeAreaView>
