@@ -279,7 +279,7 @@ export const AuthProvider = ({children}) => {
             
             for (let i=0;i<listRandomProfiles.length;i++){
               let randomProfile = {};
-              randomProfile.key=listRandomProfiles[i][0];
+              randomProfile.id=listRandomProfiles[i][0];
               randomProfile.forename=listRandomProfiles[i][1];
               randomProfile.surname=listRandomProfiles[i][2];
               randomProfile.email=listRandomProfiles[i][3];
@@ -287,6 +287,7 @@ export const AuthProvider = ({children}) => {
               randomProfilesData.push(randomProfile);
             }
             setRandomProfiles(randomProfilesData);
+
         })
         .catch((e)=>{
             console.log("Error"+e);
@@ -403,7 +404,7 @@ export const AuthProvider = ({children}) => {
         .then((response) => response.json())
         .then((response) => {
             console.log(response);
-            setCheckPosts(checkPosts+1);
+            retrievePosts(userInfo.email,userInfo.following);
         })
         .catch((e)=>{
             console.log("Error"+e);
@@ -533,7 +534,7 @@ export const AuthProvider = ({children}) => {
 
     return(
     <AuthContext.Provider value={{isLoading,userInfo,userProfilesInfo,isLoggedIn,retrievedInfo,showProfiles,followersList,followingList,randomProfiles,retrievedPosts,checkPosts,
-        register,login,logout,modify,retrieveUserProfileInfo,modifyProfilePicture,backgroundPicture,showUserProfiles,followUser,unfollowUser,removeFollower,refresh,post,getListFollowersFollowing,retrievePosts,test}}>
+        register,login,logout,modify,retrieveUserProfileInfo,modifyProfilePicture,backgroundPicture,showUserProfiles,followUser,unfollowUser,removeFollower,refresh,post,getListFollowersFollowing,retrievePosts,setRandomProfiles,test}}>
             {children}
     </AuthContext.Provider>
     );

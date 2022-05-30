@@ -6,7 +6,14 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 function SearchScreen({navigations}){
 
-    const {randomProfiles,followUser,userInfo,showUserProfiles} = useContext(AuthContext);
+    const {randomProfiles,setRandomProfiles,followUser,userInfo,showUserProfiles} = useContext(AuthContext);
+
+    const removeItem = (id) => {
+      let arr = randomProfiles.filter(function(item) {
+        return item.id !== id
+      })
+      setRandomProfiles(arr);
+    }
 
     return (
         <View style={styles.container}>
@@ -18,15 +25,16 @@ function SearchScreen({navigations}){
             <Text style={styles.textSuggestion}>Voici une liste de personnes que vous pourriez suivre :</Text>
             <View style={styles.containerSuggestion}>
               <FlatList
-                  data={randomProfiles} renderItem={({item}) => 
+                  data={randomProfiles} keyExtractor={(item) => item.id.toString()} renderItem={({item}) => 
                       <>
                           <View style={{borderBottomWidth:1,borderColor:'#d2b48c'}}>
                               <View style={{flexDirection:'row',padding:5}}>
                                   <Image source={{uri:item.ppPath}} style={styles.imageList}/>  
                                       <Text style={styles.textList}>{item.forename} {item.surname}</Text>
-                                      <TouchableOpacity style={styles.buttonList} onPress={()=>followUser(userInfo.email,item.email)}>
+                                      <TouchableOpacity style={styles.buttonList} onPress={()=>{followUser(userInfo.email,item.email);removeItem(item.id)}}>
                                           <Text style={{fontSize: 15, textAlign:"center"}}>S'abonner</Text>
                                       </TouchableOpacity>
+                                      
                               </View>
                           </View>
                       </>
