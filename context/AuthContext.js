@@ -7,7 +7,6 @@ export const AuthContext=createContext();
 export const AuthProvider = ({children}) => {
 
     const [userInfo,setUserInfo] = useState({});
-    const [userProfilesInfo,setUserProfilesInfo] = useState({});
     const [isLoading, setIsLoading] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [retrievedInfo,setRetrievedInfo] = useState(0);
@@ -272,7 +271,6 @@ export const AuthProvider = ({children}) => {
         .then((response) => response.json())
         .then((response) => {
             console.log(response);
-            setUserProfilesInfo(response);
             
             let listRandomProfiles=response;
             let randomProfilesData=[];
@@ -533,7 +531,7 @@ export const AuthProvider = ({children}) => {
     }
 
     return(
-    <AuthContext.Provider value={{isLoading,userInfo,userProfilesInfo,isLoggedIn,retrievedInfo,showProfiles,followersList,followingList,randomProfiles,retrievedPosts,checkPosts,
+    <AuthContext.Provider value={{isLoading,userInfo,isLoggedIn,retrievedInfo,showProfiles,followersList,followingList,randomProfiles,retrievedPosts,checkPosts,
         register,login,logout,modify,retrieveUserProfileInfo,modifyProfilePicture,backgroundPicture,showUserProfiles,followUser,unfollowUser,removeFollower,refresh,post,getListFollowersFollowing,retrievePosts,setRandomProfiles,test}}>
             {children}
     </AuthContext.Provider>

@@ -63,8 +63,6 @@ function HomeScreen({navigations}){
     }
   }
 
-  const {userProfilesInfo} = useContext(AuthContext);
-
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.form2}>
@@ -102,10 +100,10 @@ function HomeScreen({navigations}){
                           <View style={{borderBottomWidth:1,borderColor:'#d2b48c'}}>
                               <View style={{flexDirection:'row',padding:5}}>
                                   <Image source={{uri:item.ppPath}} style={styles.imageList}/>  
-                                      <Text style={styles.textList}>{item.forename} {item.surname}</Text>
-                                      <TouchableOpacity style={styles.buttonList} onPress={()=>{followUser(userInfo.email,item.email);removeItem(item.id)}}>
-                                          <Text style={{fontSize: 15, textAlign:"center"}}>S'abonner</Text>
-                                      </TouchableOpacity>
+                                    <Text style={styles.textList}>{item.forename} {item.surname}</Text>
+                                    <TouchableOpacity style={styles.buttonList} onPress={()=>{followUser(userInfo.email,item.email);removeItem(item.id)}}>
+                                        <Text style={{fontSize: 15, textAlign:"center"}}>S'abonner</Text>
+                                    </TouchableOpacity>
                               </View>
                           </View>
                       </>
@@ -148,5 +146,25 @@ function HomeScreen({navigations}){
     </SafeAreaView>
   );
 }
+
+/*
+<View style={{backgroundColor:'#FFFAF0',borderColor:"#FFFAF0",borderWidth:1,borderRadius: 10,marginHorizontal:'10%'}}>
+  <FlatList
+    data={randomProfiles} showsHorizontalScrollIndicator={false} horizontal={true} keyExtractor={(item) => item.id.toString()} renderItem={({item}) => 
+    <>
+      <View style={{marginBottom:-35}}>
+        <View style={{flexDirection:'row',padding:5,height:100,justifyContent:'center',marginTop:15}}>
+          <Image source={{uri:item.ppPath}} style={{width:'28%',height:'60%',borderRadius:100}}/>  
+          <Text style={{fontSize:15,top:15,left:10}}>{item.forename} {item.surname}</Text>
+          <TouchableOpacity style={styles.buttonList} onPress={()=>{followUser(userInfo.email,item.email);removeItem(item.id)}}>
+            <Text style={{fontSize: 15, textAlign:"center"}}>S'abonner</Text>
+        </TouchableOpacity>
+        </View>
+      </View>
+    </>
+  }
+  />
+</View>
+*/
 
 export default HomeScreen;
