@@ -3,9 +3,12 @@ Le projet consiste à développer une application fonctionnant comme un réseau 
 
 # Parties terminées
 Les pages login et register sont terminés dans leur intégralité.
+Les pages de Profile, Home, Search.
 
 # En cours de développement
-Les pages de profil (front end) et d'acceuil (tout).
+Amélioré la fonctionnalité de Search en mettant un système de filtre afin de mieux cibler notre recherche.
+Régler le problème sur les centres d'intérêt et matières enseignées.
+Faire la page de Messagerie.
 
 # Auteurs
 - Front end: Nicolas Giliberto
