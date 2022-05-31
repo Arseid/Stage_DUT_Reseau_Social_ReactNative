@@ -8,7 +8,7 @@ import { Overlay } from 'react-native-elements';
 
 function HomeScreen({navigations}){
 
-  const {userInfo,followUser,post,retrievedPosts,retrievePosts,randomProfiles,setRandomProfiles,showUserProfiles} = useContext(AuthContext);
+  const {userInfo,followUser,post,retrievedPosts,retrievePosts,randomProfiles,setRandomProfiles,showUserProfiles,followingList} = useContext(AuthContext);
 
   const removeItem = (id) => {
     let arr = randomProfiles.filter(function(item) {
@@ -22,6 +22,11 @@ function HomeScreen({navigations}){
   const toggleOverlay = () => {
     setVisible(!visible);
   };
+
+  const verifyIfSubscribed = (userID) => {
+    const verification = followingList.some(item => item.key === userID);
+    return verification;
+  }
 
   // For posting
 
@@ -95,19 +100,26 @@ function HomeScreen({navigations}){
             <Text style={styles.textSuggestion}>Postez ou suivez des personnes pour alimenter votre feed!</Text>
             <View style={styles.containerSuggestion}>
               <FlatList
-                  data={randomProfiles} keyExtractor={(item) => item.id.toString()} renderItem={({item}) => 
-                      <>
-                          <View style={{borderBottomWidth:1,borderColor:'#d2b48c'}}>
-                              <View style={{flexDirection:'row',padding:5}}>
-                                  <Image source={{uri:item.ppPath}} style={styles.imageList}/>  
-                                    <Text style={styles.textList}>{item.forename} {item.surname}</Text>
-                                    <TouchableOpacity style={styles.buttonList} onPress={()=>{followUser(userInfo.email,item.email);removeItem(item.id)}}>
-                                        <Text style={{fontSize: 15, textAlign:"center"}}>S'abonner</Text>
-                                    </TouchableOpacity>
-                              </View>
-                          </View>
-                      </>
-                  }
+                data={randomProfiles} keyExtractor={(item) => item.id.toString()} renderItem={({item}) => 
+                  <>
+                    <View style={{borderBottomWidth:1,borderColor:'#d2b48c'}}>
+                      <View style={{flexDirection:'row',padding:5}}>
+                        <Image source={{uri:item.ppPath}} style={styles.imageList}/>  
+                        <View style={{alignItems:'center',height:60}}>
+                          <Text style={styles.textList}>{item.forename} {item.surname}</Text>
+                          <Text style={{bottom:10,left:15,fontSize:15,position:'absolute',marginTop:15}}>{item.type}</Text>
+                        </View>
+                        {(verifyIfSubscribed(item.id)==false) &&
+                        <>
+                          <TouchableOpacity style={styles.buttonList} onPress={()=>{followUser(userInfo.email,item.email);removeItem(item.id)}}>
+                            <Text style={{fontSize: 15, textAlign:"center"}}>S'abonner</Text>
+                          </TouchableOpacity>
+                        </>
+                        }
+                      </View>
+                    </View>
+                  </>
+                }
               />
             </View>
             <View style={{alignItems:'center'}}>

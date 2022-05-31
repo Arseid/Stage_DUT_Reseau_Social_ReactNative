@@ -165,14 +165,15 @@ export default StyleSheet.create({
 
   imageList:{
     width:'21%',
-    height:'100%',
+    height:'95%',
     borderRadius:100
   },
 
   textList:{
+    position:'absolute',
     fontSize:15,
-    height:60,
-    top:15,
+    height:40,
+    top:12,
     left:15
   },
 
