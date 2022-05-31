@@ -1,5 +1,5 @@
 import React, {useEffect,useState,useContext} from 'react';
-import {Text, Image, View, TouchableOpacity, ScrollView,SafeAreaView,TextInput } from 'react-native';
+import {Text, Image, View, TouchableOpacity, ScrollView,SafeAreaView,TextInput,FlatList } from 'react-native';
 import { AuthContext } from '../context/AuthContext';
 import * as ImagePicker from 'expo-image-picker';
 import styles from '../style/searchStyle';
@@ -8,16 +8,30 @@ import { Overlay } from 'react-native-elements';
 
 function HomeScreen({navigations}){
 
-  const {userInfo,followUser,post} = useContext(AuthContext);
+  const {userInfo,followUser,post,retrievedPosts,retrievePosts,randomProfiles,setRandomProfiles,showUserProfiles,followingList} = useContext(AuthContext);
 
-  const [body, setBody] = useState ('');
-  let chosenFile={};
+  const removeItem = (id) => {
+    let arr = randomProfiles.filter(function(item) {
+      return item.id !== id
+    })
+    setRandomProfiles(arr);
+  }
 
   const [visible, setVisible] = useState(false);
 
   const toggleOverlay = () => {
     setVisible(!visible);
   };
+
+  const verifyIfSubscribed = (userID) => {
+    const verification = followingList.some(item => item.key === userID);
+    return verification;
+  }
+
+  // For posting
+
+  const [body, setBody] = useState ('');
+  let chosenFile={};
 
   let openImagePickerAsync = async () => {
     let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -50,78 +64,119 @@ function HomeScreen({navigations}){
       post(userInfo.email,body,chosenFile,date);
       setBody('');
       chosenFile={};
+      toggleOverlay();
     }
   }
-
-  const {userProfilesInfo} = useContext(AuthContext);
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.form2}>
         <Ionicons name="add-outline" size={50} color="black" style={{alignSelf:'center', left:'2%', bottom:'4%'}} onPress={() => {toggleOverlay()}} />
-        <Overlay  isVisible={visible} onBackdropPress={toggleOverlay} fullScreen overlayStyle={{backgroundColor:'#FFFAF0', borderWidth:3, borderColor:'#d2b48c'}}>
-          <Ionicons name="close-outline" size={50} color="black" style={{alignSelf:'flex-start'}} onPress={() =>{toggleOverlay(null)} } />
-          <TextInput  style={{backgroundColor:'white', height:'40%', width:'80%', marginTop:'25%', borderRadius:10, padding:5}} fontSize={20} maxLength={200} multiline={true} alignSelf='center' numberOfLines={5} textAlignVertical='top' height={50} placeholder='Ecrivez quelque chose ici...'/>
-          <TouchableOpacity style={styles.buttonO}  >        
-            <Text style={styles.averageText}>Publier</Text>
-          </TouchableOpacity>
-          <Ionicons name="image-outline" size={50} color="black" style={{alignSelf:'flex-end',marginLeft:'15%', position:'absolute',top:'1%'}} />
+        <Overlay  isVisible={visible} onBackdropPress={toggleOverlay} fullScreen overlayStyle={{backgroundColor:'#FFFAF0'}}>
+          <View style={{marginTop:'15%',padding:5}}>
+            <View style={{flexDirection:'row',marginHorizontal:'10%'}}>
+              <Ionicons name="close-outline" size={50} color="black" style={{alignSelf:'flex-start'}} onPress={() =>{toggleOverlay()} } />
+              <Ionicons name="image-outline" size={50} color="black" style={{marginLeft:'60%'}} />
+            </View>
+            <TextInput 
+              style={{backgroundColor:'white', width:'80%', marginTop:'10%', borderRadius:10, padding:5}} 
+              fontSize={20} maxLength={200} multiline={true} alignSelf='center' numberOfLines={5} textAlignVertical='top' height={200} 
+              value={body} onChangeText={text => setBody(text)}
+              placeholder='Ecrivez quelque chose ici...'
+            />
+            <TouchableOpacity style={styles.buttonO} onPress={handlePost}>        
+              <Text style={styles.averageText}>Publier</Text>
+            </TouchableOpacity>
+          </View>
         </Overlay>
       </View>
       <View>
         <Text style={styles.title}>Lorem Ipsum</Text>
       </View>
       
-      <View style={styles.upside}>
-        { (userInfo.followingCounter<1) &&
-          <ScrollView style={styles.form} alwaysBounceHorizontal={false}>
-            <Text style={{alignSelf:'center', right:'2%'}}>Pour le moment, vous ne suivez personne !</Text>
-            <Text style={{alignSelf:'flex-end'}}>Voici une liste de personnes que vous pourriez suivre :</Text>
-            <View style={{ flex: 1, borderWidth: 1, borderColor: 'lightgrey', flexDirection:'column', marginVertical:10}}/>
-            <View style={{ flex: 2, borderWidth: 2, borderColor: '#d2b48c', borderRadius:10, height:120, marginBottom:10 }}>
-              <Image name='circle'  style={{width: 80, height: 80,left:'12%', top:'15%', borderRadius:100 }} source={{  uri: userProfilesInfo[0][8][3]}} />
-              <Text style={{alignSelf: 'flex-end',bottom:60, marginRight:'15%',  fontSize:20}}>{userProfilesInfo[0][1]} {userProfilesInfo[0][2]}</Text>
-              <TouchableOpacity style={styles.button}  onPress={() => followUser(userInfo.email,userProfilesInfo[0][3])}  >
-                <Text style={styles.averageText}>S'abonner</Text>
+        { (retrievedPosts.length<1) &&
+          <View style={{marginTop:20}}>
+            <Text style={styles.textSuggestion}>C'est vide par ici...</Text>
+            <Text style={styles.textSuggestion}>Postez ou suivez des personnes pour alimenter votre feed!</Text>
+            <View style={styles.containerSuggestion}>
+              <FlatList
+                data={randomProfiles} keyExtractor={(item) => item.id.toString()} renderItem={({item}) => 
+                  <>
+                    <View style={{borderBottomWidth:1,borderColor:'#d2b48c'}}>
+                      <View style={{flexDirection:'row',padding:5}}>
+                        <Image source={{uri:item.ppPath}} style={styles.imageList}/>  
+                        <View style={{alignItems:'center',height:60}}>
+                          <Text style={styles.textList}>{item.forename} {item.surname}</Text>
+                          <Text style={{bottom:10,left:15,fontSize:15,position:'absolute',marginTop:15}}>{item.type}</Text>
+                        </View>
+                        {(verifyIfSubscribed(item.id)==false) &&
+                        <>
+                          <TouchableOpacity style={styles.buttonList} onPress={()=>{followUser(userInfo.email,item.email);removeItem(item.id)}}>
+                            <Text style={{fontSize: 15, textAlign:"center"}}>S'abonner</Text>
+                          </TouchableOpacity>
+                        </>
+                        }
+                      </View>
+                    </View>
+                  </>
+                }
+              />
+            </View>
+            <View style={{alignItems:'center'}}>
+              <TouchableOpacity style={styles.buttonReload} onPress={() => {showUserProfiles(userInfo.email)}}>
+                <Text style={styles.buttonText}>Recharger</Text>
               </TouchableOpacity>
             </View>
-            <View style={{ flex: 2, borderWidth: 2, borderColor: '#d2b48c', borderRadius:10, height:120, marginBottom:10 }}>
-              <Image name='circle'  style={{width: 80, height: 80,left:'12%', top:'15%', borderRadius:100 }} source={{  uri: userProfilesInfo[1][8][3]}} />
-              <Text style={{alignSelf: 'flex-end',bottom:60, marginRight:'15%',  fontSize:20}}>{userProfilesInfo[1][1]} {userProfilesInfo[1][2]}</Text>
-              <TouchableOpacity style={styles.button}  onPress={() => followUser(userInfo.email,userProfilesInfo[1][3])} >
-                <Text style={styles.averageText}>S'abonner</Text>
-              </TouchableOpacity>
-            </View>
-            <View style={{ flex: 2, borderWidth: 2, borderColor: '#d2b48c', borderRadius:10, height:120, marginBottom:10 }}>
-            <Image name='circle'  style={{width: 80, height: 80,left:'12%', top:'15%', borderRadius:100 }} source={{  uri: userProfilesInfo[2][8][3]}} />
-              <Text style={{alignSelf: 'flex-end',bottom:60, marginRight:'15%',  fontSize:20}}>{userProfilesInfo[2][1]} {userProfilesInfo[2][2]}</Text>
-              <TouchableOpacity style={styles.button}  onPress={() => followUser(userInfo.email,userProfilesInfo[2][3])} >
-                <Text style={styles.averageText}>S'abonner</Text>
-              </TouchableOpacity>
-            </View>
-            <View style={{ flex: 2, borderWidth: 2, borderColor: '#d2b48c', borderRadius:10, height:120, marginBottom:10 }}>
-              <Image name='circle'  style={{width: 80, height: 80,left:'12%', top:'15%', borderRadius:100 }} source={{  uri: userProfilesInfo[3][8][3]}} />
-              <Text style={{alignSelf: 'flex-end',bottom:60, marginRight:'15%',  fontSize:20}}>{userProfilesInfo[3][1]} {userProfilesInfo[3][2]}</Text>
-              <TouchableOpacity style={styles.button}  onPress={() => followUser(userInfo.email,userProfilesInfo[3][3])}>
-                <Text style={styles.averageText}>S'abonner</Text>
-              </TouchableOpacity>
-            </View>
-            <View style={{ flex: 2, borderWidth: 2, borderColor: '#d2b48c', borderRadius:10, height:120, marginBottom:10 }}>
-              <Image name='circle'  style={{width: 80, height: 80,left:'12%', top:'15%', borderRadius:100 }} source={{  uri: userProfilesInfo[4][8][3]}} />
-              <Text style={{alignSelf: 'flex-end',bottom:60, marginRight:'15%',  fontSize:20}}>{userProfilesInfo[4][1]} {userProfilesInfo[4][2]}</Text>
-              <TouchableOpacity style={styles.button}  onPress={() => followUser(userInfo.email,userProfilesInfo[4][3])}>
-                <Text style={styles.averageText}>S'abonner</Text>
-              </TouchableOpacity>
-            </View>
-            <View style={{ flex: 1, borderWidth: 1, borderColor: 'lightgrey', flexDirection:'column', marginVertical:10}}/>
-          </ScrollView>
+          </View>
         } 
-        { (userInfo.followingCounter>=1) &&
-          <ScrollView style={styles.form3}><Text>Ici apparaitront les posts !</Text></ScrollView>
+        { (retrievedPosts.length>=1) &&
+          <>
+            <View style={{marginTop:20}}>
+              <View style={styles.containerSuggestion2}>
+                <FlatList
+                data={retrievedPosts} renderItem={({item}) => 
+                <>
+                    <View style={{borderBottomWidth:1,borderColor:'#d2b48c', marginBottom:20}}>
+                      <View style={{flexDirection:'row'}}>
+                        <Image source={{uri:item.pp}} style={{width:'21%',height:'100%',borderRadius:100}}/>  
+                        <Text style={{fontSize:15, height:60, top:20, marginLeft:20}}>{item.forename} {item.surname} | {item.type}</Text>
+                      </View>
+                      <Text style={{margin:10}}>{item.body}</Text>
+                    </View>
+                </>
+                }
+                />
+              </View>
+              <View style={{alignItems:'center'}}>
+                <TouchableOpacity style={styles.buttonReload} onPress={() => {retrievePosts(userInfo.email,userInfo.following)}}>
+                  <Text style={styles.buttonText}>Recharger</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </>
         }
-      </View> 
     </SafeAreaView>
   );
 }
+
+/*
+<View style={{backgroundColor:'#FFFAF0',borderColor:"#FFFAF0",borderWidth:1,borderRadius: 10,marginHorizontal:'10%'}}>
+  <FlatList
+    data={randomProfiles} showsHorizontalScrollIndicator={false} horizontal={true} keyExtractor={(item) => item.id.toString()} renderItem={({item}) => 
+    <>
+      <View style={{marginBottom:-35}}>
+        <View style={{flexDirection:'row',padding:5,height:100,justifyContent:'center',marginTop:15}}>
+          <Image source={{uri:item.ppPath}} style={{width:'28%',height:'60%',borderRadius:100}}/>  
+          <Text style={{fontSize:15,top:15,left:10}}>{item.forename} {item.surname}</Text>
+          <TouchableOpacity style={styles.buttonList} onPress={()=>{followUser(userInfo.email,item.email);removeItem(item.id)}}>
+            <Text style={{fontSize: 15, textAlign:"center"}}>S'abonner</Text>
+        </TouchableOpacity>
+        </View>
+      </View>
+    </>
+  }
+  />
+</View>
+*/
 
 export default HomeScreen;

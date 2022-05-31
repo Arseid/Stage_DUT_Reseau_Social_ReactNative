@@ -14,10 +14,15 @@
     $SQ=mysqli_query($ConnectDB,$SR);
     $row = mysqli_fetch_row($SQ);
     $user_id=$row[0];
-    $forename=$row[1];
-    $surname=$row[2];
-    $forenameSurname=$forename.$surname;
 
+    // Insert post
+    $body = $DecodedData['body'];
+    $date = $DecodedData['date'];
+
+    $IR="INSERT INTO post(user_id,date,body,file,like_number) VALUES ('$user_id','$date','$body','','0')";
+    $IQ=mysqli_query($ConnectDB,$IR);
+
+    /*
     // Verify existing posts
     $SR="SELECT * FROM post";
     $SQ=mysqli_query($ConnectDB,$SR);
@@ -27,18 +32,18 @@
 
     if (empty($DecodedData['file']['fileName'])){
         $Message='File not ok';
-        /*
+        
         // Insert post
         $body = $DecodedData['body'];
         $date = $DecodedData['date'];
 
         $IR="INSERT INTO post(user_id,date,body,file,like_number) VALUES ('$user_id','$date','$body','','0')";
         $IQ=mysqli_query($ConnectDB,$IR);
-        */
+        
     }
     else{
         $Message='File ok';
-        /*
+        
         // File Upload
         $fileName = $fileNumber.$DecodedData['file']['fileName'];
         $base64 = $DecodedData['file']['base64'];
@@ -54,8 +59,8 @@
 
         $IR="INSERT INTO post(user_id,date,body,file,like_number) VALUES ('$user_id','$date','$body','$newDirectory','0')";
         $IQ=mysqli_query($ConnectDB,$IR);
-        */
     }
-    
-    echo json_encode($SQ);
+    */
+
+    echo json_encode('Posted');
 ?>

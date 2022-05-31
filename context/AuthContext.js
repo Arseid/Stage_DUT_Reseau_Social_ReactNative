@@ -7,15 +7,17 @@ export const AuthContext=createContext();
 export const AuthProvider = ({children}) => {
 
     const [userInfo,setUserInfo] = useState({});
-    const [userProfilesInfo,setUserProfilesInfo] = useState({});
     const [isLoading, setIsLoading] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [retrievedInfo,setRetrievedInfo] = useState(0);
     const [showProfiles,setShowprofiles] = useState(0);
     const [randomProfiles,setRandomProfiles] = useState([]);
+    const [searchedUsers,setSearcheUsers] = useState([]);
     const [followersList,setFollowersList] = useState([]);
     const [followingList,setFollowingList] = useState([]);
-    
+    const [retrievedPosts,setRetrievedPosts] = useState([]);
+    const [checkPosts,setCheckPosts] = useState(0);
+
     const register = (forename,surname,email,pwd,type,option1,option2) => {
 
         setIsLoading(true);
@@ -111,7 +113,6 @@ export const AuthProvider = ({children}) => {
     const logout = () =>{
         AsyncStorageLib.removeItem('userInfo');
         setUserInfo({});
-        setUserProfilesInfo({});
         console.log('user logged out successfully')
         setIsLoggedIn(false);
     }
@@ -270,21 +271,22 @@ export const AuthProvider = ({children}) => {
         .then((response) => response.json())
         .then((response) => {
             console.log(response);
-            setUserProfilesInfo(response);
             
             let listRandomProfiles=response;
             let randomProfilesData=[];
             
             for (let i=0;i<listRandomProfiles.length;i++){
               let randomProfile = {};
-              randomProfile.key=listRandomProfiles[i][0];
+              randomProfile.id=listRandomProfiles[i][0];
               randomProfile.forename=listRandomProfiles[i][1];
               randomProfile.surname=listRandomProfiles[i][2];
               randomProfile.email=listRandomProfiles[i][3];
+              randomProfile.type=listRandomProfiles[i][5];
               randomProfile.ppPath=listRandomProfiles[i][8][3];
               randomProfilesData.push(randomProfile);
             }
             setRandomProfiles(randomProfilesData);
+
         })
         .catch((e)=>{
             console.log("Error"+e);
@@ -312,6 +314,7 @@ export const AuthProvider = ({children}) => {
         .then((response) => {
             retrieveUserProfileInfo(userInfo.email);
             getListFollowersFollowing(userInfo.email);
+            setCheckPosts(checkPosts+1);
             console.log(response);
         })
         .catch((e)=>{
@@ -339,6 +342,7 @@ export const AuthProvider = ({children}) => {
         .then((response) => {
             retrieveUserProfileInfo(userInfo.email);
             getListFollowersFollowing(userInfo.email);
+            setCheckPosts(checkPosts+1);
             console.log(response);
         })
         .catch((e)=>{
@@ -399,6 +403,49 @@ export const AuthProvider = ({children}) => {
         .then((response) => response.json())
         .then((response) => {
             console.log(response);
+            retrievePosts(userInfo.email,userInfo.following);
+        })
+        .catch((e)=>{
+            console.log("Error"+e);
+        })
+    }
+
+    const retrievePosts = (email,listFollowing) => {
+
+        var APIURL=`${BASE_URL}/retrievePosts.php`;
+
+        let data={
+            method: 'POST',
+            body : JSON.stringify({
+                email:email,
+                listFollowing:listFollowing,
+            }),
+            headers: {
+                'Accept':       'application/json',
+                'Content-Type': 'application/json',
+            }
+        }
+
+        fetch(APIURL, data)
+        .then((response) => response.json())
+        .then((response) => {
+            let postsData=[];
+            
+            for (let i=0;i<response.length;i++){
+              let post = {};
+              post.key=response[i][0];
+              post.date=response[i][2];
+              post.body=response[i][3];
+              post.file=response[i][4];
+              post.likes=response[i][5];
+              post.forename=response[i][6];
+              post.surname=response[i][7];
+              post.type=response[i][8];
+              post.pp=response[i][9];
+              postsData.push(post);
+            }
+            setRetrievedPosts(postsData);
+            console.log(retrievedPosts);
         })
         .catch((e)=>{
             console.log("Error"+e);
@@ -457,6 +504,46 @@ export const AuthProvider = ({children}) => {
         })
     }
 
+    const searchUser = (email,text) => {
+        var APIURL=`${BASE_URL}/searchUser.php`;
+
+        let data={
+            method: 'POST',
+            body : JSON.stringify({
+                email:email,
+                text:text,
+            }),
+            headers: {
+                'Accept':       'application/json',
+                'Content-Type': 'application/json',
+            }
+        }
+
+        fetch(APIURL, data)
+        .then((response) => response.json())
+        .then((response) => {
+            console.log(response);
+
+            let listSearchedUsers=response;
+            let searchedUsersData=[];
+            
+            for (let i=0;i<listSearchedUsers.length;i++){
+              let searchedUser = {};
+              searchedUser.id=listSearchedUsers[i][0];
+              searchedUser.forename=listSearchedUsers[i][1];
+              searchedUser.surname=listSearchedUsers[i][2];
+              searchedUser.email=listSearchedUsers[i][3];
+              searchedUser.type=listSearchedUsers[i][4];
+              searchedUser.ppPath=listSearchedUsers[i][5];
+              searchedUsersData.push(searchedUser);
+            }
+            setSearcheUsers(searchedUsersData);
+        })
+        .catch((e)=>{
+            console.log("Error"+e);
+        })
+    }
+
     const test = () => {
         setSpinnerLoading(!spinnerLoading);
         /*
@@ -485,8 +572,8 @@ export const AuthProvider = ({children}) => {
     }
 
     return(
-    <AuthContext.Provider value={{isLoading,userInfo,userProfilesInfo,isLoggedIn,retrievedInfo,showProfiles,followersList,followingList,randomProfiles,
-        register,login,logout,modify,retrieveUserProfileInfo,modifyProfilePicture,backgroundPicture,showUserProfiles,followUser,unfollowUser,removeFollower,refresh,post,getListFollowersFollowing,test}}>
+    <AuthContext.Provider value={{isLoading,userInfo,isLoggedIn,retrievedInfo,showProfiles,followersList,followingList,randomProfiles,retrievedPosts,checkPosts,searchedUsers,
+        register,login,logout,modify,retrieveUserProfileInfo,modifyProfilePicture,backgroundPicture,showUserProfiles,followUser,unfollowUser,removeFollower,refresh,post,getListFollowersFollowing,retrievePosts,setRandomProfiles,searchUser,test}}>
             {children}
     </AuthContext.Provider>
     );

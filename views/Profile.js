@@ -10,7 +10,7 @@ import Spinner from 'react-native-loading-spinner-overlay';
 
 export function ProfileScreen({navigation}){
 
-  const {userInfo,logout,modify,modifyProfilePicture,backgroundPicture,showUserProfiles,followersList,followingList,unfollowUser,removeFollower} = useContext(AuthContext);
+  const {userInfo,logout,modify,modifyProfilePicture,backgroundPicture,checkPosts,followersList,followingList,unfollowUser,removeFollower,retrievePosts,showUserProfiles} = useContext(AuthContext);
 
   const [visible, setVisible] = useState(false);
   const [followersVisible, setFollowersVisible] = useState(false);
@@ -28,9 +28,27 @@ export function ProfileScreen({navigation}){
     setFollowingVisible(!followingVisible);
   };
 
+  useEffect(()=> {retrievePosts(userInfo.email,userInfo.following)},[checkPosts]);
+
   // Modification Part
   const [pronouns, setPronouns] = useState(userInfo.gender);
   const [bio, setBio] = useState(userInfo.description);
+
+  // State subjects
+  const [french,setFrench] = useState(false);
+  const [math,setMath] = useState(false);
+  const [history,setHistory] = useState(false);
+  const [english,setEnglish] = useState(false);
+  const [german,setGerman] = useState(false);
+  const [spanish,setSpanish] = useState(false);
+  const [earthScience,setEarthScience] = useState(false);
+  const [physics,setPhysics] = useState(false);
+  const [technology,setTechnology] = useState(false);
+  const [musicLearning,setMusicLearning] = useState(false);
+  const [artLearning,setArtLearning] = useState(false);
+  const [pe,setPe] = useState(false);
+
+  // State interest
   const [videogames,setVideogames] = useState(false);
   const [sport,setSport] = useState(false);
   const [it,setIT] = useState(false);
@@ -153,7 +171,7 @@ export function ProfileScreen({navigation}){
                 </TouchableOpacity>
               </View>
               <View style={{alignItems:'center', marginBottom:10}}>
-                <TouchableOpacity style={styles.button} onPress={() => {console.log(interest)}}>
+                <TouchableOpacity style={styles.button} onPress={() => {showUserProfiles(userInfo.email)}}>
                   <Text style={styles.buttonText}>Test</Text>
                 </TouchableOpacity>
               </View>
@@ -178,7 +196,8 @@ export function ProfileScreen({navigation}){
             </View>
           </>:<></>}
           <Overlay isVisible={visible} onBackdropPress={toggleOverlay} fullScreen overlayStyle={{backgroundColor: '#eeeeee',}}>
-            <View style={{marginTop:'5%'}}>
+            <View style={{marginTop:'15%'}}>
+              <ScrollView>
               <View style={Modify.styles.focusProfile}>
                 <TouchableOpacity onPress={changeBackgroundPicture}>
                   <Image source={{uri:userInfo.backgroundPicture}} style={Modify.styles.backgroundPicture}/>
@@ -229,6 +248,31 @@ export function ProfileScreen({navigation}){
                   </View>
                   </>
                 }
+                {userInfo.type=='Enseignant' &&
+                  <>
+                  <View style={Modify.styles.hobbys}>
+                    <Text style={Modify.styles.subtitle}>Matières enseignées...</Text>
+                    <View style={{flexDirection:'row', width:'55%'}}>
+                      <View style={{right:'8%'}}>
+                        <CheckBox title='Français' checked={french} onPress={() => {setFrench(!french)}}/>
+                        <CheckBox title='Mathématiques' checked={math} onPress={() => {setMath(!math)}}/>
+                        <CheckBox title='Arts plastiques' checked={artLearning} onPress={() => {setArtLearning(!artLearning)}}/>
+                        <CheckBox title='SVT' checked={earthScience} onPress={() => {setEarthScience(!earthScience)}}/>
+                        <CheckBox title='Sciences Physiques' checked={physics} onPress={() => {setPhysics(!physics)}}/>
+                        <CheckBox title='EPS' checked={pe} onPress={() => {setPe(!pe)}}/>
+                      </View>
+                      <View style={{right:'8%'}}>
+                        <CheckBox title='Anglais' checked={english} onPress={() => {setEnglish(!english)}}/>
+                        <CheckBox title='Espagnol' checked={spanish} onPress={() => {setSpanish(!spanish)}}/>
+                        <CheckBox title='Allemand' checked={german} onPress={() => {setGerman(!german)}}/>
+                        <CheckBox title='Technologie' checked={technology} onPress={() => {setTechnology(!technology)}}/>
+                        <CheckBox title='Education musicale' checked={musicLearning} onPress={() => {setMusicLearning(!musicLearning)}}/>
+                        <CheckBox title='Histoire-Géographie' checked={history} onPress={() => {setHistory(!history)}}/>
+                      </View>
+                    </View>
+                  </View>
+                  </>
+                }
                 <View style={Modify.styles.changeView}>
                   <TouchableOpacity style={Modify.styles.button} onPress={toggleOverlay}>
                     <Text style={Modify.styles.buttonText}>Annuler</Text>
@@ -238,10 +282,11 @@ export function ProfileScreen({navigation}){
                   </TouchableOpacity>
                 </View>
               </View>
+              </ScrollView>
             </View>
           </Overlay>
           <Overlay isVisible={followersVisible} onBackdropPress={toggleFollowersOverlay} fullScreen overlayStyle={{backgroundColor: '#eeeeee',}}>
-            <View style={{marginTop:'5%'}}>
+            <View style={{marginTop:'15%'}}>
               {userInfo.followersCounter<1 && 
                 <>
                   <Text style={styles.noSubscribe}>Vous avez 0 abonné</Text>
@@ -274,7 +319,7 @@ export function ProfileScreen({navigation}){
             </View>
           </Overlay>
           <Overlay isVisible={followingVisible} onBackdropPress={toggleFollowingOverlay} fullScreen overlayStyle={{backgroundColor: '#eeeeee',}}>
-            <View style={{marginTop:'5%'}}>
+            <View style={{marginTop:'15%'}}>
               {userInfo.followingCounter<1 &&
                 <>
                   <Text style={styles.noSubscribe}>Vous êtes abonné à aucun utilisateur</Text>
