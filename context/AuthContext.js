@@ -504,7 +504,7 @@ export const AuthProvider = ({children}) => {
         })
     }
 
-    const searchUser = (email,text) => {
+    const searchUser = (email,text,option1,option2) => {
         var APIURL=`${BASE_URL}/searchUser.php`;
 
         let data={
@@ -512,6 +512,8 @@ export const AuthProvider = ({children}) => {
             body : JSON.stringify({
                 email:email,
                 text:text,
+                option1:option1,
+                option2:option2,
             }),
             headers: {
                 'Accept':       'application/json',

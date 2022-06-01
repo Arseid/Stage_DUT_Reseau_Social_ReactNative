@@ -132,7 +132,7 @@ function HomeScreen({navigations}){
         { (retrievedPosts.length>=1) &&
           <>
             <View style={{marginTop:20}}>
-              <View style={styles.containerSuggestion2}>
+              <View style={styles.containerSuggestion}>
                 <FlatList
                 data={retrievedPosts} renderItem={({item}) => 
                 <>

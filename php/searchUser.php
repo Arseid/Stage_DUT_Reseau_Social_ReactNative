@@ -9,12 +9,23 @@
 
     $email=$DecodedData['email'];
     $text=$DecodedData['text'];
-
-    $SR="SELECT * from users WHERE email!='$email' AND (forename LIKE '%$text%' OR surname LIKE '%$text%')";
-    $SQ=mysqli_query($ConnectDB,$SR);
-    $rows=mysqli_fetch_all($SQ);
+    $option1=$DecodedData['option1'];
+    $option2=$DecodedData['option2'];
 
     $listUsers=array();
+
+    if ($option1=='' && $option2==''){
+        $SR="SELECT * from users WHERE email!='$email' AND (forename LIKE '%$text%' OR surname LIKE '%$text%')";
+    }
+    elseif ($option1!=='' && $option2==''){
+        $SR="SELECT * from users WHERE email!='$email' AND type='$option1' AND (forename LIKE '%$text%' OR surname LIKE '%$text%')";
+    }
+    elseif ($option1!=='' && $option2!==''){
+        $SR="SELECT * from users WHERE email!='$email' AND type='$option1' AND option2='$option2' AND (forename LIKE '%$text%' OR surname LIKE '%$text%')";
+    }
+
+    $SQ=mysqli_query($ConnectDB,$SR);
+    $rows=mysqli_fetch_all($SQ);
 
     for ($i=0;$i<sizeof($rows);$i++){
         $user=array();

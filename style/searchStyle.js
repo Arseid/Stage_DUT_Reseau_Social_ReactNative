@@ -141,18 +141,6 @@ export default StyleSheet.create({
 
   containerSuggestion:{
     width:'80%',
-    height:'70%',
-    borderColor:"#FFFAF0",
-    backgroundColor:"#FFFAF0",
-    borderWidth:1,
-    alignSelf:'center',
-    marginTop:10,
-    borderRadius: 10,
-    padding:10
-  },
-
-  containerSuggestion2:{
-    width:'80%',
     height:'80%',
     borderColor:"#FFFAF0",
     backgroundColor:"#FFFAF0",
@@ -189,7 +177,7 @@ export default StyleSheet.create({
   viewSearchBar:{
     flexDirection:'row',
     marginHorizontal:20,
-    marginTop:'30%',
+    marginTop:'25%',
     padding:5,
     borderWidth:1,
     borderColor:'#808080',
