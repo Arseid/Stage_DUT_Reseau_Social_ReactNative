@@ -98,7 +98,7 @@ function HomeScreen({navigations}){
           <View style={{marginTop:20}}>
             <Text style={styles.textSuggestion}>C'est vide par ici...</Text>
             <Text style={styles.textSuggestion}>Postez ou suivez des personnes pour alimenter votre feed!</Text>
-            <View style={styles.containerSuggestion}>
+            <View style={styles.containerSuggestion2}>
               <FlatList
                 data={randomProfiles} keyExtractor={(item) => item.id.toString()} renderItem={({item}) => 
                   <>

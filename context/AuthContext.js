@@ -20,8 +20,6 @@ export const AuthProvider = ({children}) => {
 
     const register = (forename,surname,email,pwd,type,option1,option2) => {
 
-        setIsLoading(true);
-
         var APIURL=`${BASE_URL}/insert.php`;
 
         var registerHeaders={
@@ -51,16 +49,16 @@ export const AuthProvider = ({children}) => {
                 setUserInfo(registerData);
                 console.log(userInfo);
                 AsyncStorageLib.setItem('userInfo',JSON.stringify(userInfo));
-                setIsLoading(false);
                 console.log(response[0].Message);
                 if (response[0].Message=='user successfully registered'){
+                    setIsLoading(true);
                     setIsLoggedIn(true);
+                    setIsLoading(false);
                 } 
                 if (response[0].Message=='already exists') alert('Email déjà utilisé');
             })
             .catch((e)=>{
                 console.log("Error"+e);
-                setIsLoading(false);
             })
     
     };

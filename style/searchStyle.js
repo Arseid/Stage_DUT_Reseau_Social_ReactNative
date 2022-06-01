@@ -97,6 +97,14 @@ export default StyleSheet.create({
     marginTop:10
   },
 
+  rebootFilterButton:{
+    width:'200%',
+    borderRadius: 4,
+    backgroundColor: '#ffaf7a',
+    padding:5,
+    
+  },
+
   buttonReload2:{
     width:'80%',
     borderRadius: 4,
@@ -141,7 +149,19 @@ export default StyleSheet.create({
 
   containerSuggestion:{
     width:'80%',
-    height:'80%',
+    height:'50%',
+    borderColor:"#FFFAF0",
+    backgroundColor:"#FFFAF0",
+    borderWidth:1,
+    alignSelf:'center',
+    marginTop:10,
+    borderRadius: 10,
+    padding:10
+  },
+
+  containerSuggestion2:{
+    width:'80%',
+    height:'65%',
     borderColor:"#FFFAF0",
     backgroundColor:"#FFFAF0",
     borderWidth:1,

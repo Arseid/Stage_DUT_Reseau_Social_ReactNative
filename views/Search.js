@@ -134,7 +134,12 @@ function SearchScreen({navigations}){
           }
         </View>
       </View>
-      <View style={{marginHorizontal:'5%',marginTop:'20%',alignSelf:'center'}}>
+      <View style={{position:'absolute',left:'12%',top:'26%'}}>
+        <TouchableOpacity style={styles.rebootFilterButton} onPress={() => {setChosenType(''),setDomainChosen('')}}>
+          <Text style={styles.buttonText}>Réinitialiser les filtres</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={{marginHorizontal:'5%',marginTop:'15%',alignSelf:'center'}}>
         <DropDownPicker
           style={{width:'50%'}}
           open={openType}
@@ -147,7 +152,7 @@ function SearchScreen({navigations}){
         />
       </View>
       {(chosenType=='entreprise') && 
-        <View style={{marginHorizontal:'5%',marginTop:'10%',alignSelf:'center'}}>
+        <View style={{marginHorizontal:'5%',marginTop:'5%',alignSelf:'center'}}>
           <DropDownPicker
             style={{width:'75%'}}
             open={openDomain}
@@ -160,6 +165,7 @@ function SearchScreen({navigations}){
           />
         </View>
       }
+      
     </View>
   );
   
