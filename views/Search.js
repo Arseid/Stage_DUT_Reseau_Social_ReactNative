@@ -63,6 +63,7 @@ function SearchScreen({navigations}){
 
   return (
     <View style={styles.container}>
+      
       <View style={{position:'absolute',left:5,top:'20%'}}>
         <View style={styles.viewSearchBar}>
           <Ionicons style={{margin:5}} name='search-outline' size={25} color={'#808080'}/>

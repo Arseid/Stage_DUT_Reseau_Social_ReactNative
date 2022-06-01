@@ -89,7 +89,7 @@ export default StyleSheet.create({
   },
 
   buttonReload:{
-    width:'80%',
+    width:'90%',
     borderRadius: 4,
     backgroundColor: '#ffaf7a',
     padding:5,
@@ -106,7 +106,7 @@ export default StyleSheet.create({
   },
 
   buttonReload2:{
-    width:'80%',
+    width:'90%',
     borderRadius: 4,
     backgroundColor: '#ffaf7a',
     padding:5,
@@ -148,8 +148,8 @@ export default StyleSheet.create({
   },
 
   containerSuggestion:{
-    width:'80%',
-    height:'50%',
+    width:'90%',
+    height:'60%',
     borderColor:"#FFFAF0",
     backgroundColor:"#FFFAF0",
     borderWidth:1,
@@ -160,8 +160,8 @@ export default StyleSheet.create({
   },
 
   containerSuggestion2:{
-    width:'80%',
-    height:'65%',
+    width:'90%',
+    height:'70%',
     borderColor:"#FFFAF0",
     backgroundColor:"#FFFAF0",
     borderWidth:1,
@@ -172,7 +172,7 @@ export default StyleSheet.create({
   },
 
   imageList:{
-    width:'21%',
+    width:'20%',
     height:'95%',
     borderRadius:100
   },
@@ -190,7 +190,7 @@ export default StyleSheet.create({
     borderRadius: 4,
     padding:5,
     position:'absolute',
-    left:200,
+    left:235,
     top:20
   },
 
