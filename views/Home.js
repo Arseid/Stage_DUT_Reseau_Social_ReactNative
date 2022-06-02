@@ -138,7 +138,7 @@ function HomeScreen({navigations}){
                 <>
                     <View style={{borderBottomWidth:1,borderColor:'#d2b48c', marginBottom:20}}>
                       <View style={{flexDirection:'row'}}>
-                        <Image source={{uri:item.pp}} style={{width:'21%',height:'100%',borderRadius:100}}/>  
+                        <Image source={{uri:item.pp}} style={{width:'20%',height:'100%',borderRadius:100}}/>  
                         <Text style={{fontSize:15, height:60, top:20, marginLeft:20}}>{item.forename} {item.surname} | {item.type}</Text>
                       </View>
                       <Text style={{margin:10}}>{item.body}</Text>

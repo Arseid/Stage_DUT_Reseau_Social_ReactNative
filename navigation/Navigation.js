@@ -10,9 +10,19 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { LoadingScreen } from '../views/Loading';
 import SearchScreen from '../views/Search';
+import { ModifyScreen } from '../views/ModifyProfile';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
+
+const ProfileScreenNavigator = () => {
+    return (
+        <Stack.Navigator>
+            <Stack.Screen name="Profil" component={ProfileScreen} options={{headerShown: false}}/>
+            <Stack.Screen name="Modifier le profil" component={ModifyScreen}/>
+        </Stack.Navigator>
+    )
+}
 
 const Navigation = () => {
     
@@ -34,12 +44,12 @@ const Navigation = () => {
                         screenOptions={({ route }) => ({
                             tabBarIcon: ({ focused, color, size }) => {
                                 let iconName;
-                                if (route.name === 'Home') {
+                                if (route.name === 'Acceuil') {
                                     iconName = 'home-outline';
-                                } else if (route.name === 'Profile') {
+                                } else if (route.name === 'Profil') {
                                     iconName = 'ellipse-outline';
                                 }
-                                else if (route.name === 'Search') {
+                                else if (route.name === 'Rechercher') {
                                     iconName = 'search-outline';
                                 }
                                 return <Ionicons name={iconName} size={size} color={color} />;
@@ -49,9 +59,9 @@ const Navigation = () => {
                             },
                         })}
                     >
-                    <Tab.Screen name="Profile" component={ProfileScreen} options={{headerShown: false}}/>
-                    <Tab.Screen name="Home" component={HomeScreen} options={{headerShown: false}}/>
-                    <Tab.Screen name="Search" component={SearchScreen} options={{headerShown: false}}/>
+                    <Tab.Screen name="Profil" component={ProfileScreenNavigator} options={{headerShown: false}}/>
+                    <Tab.Screen name="Acceuil" component={HomeScreen} options={{headerShown: false}}/>
+                    <Tab.Screen name="Rechercher" component={SearchScreen} options={{headerShown: false}}/>
                     </Tab.Navigator>
                     </>
                     ) : (

@@ -171,7 +171,7 @@ export function ProfileScreen({navigation}){
                 </TouchableOpacity>
               </View>
               <View style={{alignItems:'center', marginBottom:10}}>
-                <TouchableOpacity style={styles.button} onPress={() => {showUserProfiles(userInfo.email)}}>
+                <TouchableOpacity style={styles.button} onPress={() => {navigation.navigate('Modifier le profil')}}>
                   <Text style={styles.buttonText}>Test</Text>
                 </TouchableOpacity>
               </View>
