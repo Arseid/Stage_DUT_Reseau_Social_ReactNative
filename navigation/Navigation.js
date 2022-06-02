@@ -11,6 +11,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { LoadingScreen } from '../views/Loading';
 import SearchScreen from '../views/Search';
 import { ModifyScreen } from '../views/ModifyProfile';
+import { SpectateProfile } from '../views/SpectateProfile';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -18,8 +19,26 @@ const Tab = createBottomTabNavigator();
 const ProfileScreenNavigator = () => {
     return (
         <Stack.Navigator>
-            <Stack.Screen name="Profil" component={ProfileScreen} options={{headerShown: false}}/>
+            <Stack.Screen name="Afficher Profil" component={ProfileScreen} options={{headerShown: false}}/>
             <Stack.Screen name="Modifier le profil" component={ModifyScreen}/>
+        </Stack.Navigator>
+    )
+}
+
+const HomeScreenNavigator = () => {
+    return (
+        <Stack.Navigator>
+            <Stack.Screen name="Afficher Rechercher" component={HomeScreen} options={{headerShown: false}}/>
+            <Stack.Screen name="Inspecter Profil" component={SpectateProfile}/>
+        </Stack.Navigator>
+    )
+}
+
+const SearchScreenNavigator = () => {
+    return (
+        <Stack.Navigator>
+            <Stack.Screen name="Afficher Acceuil" component={SearchScreen} options={{headerShown: false}}/>
+            <Stack.Screen name="Inspecter Profil" component={SpectateProfile}/>
         </Stack.Navigator>
     )
 }
@@ -60,8 +79,8 @@ const Navigation = () => {
                         })}
                     >
                     <Tab.Screen name="Profil" component={ProfileScreenNavigator} options={{headerShown: false}}/>
-                    <Tab.Screen name="Acceuil" component={HomeScreen} options={{headerShown: false}}/>
-                    <Tab.Screen name="Rechercher" component={SearchScreen} options={{headerShown: false}}/>
+                    <Tab.Screen name="Acceuil" component={HomeScreenNavigator} options={{headerShown: false}}/>
+                    <Tab.Screen name="Rechercher" component={SearchScreenNavigator} options={{headerShown: false}}/>
                     </Tab.Navigator>
                     </>
                     ) : (

@@ -5,9 +5,9 @@ import styles from '../style/searchStyle';
 import DropDownPicker from 'react-native-dropdown-picker';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-function SearchScreen({navigations}){
+function SearchScreen({navigation}){
 
-  const {randomProfiles,setRandomProfiles,followUser,userInfo,showUserProfiles,searchUser,searchedUsers,followingList} = useContext(AuthContext);
+  const {spectateProfile,randomProfiles,setRandomProfiles,followUser,userInfo,showUserProfiles,searchUser,searchedUsers,followingList} = useContext(AuthContext);
 
   const [searchInput,setSearchInput]=useState('');
 
@@ -61,6 +61,11 @@ function SearchScreen({navigations}){
   ])
   const [domainChosen,setDomainChosen]=useState('');
 
+  const handleSpectate = (email) => {
+    spectateProfile(email);
+    navigation.navigate('Inspecter Profil');
+  }
+
   return (
     <View style={styles.container}>
       
@@ -82,8 +87,10 @@ function SearchScreen({navigations}){
                       <View style={{flexDirection:'row',padding:5}}>
                         <Image source={{uri:item.ppPath}} style={styles.imageList}/>  
                         <View style={{alignItems:'center',height:60}}>
-                          <Text style={styles.textList}>{item.forename} {item.surname}</Text>
-                          <Text style={{bottom:10,left:15,fontSize:15,position:'absolute',marginTop:15}}>{item.type}</Text>
+                          <TouchableOpacity onPress={() => handleSpectate(item.email)}>
+                            <Text style={styles.textList}>{item.forename} {item.surname}</Text>
+                            <Text style={{bottom:10,left:15,fontSize:15,position:'absolute',marginTop:15}}>{item.type}</Text>
+                          </TouchableOpacity>
                         </View>
                         {(verifyIfSubscribed(item.id)==false) &&
                         <>
@@ -115,8 +122,10 @@ function SearchScreen({navigations}){
                     <View style={{flexDirection:'row',padding:5}}>
                       <Image source={{uri:item.ppPath}} style={styles.imageList}/>  
                       <View style={{alignItems:'center',height:60}}>
-                        <Text style={styles.textList}>{item.forename} {item.surname}</Text>
-                        <Text style={{bottom:10,left:15,fontSize:15,position:'absolute',marginTop:15}}>{item.type}</Text>
+                        <TouchableOpacity onPress={() => handleSpectate(item.email)}>
+                          <Text style={styles.textList}>{item.forename} {item.surname}</Text>
+                          <Text style={{bottom:10,left:15,fontSize:15,position:'absolute',marginTop:15}}>{item.type}</Text>
+                        </TouchableOpacity>
                       </View>
                       {(verifyIfSubscribed(item.id)==false) &&
                       <>

@@ -18,6 +18,10 @@ export const AuthProvider = ({children}) => {
     const [retrievedPosts,setRetrievedPosts] = useState([]);
     const [checkPosts,setCheckPosts] = useState(0);
 
+    const [spectatedUserInfo,setSpectatedUserInfo] = useState({});
+    const [spectatedFollowersList,setSpectatedFollowersList] = useState([]);
+    const [spectatedFollowingList,setSpectatedFollowingList] = useState([]);
+
     const register = (forename,surname,email,pwd,type,option1,option2) => {
 
         var APIURL=`${BASE_URL}/insert.php`;
@@ -168,6 +172,7 @@ export const AuthProvider = ({children}) => {
             .then((response)=>response.json())
             .then((response)=>
             {
+                profileData.userID=response[0].UserID;
                 profileData.forename=response[0].Forename;
                 profileData.surname=response[0].Surname;
                 profileData.pwd=response[0].Pwd;
@@ -544,6 +549,107 @@ export const AuthProvider = ({children}) => {
         })
     }
 
+    const spectateProfile = (email) => {
+        var APIURL=`${BASE_URL}/userProfile.php`;
+
+        var profileHeaders={
+            'Accept' : 'application/json',
+            'Content-Type':'application.json'
+        };
+
+        var profileData={
+            email:email
+        };
+
+        fetch(APIURL,
+            {
+                method:'POST',
+                headers:profileHeaders,
+                body: JSON.stringify(profileData)
+            })
+            .then((response)=>response.json())
+            .then((response)=>
+            {
+                profileData.userID=response[0].UserID;
+                profileData.forename=response[0].Forename;
+                profileData.surname=response[0].Surname;
+                profileData.pwd=response[0].Pwd;
+                profileData.type=response[0].Type;
+                profileData.option1=response[0].Option1;
+                profileData.option2=response[0].Option2;
+                profileData.gender=response[0].Gender;
+                profileData.description=response[0].Description;
+                profileData.pp=response[0].PP;
+                profileData.backgroundPicture=response[0].BackgroundPicture;
+                profileData.followers=response[0].Followers;
+                profileData.followersCounter=response[0].FollowersCounter;
+                profileData.following=response[0].Following;
+                profileData.followingCounter=response[0].FollowingCounter;
+                profileData.interest=response[0].Interest;
+
+                console.log(response[0].Message);
+                console.log(profileData);
+                setSpectatedUserInfo(profileData);
+
+                getSpectatedListFollowersFollowing(email);
+            })
+            .catch((e)=>{
+                console.log("Error"+e);
+            })
+    }
+
+    const getSpectatedListFollowersFollowing = (email) => {
+        var APIURL=`${BASE_URL}/followersFollowingList.php`;
+
+        let data={
+            method: 'POST',
+            body : JSON.stringify({
+                email:email,
+            }),
+            headers: {
+                'Accept':       'application/json',
+                'Content-Type': 'application/json',
+            }
+        }
+
+        fetch(APIURL, data)
+        .then((response) => response.json())
+        .then((response) => {
+            console.log(response);
+
+            let listFollowers=response[0].ListFollowers;
+            let followersData=[];
+            
+            for (let i=0;i<listFollowers.length;i++){
+              let follower = {};
+              follower.key=listFollowers[i][0];
+              follower.forename=listFollowers[i][1];
+              follower.surname=listFollowers[i][2];
+              follower.email=listFollowers[i][3];
+              follower.ppPath=listFollowers[i][4];
+              followersData.push(follower);
+            }
+            setSpectatedFollowersList(followersData);
+            
+            let listFollowing=response[0].ListFollowing;
+            let followingData=[]; 
+            
+            for (let i=0;i<listFollowing.length;i++){
+              let following = {};
+              following.key=listFollowing[i][0];
+              following.forename=listFollowing[i][1];
+              following.surname=listFollowing[i][2];
+              following.email=listFollowing[i][3];
+              following.ppPath=listFollowing[i][4];
+              followingData.push(following);
+            }
+            setSpectatedFollowingList(followingData);
+        })
+        .catch((e)=>{
+            console.log("Error"+e);
+        })
+    }
+
     const test = () => {
         setSpinnerLoading(!spinnerLoading);
         /*
@@ -572,8 +678,8 @@ export const AuthProvider = ({children}) => {
     }
 
     return(
-    <AuthContext.Provider value={{isLoading,userInfo,isLoggedIn,retrievedInfo,showProfiles,followersList,followingList,randomProfiles,retrievedPosts,checkPosts,searchedUsers,
-        register,login,logout,modify,retrieveUserProfileInfo,modifyProfilePicture,backgroundPicture,showUserProfiles,followUser,unfollowUser,removeFollower,refresh,post,getListFollowersFollowing,retrievePosts,setRandomProfiles,searchUser,test}}>
+    <AuthContext.Provider value={{isLoading,userInfo,isLoggedIn,retrievedInfo,showProfiles,followersList,followingList,randomProfiles,retrievedPosts,checkPosts,searchedUsers,spectatedUserInfo,spectatedFollowersList,spectatedFollowingList,
+        register,login,logout,modify,retrieveUserProfileInfo,modifyProfilePicture,backgroundPicture,showUserProfiles,followUser,unfollowUser,removeFollower,refresh,post,getListFollowersFollowing,retrievePosts,setRandomProfiles,searchUser,spectateProfile,test}}>
             {children}
     </AuthContext.Provider>
     );
