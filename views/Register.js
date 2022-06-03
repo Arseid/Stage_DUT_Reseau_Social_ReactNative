@@ -20,7 +20,11 @@ const PROP = [
 		value: 'Enseignant',
 	},
 	{
-		label: 'Entreprise',
+		label: 'Professionnel',
+		value: 'Professionnel',
+  },
+  {
+    label: 'Entreprise',
 		value: 'Entreprise',
   },
 ];
@@ -61,7 +65,10 @@ export function RegisterScreen(){
   }
 
   const handleRegister = () =>{
-    if (forename.length==0 || surname.length==0 || email.length==0 || pwd.length==0 || checkPwd.length==0){
+    if (selectedUserType!=='Entreprise' && (forename.length==0 || surname.length==0 || email.length==0 || pwd.length==0 || checkPwd.length==0)){
+      alert("Veuillez remplir les champs svp.")
+    }
+    else if(selectedUserType=='Entreprise' && (email.length==0 || pwd.length==0 || checkPwd.length==0)){
       alert("Veuillez remplir les champs svp.")
     }
     else{
@@ -136,6 +143,7 @@ export function RegisterScreen(){
       if (selectedUserType=='Elève') setType('Eleve');
       else if (selectedUserType=='Parent') setType('Parent');
       else if (selectedUserType=='Enseignant') setType('Enseignant');
+      else if (selectedUserType=='Professionnel') setType('Professionnel');
       else if (selectedUserType=='Entreprise') setType('Entreprise');
       setIdentificationDone(true);
     }
@@ -180,8 +188,12 @@ export function RegisterScreen(){
     { (identificationDone == true) &&
     <KeyboardAvoidingView behavior="padding">
       <Text style={styles.subtitle}>Créer un compte {selectedUserType}</Text>
-      <TextInput style={styles.infoInput} placeholderTextColor={'#808080'} placeholder="Prénom" autoCapitalize='sentences' value={forename} onChangeText={text => setForename(text)}/>
-      <TextInput style={styles.infoInput} placeholderTextColor={'#808080'} placeholder="Nom de famille" autoCapitalize='sentences' value={surname} onChangeText={text => setSurname(text)}/>
+      {selectedUserType !== 'Entreprise' &&
+      <>
+        <TextInput style={styles.infoInput} placeholderTextColor={'#808080'} placeholder="Prénom" autoCapitalize='sentences' value={forename} onChangeText={text => setForename(text)}/>
+        <TextInput style={styles.infoInput} placeholderTextColor={'#808080'} placeholder="Nom de famille" autoCapitalize='sentences' value={surname} onChangeText={text => setSurname(text)}/>
+      </>
+      }
       <TextInput style={styles.infoInput} placeholderTextColor={'#808080'} placeholder="Entrez une adresse e-mail" autoCapitalize='none' value={email} onChangeText={text => setEmail(text)}/>
       <TextInput style={styles.infoInput} placeholderTextColor={'#808080'} placeholder="Entrez un mot de passe" secureTextEntry autoCapitalize='none' value={pwd} onChangeText={text => setPwd(text)}/>
       <TextInput style={styles.infoInput} placeholderTextColor={'#808080'} placeholder="Confirmez votre mot de passe" secureTextEntry autoCapitalize='none' value={checkPwd} onChangeText={text => setCheckPwd(text)}/>
@@ -267,7 +279,7 @@ export function RegisterScreen(){
       </View>
       </>
       }
-      { selectedUserType == 'Entreprise' && 
+      { selectedUserType == 'Professionnel' &&
       <>
       <View style={styles.cutOption}/>
       <DropDownPicker
@@ -287,6 +299,38 @@ export function RegisterScreen(){
         placeholder="Nom d'entreprise" 
         value={option1} 
         onChangeText={text => setOption1(text)}
+      />
+      <TouchableOpacity style={styles.button} onPress={handleRegister}>
+        <Text style={styles.averageText}>S'inscrire</Text>
+      </TouchableOpacity>
+      <View style={styles.login2}>
+        <Text style={styles.averageText}>Vous avez déjà un compte?</Text>
+        <Text style={styles.hyperlinkText} onPress={() => navigation.navigate('Login')}>
+          Connectez-vous!
+        </Text>
+      </View>
+      </>
+      }
+      { selectedUserType == 'Entreprise' && 
+      <>
+      <View style={styles.cutOption}/>
+      <DropDownPicker
+        style={styles.dropDownOption}
+        open={open}
+        value={option1}
+        items={items3}
+        setOpen={setOpen}
+        setValue={setOption1}
+        setItems={setItems3}
+        placeholder="Secteur d'activité"
+        placeholderStyle={{ color: 'darkgrey' }} 
+      />
+      <TextInput
+        style={styles.infoInputOptionCompany}
+        placeholderTextColor={'#808080'}
+        placeholder="Nom d'entreprise" 
+        value={forename} 
+        onChangeText={text => setForename(text)}
       />
       <TouchableOpacity style={styles.button} onPress={handleRegister}>
         <Text style={styles.averageText}>S'inscrire</Text>

@@ -59,6 +59,7 @@
 
     $Response[]=array(
         "Message"=>$Message,
+        "UserID"=>$user_id,
         "Forename"=>$forename,
         "Surname"=>$surname,
         "Pwd"=>$pwd,

@@ -6,9 +6,9 @@ import styles from '../style/searchStyle';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Overlay } from 'react-native-elements';
 
-function HomeScreen({navigations}){
+function HomeScreen({navigation}){
 
-  const {userInfo,followUser,post,retrievedPosts,retrievePosts,randomProfiles,setRandomProfiles,showUserProfiles,followingList} = useContext(AuthContext);
+  const {userInfo,followUser,post,retrievedPosts,retrievePosts,randomProfiles,setRandomProfiles,showUserProfiles,followingList,spectateProfile} = useContext(AuthContext);
 
   const removeItem = (id) => {
     let arr = randomProfiles.filter(function(item) {
@@ -68,6 +68,11 @@ function HomeScreen({navigations}){
     }
   }
 
+  const handleSpectate = (email) => {
+    spectateProfile(email);
+    navigation.navigate('Inspecter Profil');
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.form2}>
@@ -91,14 +96,14 @@ function HomeScreen({navigations}){
         </Overlay>
       </View>
       <View>
-        <Text style={styles.title}>Lorem Ipsum</Text>
+        <Text style={styles.title}>C'est ton destin</Text>
       </View>
       
         { (retrievedPosts.length<1) &&
           <View style={{marginTop:20}}>
             <Text style={styles.textSuggestion}>C'est vide par ici...</Text>
             <Text style={styles.textSuggestion}>Postez ou suivez des personnes pour alimenter votre feed!</Text>
-            <View style={styles.containerSuggestion}>
+            <View style={styles.containerSuggestion2}>
               <FlatList
                 data={randomProfiles} keyExtractor={(item) => item.id.toString()} renderItem={({item}) => 
                   <>
@@ -106,8 +111,10 @@ function HomeScreen({navigations}){
                       <View style={{flexDirection:'row',padding:5}}>
                         <Image source={{uri:item.ppPath}} style={styles.imageList}/>  
                         <View style={{alignItems:'center',height:60}}>
-                          <Text style={styles.textList}>{item.forename} {item.surname}</Text>
-                          <Text style={{bottom:10,left:15,fontSize:15,position:'absolute',marginTop:15}}>{item.type}</Text>
+                          <TouchableOpacity onPress={() => handleSpectate(item.email)}>
+                            <Text style={styles.textList}>{item.forename} {item.surname}</Text>
+                            <Text style={{bottom:10,left:15,fontSize:15,position:'absolute',marginTop:15}}>{item.type}</Text>
+                          </TouchableOpacity>
                         </View>
                         {(verifyIfSubscribed(item.id)==false) &&
                         <>
@@ -132,13 +139,13 @@ function HomeScreen({navigations}){
         { (retrievedPosts.length>=1) &&
           <>
             <View style={{marginTop:20}}>
-              <View style={styles.containerSuggestion2}>
+              <View style={styles.containerSuggestion}>
                 <FlatList
                 data={retrievedPosts} renderItem={({item}) => 
                 <>
                     <View style={{borderBottomWidth:1,borderColor:'#d2b48c', marginBottom:20}}>
                       <View style={{flexDirection:'row'}}>
-                        <Image source={{uri:item.pp}} style={{width:'21%',height:'100%',borderRadius:100}}/>  
+                        <Image source={{uri:item.pp}} style={{width:'20%',height:'100%',borderRadius:100}}/>  
                         <Text style={{fontSize:15, height:60, top:20, marginLeft:20}}>{item.forename} {item.surname} | {item.type}</Text>
                       </View>
                       <Text style={{margin:10}}>{item.body}</Text>

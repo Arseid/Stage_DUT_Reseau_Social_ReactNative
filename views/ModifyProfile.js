@@ -1,37 +1,45 @@
-import React,{useState,useContext} from 'react';
-import {Text, TextInput, View, Keyboard, Button } from 'react-native';
-import { AuthContext } from '../context/AuthContext';
+import React, {useState,useContext} from 'react';
+import {Text, TextInput, View, TouchableOpacity, Keyboard } from 'react-native';
 import styles from '../style/loginStyle';
-import Spinner from 'react-native-loading-spinner-overlay/lib';
+import { AuthContext } from '../context/AuthContext';
 
+export function ModifyScreen({navigation}){
 
-export function ModifyProfileScreen({navigation}){
+  const [email, setEmail] = useState ('');
+  const [pwd, setPwd] = useState ('');
+  const {isLoading, login} = useContext(AuthContext);
 
-    const {userInfo,isLoading,modify} = useContext(AuthContext);
-    const [forename, setForename] = useState('');
-    const [surname, setSurname] = useState('');
+  const handleLogin = () =>{
+    login(email,pwd);
+    Keyboard.dismiss();
+  }
 
-    const handleModification = () =>{
+  return (
 
-        if (forename.length==0 && surname.length==0) alert('fill pls');
-        else{
-            if (forename.length==0) setForename(userInfo.forename);
-            if (surname.length==0) setSurname(userInfo.surname);
-            modify(forename,surname,userInfo.email);
-            Keyboard.dismiss();
-            navigation.goBack();
-        }   
-    }
+    <View style={styles.container}>
 
-    return(
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Spinner visible={isLoading}/>
-            <Text>Profile Screen</Text>
-            <TextInput style={styles.infoInput} placeholder="Nouveau Prénom" value={forename} onChangeText={text => setForename(text)}/>
-            <TextInput style={styles.infoInput} placeholder="Nouveau Nom" value={surname} onChangeText={text => setSurname(text)}/>
-            <Button title='Annuler' onPress={() => navigation.goBack()}/>
-            <Button title='Modifier' onPress={handleModification}/>
-        </View> 
-    );
+      <View style={styles.upside}>
+
+        <View style={styles.form}>
+          <Text style={styles.title}>Lorem Ipsum</Text>
+
+          <TextInput style={styles.infoInput} placeholderTextColor={'#808080'} placeholder="Email" value={email} onChangeText={text => setEmail(text)}/>
+          <TextInput style={styles.infoInput} placeholderTextColor={'#808080'} placeholder="Mot de passe" secureTextEntry value={pwd} onChangeText={text => setPwd(text)}/>
+          <TouchableOpacity style={styles.button} onPress={handleLogin}>
+            <Text style={styles.averageText}>Se connecter</Text>
+          </TouchableOpacity>
+
+          <Text style={styles.hyperlinkText}>Mot de passe oublié?</Text>
+        </View>
+
+        <View style={styles.subscription}>
+          <Text style={styles.averageText}>Vous n'avez pas de compte?</Text>
+          <Text style={styles.hyperlinkText} onPress={() => navigation.navigate('Register')}>
+            Inscrivez-vous!
+          </Text>
+        </View>
+
+      </View> 
+    </View>
+  );
 }
-
