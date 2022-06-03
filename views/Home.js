@@ -96,7 +96,7 @@ function HomeScreen({navigation}){
         </Overlay>
       </View>
       <View>
-        <Text style={styles.title}>Lorem Ipsum</Text>
+        <Text style={styles.title}>C'est ton destin</Text>
       </View>
       
         { (retrievedPosts.length<1) &&

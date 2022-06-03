@@ -83,7 +83,7 @@ export function SpectateProfile({navigation}){
             <View style={{marginTop:'15%'}}>
               {spectatedUserInfo.followersCounter<1 && 
                 <>
-                  <Text style={styles.noSubscribe}>Vous avez 0 abonné</Text>
+                  <Text style={styles.noSubscribe}>Cet utilisateur possède 0 abonné</Text>
                 </>
               }
               {spectatedUserInfo.followersCounter>=1 &&
@@ -113,7 +113,7 @@ export function SpectateProfile({navigation}){
             <View style={{marginTop:'15%'}}>
               {spectatedUserInfo.followingCounter<1 &&
                 <>
-                  <Text style={styles.noSubscribe}>Vous êtes abonné à aucun utilisateur</Text>
+                  <Text style={styles.noSubscribe}>Cet utilisateur est abonné à aucun utilisateur</Text>
                 </>
               }
               {spectatedUserInfo.followingCounter>=1 &&

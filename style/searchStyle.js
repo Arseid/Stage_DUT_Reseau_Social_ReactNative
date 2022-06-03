@@ -149,7 +149,7 @@ export default StyleSheet.create({
 
   containerSuggestion:{
     width:'90%',
-    height:'60%',
+    height:'50%',
     borderColor:"#FFFAF0",
     backgroundColor:"#FFFAF0",
     borderWidth:1,
