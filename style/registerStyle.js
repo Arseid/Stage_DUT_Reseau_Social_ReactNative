@@ -116,7 +116,6 @@ export default StyleSheet.create({
       marginTop:10,
       backgroundColor: "#FFFAF0",
       borderRadius: 7,
-      backgroundColor: 'white'
     },
 
     dropDownRight:{
@@ -127,7 +126,6 @@ export default StyleSheet.create({
       marginBottom:20,
       marginLeft: 160,
       borderRadius: 7,
-      backgroundColor: 'white'
     },
 
     infoInputOptionTeacher:{
@@ -157,7 +155,6 @@ export default StyleSheet.create({
       marginBottom:28,
       backgroundColor: "#FFFAF0",
       borderRadius: 7,
-      backgroundColor: 'white'
     },
 
   });

@@ -89,7 +89,7 @@ export default StyleSheet.create({
   },
 
   buttonReload:{
-    width:'90%',
+    width:'80%',
     borderRadius: 4,
     backgroundColor: '#ffaf7a',
     padding:5,
@@ -97,16 +97,8 @@ export default StyleSheet.create({
     marginTop:10
   },
 
-  rebootFilterButton:{
-    width:'200%',
-    borderRadius: 4,
-    backgroundColor: '#ffaf7a',
-    padding:5,
-    
-  },
-
   buttonReload2:{
-    width:'90%',
+    width:'80%',
     borderRadius: 4,
     backgroundColor: '#ffaf7a',
     padding:5,
@@ -149,7 +141,7 @@ export default StyleSheet.create({
 
   containerSuggestion:{
     width:'90%',
-    height:'60%',
+    height:'90%',
     borderColor:"#FFFAF0",
     backgroundColor:"#FFFAF0",
     borderWidth:1,
@@ -159,29 +151,17 @@ export default StyleSheet.create({
     padding:10
   },
 
-  containerSuggestion2:{
-    width:'90%',
-    height:'70%',
-    borderColor:"#FFFAF0",
-    backgroundColor:"#FFFAF0",
-    borderWidth:1,
-    alignSelf:'center',
-    marginTop:10,
-    borderRadius: 10,
-    padding:10
-  },
 
   imageList:{
-    width:'20%',
-    height:'95%',
+    width:'21%',
+    height:'100%',
     borderRadius:100
   },
 
   textList:{
-    position:'absolute',
     fontSize:15,
-    height:40,
-    top:12,
+    height:60,
+    top:5,
     left:15
   },
 
@@ -190,17 +170,16 @@ export default StyleSheet.create({
     borderRadius: 4,
     padding:5,
     position:'absolute',
-    left:235,
+    left:200,
     top:20
   },
 
-  viewSearchBar:{
-    flexDirection:'row',
-    marginHorizontal:20,
-    marginTop:'25%',
-    padding:5,
-    borderWidth:1,
-    borderColor:'#808080',
-    borderRadius:10
+  msg:{
+    color:'grey',
+    left:'25%',
+    bottom:'30%',
+    marginRight:80
   }
+
+  
 });

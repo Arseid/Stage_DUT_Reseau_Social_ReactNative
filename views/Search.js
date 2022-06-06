@@ -1,85 +1,184 @@
-import React, {useEffect,useContext} from 'react';
-import {Text, Image, View, TouchableOpacity, ScrollView, FlatList } from 'react-native';
+import React, {useState,useContext} from 'react';
+import {Text, Image, View, TouchableOpacity, ScrollView, FlatList,TextInput } from 'react-native';
 import { AuthContext } from '../context/AuthContext';
 import styles from '../style/searchStyle';
+import DropDownPicker from 'react-native-dropdown-picker';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-function SearchScreen({navigations}){
+function SearchScreen({navigation}){
 
-    const {randomProfiles} = useContext(AuthContext);
+  const {spectateProfile,randomProfiles,setRandomProfiles,followUser,userInfo,showUserProfiles,searchUser,searchedUsers,followingList} = useContext(AuthContext);
 
-    return (
-        <View style={styles.container}>
-          <View style={{top:60,width:'80%',borderColor:"#FFFAF0", backgroundColor:"#FFFAF0", borderWidth:1,alignSelf:'center',borderRadius: 10,padding:10,}}>
-            <FlatList
-                data={randomProfiles} renderItem={({item}) => 
-                    <>
-                        <View style={{borderBottomWidth:1,borderColor:'#d2b48c'}}>
-                            <View style={{flexDirection:'row'}}>
-                                <Image source={{uri:item.ppPath}} style={{width:'20%',height:'100%',borderRadius:100}}/>  
-                                    <Text style={{fontSize:15, height:60}}>{item.forename} {item.surname}</Text>
-                                    <TouchableOpacity style={{backgroundColor: '#ffaf7a', borderRadius: 4, padding:5, position:'absolute',left:220}} onPress={()=>unfollowUser(userInfo.email,item.email)}>
-                                        <Text style={{fontSize: 15, textAlign:"center"}}>S'abonner</Text>
-                                    </TouchableOpacity>
-                            </View>
-                        </View>
-                    </>
-                }
-            />
-          </View>
-        </View>
-      );
-    
-}
-/*
+  const [searchInput,setSearchInput]=useState('');
 
-  dataView:{
-    borderBottomColor:'#808080',
-    borderBottomWidth:1,
-    padding:10
-  },
-
-  dataAlignment:{
-    flexDirection:'row',
-    alignItems:'center'
-  },
-
-  imageData:{
-    borderRadius:100,
-    width:'15%',
-    height:'100%',
-    left:5
-  },
-
-  textData:{
-    left:25,
-    top:18,
-    fontSize:15,
-    height:60
-  },
-
-  buttonData:{
-    backgroundColor: '#ffaf7a',
-    borderRadius: 4,
-    padding:5,
-    position:'absolute',
-    left:'65%'
+  const removeItem = (id) => {
+    let arr = randomProfiles.filter(function(item) {
+      return item.id !== id
+    })
+    setRandomProfiles(arr);
   }
 
-<FlatList
-    data={randomProfiles} renderItem={({item}) => 
-        <>
-        <View style={styles.dataView}>
-            <View style={styles.dataAlignment}>
-            <Image source={{uri:item.ppPath}} style={styles.imageData}/>  
-            <Text style={styles.textData}>{item.forename} {item.surname}</Text>
-            <TouchableOpacity style={styles.buttonData} onPress={()=>unfollowUser(userInfo.email,item.email)}>
-                <Text style={styles.buttonText}>Se désabonner</Text>
-            </TouchableOpacity>
-            </View>
+  const searching = (text) => {
+    setSearchInput(text);
+    searchUser(userInfo.email,text,chosenType,domainChosen);
+  }
+
+  const verifyIfSubscribed = (userID) => {
+    const verification = followingList.some(item => item.key === userID);
+    return verification;
+  }
+
+  const [openType,setOpenType]=useState(false);
+  const [typeItems,setTypeItems]=useState([
+    {label: 'Eleve', value: 'eleve'},
+    {label: 'Parent', value: 'parent'},
+    {label: 'Professeur', value: 'professeur'},
+    {label: 'Professionnel', value: 'professionnel'},
+    {label: 'Entreprise', value: 'entreprise'},
+  ]);
+  const [chosenType,setChosenType]=useState('');
+
+  const [openDomain,setOpenDomain]=useState(false);
+  const [domainItems,setDomainItems]=useState([
+    {label: 'Agroalimentaire', value: 'Agroalimentaire'},
+    {label: 'Banque/Assurance', value: 'Banque/Assurance'},
+    {label: 'Bois / Papier / Carton / Imprimerie', value: 'Bois / Papier / Carton / Imprimerie'},
+    {label: 'BTP / Matériaux de construction', value: 'BTP / Matériaux de construction'},
+    {label: 'Chimie / Parachimie', value: 'Chimie / Parachimie'},
+    {label: 'Commerce / Négoce', value: 'Commerce / Négoce / Distribution'},
+    {label: 'Édition / Communication', value: 'Édition / Communication / Multimédia'},
+    {label: 'Électronique / Électricité', value: 'Électronique / Électricité'},
+    {label: 'Etudes et conseils', value: 'Etudes et conseils'},
+    {label: 'Industrie phramaceutique', value: 'Industrie phramaceutique'},
+    {label: 'Informatique/Télécoms', value: 'Informatique/Télécoms'},
+    {label: 'Machines et équipements', value: 'Machines et équipements/Automobile'},
+    {label: 'Métallurgie/Travail du métal', value: 'Métallurgie/Travail du métal'},
+    {label: 'Plastique/Caoutchouc', value: 'Plastique/Caoutchouc'},
+    {label: 'Services aux entreprises', value: 'Services aux entreprises'},
+    {label: 'Textile/Habillement/Chaussure', value: 'Textile/Habillement/Chaussure'},
+    {label: 'Transport/Logistique', value: 'Transport/Logistique'},
+    {label: 'Autres', value: 'Autres'}
+  ])
+  const [domainChosen,setDomainChosen]=useState('');
+
+  const handleSpectate = (email) => {
+    spectateProfile(email);
+    navigation.navigate('Inspecter Profil');
+  }
+
+  return (
+    <View style={styles.container}>
+      
+      <View style={{position:'absolute',left:5,top:'20%'}}>
+        <View style={styles.viewSearchBar}>
+          <Ionicons style={{margin:5}} name='search-outline' size={25} color={'#808080'}/>
+          <TextInput value={searchInput} onChangeText={text => searching(text)} placeholderTextColor={'#808080'} placeholder='Rechercher un compte...' style={{marginLeft:5,width:'85%'}}></TextInput>
         </View>
-        </>
-    }
-/> 
-*/
+        
+        <View style={{marginTop:20}}>
+          {(searchInput=='') &&
+          <>
+            <Text style={styles.textSuggestion}>Voici une liste de personnes que vous pourriez suivre :</Text>
+            <View style={styles.containerSuggestion}>
+              <FlatList
+                data={randomProfiles} keyExtractor={(item) => item.id.toString()} renderItem={({item}) => 
+                  <>
+                    <View style={{borderBottomWidth:1,borderColor:'#d2b48c'}}>
+                      <View style={{flexDirection:'row',padding:5}}>
+                        <Image source={{uri:item.ppPath}} style={styles.imageList}/>  
+                        <View style={{alignItems:'center',height:60}}>
+                          <TouchableOpacity onPress={() => handleSpectate(item.email)}>
+                            <Text style={styles.textList}>{item.forename} {item.surname}</Text>
+                            <Text style={{bottom:10,left:15,fontSize:15,position:'absolute',marginTop:15}}>{item.type}</Text>
+                          </TouchableOpacity>
+                        </View>
+                        {(verifyIfSubscribed(item.id)==false) &&
+                        <>
+                          <TouchableOpacity style={styles.buttonList} onPress={()=>{followUser(userInfo.email,item.email);removeItem(item.id)}}>
+                            <Text style={{fontSize: 15, textAlign:"center"}}>S'abonner</Text>
+                          </TouchableOpacity>
+                        </>
+                        }
+                      </View>
+                    </View>
+                  </>
+                }
+              />
+            </View>
+            <View style={{alignItems:'center'}}>
+              <TouchableOpacity style={styles.buttonReload} onPress={() => {showUserProfiles(userInfo.email)}}>
+                <Text style={styles.buttonText}>Recharger</Text>
+              </TouchableOpacity>
+            </View>
+          </>
+          }
+          {(searchInput!=='') &&
+          <>
+            <View style={styles.containerSuggestion}>
+            <FlatList
+              data={searchedUsers} keyExtractor={(item) => item.id.toString()} renderItem={({item}) => 
+                <>
+                  <View style={{borderBottomWidth:1,borderColor:'#d2b48c'}}>
+                    <View style={{flexDirection:'row',padding:5}}>
+                      <Image source={{uri:item.ppPath}} style={styles.imageList}/>  
+                      <View style={{alignItems:'center',height:60}}>
+                        <TouchableOpacity onPress={() => handleSpectate(item.email)}>
+                          <Text style={styles.textList}>{item.forename} {item.surname}</Text>
+                          <Text style={{bottom:10,left:15,fontSize:15,position:'absolute',marginTop:15}}>{item.type}</Text>
+                        </TouchableOpacity>
+                      </View>
+                      {(verifyIfSubscribed(item.id)==false) &&
+                      <>
+                        <TouchableOpacity style={styles.buttonList} onPress={()=>{followUser(userInfo.email,item.email)}}>
+                          <Text style={{fontSize: 15, textAlign:"center"}}>S'abonner</Text>
+                        </TouchableOpacity>
+                      </>
+                      }
+                    </View>
+                  </View>
+                </>
+              }
+            />
+            </View>
+          </>
+          }
+        </View>
+      </View>
+      <View style={{position:'absolute',left:'12%',top:'26%'}}>
+        <TouchableOpacity style={styles.rebootFilterButton} onPress={() => {setChosenType(''),setDomainChosen('')}}>
+          <Text style={styles.buttonText}>Réinitialiser les filtres</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={{marginHorizontal:'5%',marginTop:'15%',alignSelf:'center'}}>
+        <DropDownPicker
+          style={{width:'50%'}}
+          open={openType}
+          setOpen={setOpenType}
+          items={typeItems}
+          setItems={setTypeItems}
+          value={chosenType}
+          setValue={setChosenType}
+          placeholder='Type de compte'
+        />
+      </View>
+      {(chosenType=='entreprise') && 
+        <View style={{marginHorizontal:'5%',marginTop:'5%',alignSelf:'center'}}>
+          <DropDownPicker
+            style={{width:'75%'}}
+            open={openDomain}
+            setOpen={setOpenDomain}
+            items={domainItems}
+            setItems={setDomainItems}
+            value={domainChosen}
+            setValue={setDomainChosen}
+            placeholder="Secteur d'activité"
+          />
+        </View>
+      }
+      
+    </View>
+  );
+  
+}
+
 export default SearchScreen;

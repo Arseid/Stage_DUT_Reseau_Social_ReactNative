@@ -10,7 +10,7 @@ import Spinner from 'react-native-loading-spinner-overlay';
 
 export function ProfileScreen({navigation}){
 
-  const {userInfo,logout,modify,modifyProfilePicture,backgroundPicture,showUserProfiles,followersList,followingList,unfollowUser,removeFollower} = useContext(AuthContext);
+  const {userInfo,logout,modify,modifyProfilePicture,backgroundPicture,checkPosts,followersList,followingList,unfollowUser,removeFollower,retrievePosts,showUserProfiles} = useContext(AuthContext);
 
   const [visible, setVisible] = useState(false);
   const [followersVisible, setFollowersVisible] = useState(false);
@@ -28,9 +28,27 @@ export function ProfileScreen({navigation}){
     setFollowingVisible(!followingVisible);
   };
 
+  useEffect(()=> {retrievePosts(userInfo.email,userInfo.following)},[checkPosts]);
+
   // Modification Part
   const [pronouns, setPronouns] = useState(userInfo.gender);
-  const [bio, setBio] = useState(userInfo.description);
+  const [bio, setBio] = useState(userInfo?._description);
+
+  // State subjects
+  const [french,setFrench] = useState(false);
+  const [math,setMath] = useState(false);
+  const [history,setHistory] = useState(false);
+  const [english,setEnglish] = useState(false);
+  const [german,setGerman] = useState(false);
+  const [spanish,setSpanish] = useState(false);
+  const [earthScience,setEarthScience] = useState(false);
+  const [physics,setPhysics] = useState(false);
+  const [technology,setTechnology] = useState(false);
+  const [musicLearning,setMusicLearning] = useState(false);
+  const [artLearning,setArtLearning] = useState(false);
+  const [pe,setPe] = useState(false);
+
+  // State interest
   const [videogames,setVideogames] = useState(false);
   const [sport,setSport] = useState(false);
   const [it,setIT] = useState(false);
@@ -153,19 +171,19 @@ export function ProfileScreen({navigation}){
                 </TouchableOpacity>
               </View>
               <View style={{alignItems:'center', marginBottom:10}}>
-                <TouchableOpacity style={styles.button} onPress={() => {console.log(interest)}}>
+                <TouchableOpacity style={styles.button} onPress={() => {navigation.navigate('Modifier le profil')}}>
                   <Text style={styles.buttonText}>Test</Text>
                 </TouchableOpacity>
               </View>
           </View>
-          {userInfo.description || userInfo.interest ? 
+          {userInfo?._description || userInfo.interest ? 
           <>
             <View style={styles.detailsProfile}>
-            {userInfo.description ? 
+            {userInfo?._description ? 
             <>
               <View style={styles.bio}>
                 <Text style={styles.subtitle}>Bio</Text>
-                <Text style={styles.bodyText}>{userInfo.description}</Text>
+                <Text style={styles.bodyText}>{userInfo?._description}</Text>
               </View>
             </>:<></>}
             {userInfo.interest ? 
@@ -177,71 +195,9 @@ export function ProfileScreen({navigation}){
             </>:<></>}
             </View>
           </>:<></>}
-          <Overlay isVisible={visible} onBackdropPress={toggleOverlay} fullScreen overlayStyle={{backgroundColor: '#eeeeee',}}>
-            <View style={{marginTop:'5%'}}>
-              <View style={Modify.styles.focusProfile}>
-                <TouchableOpacity onPress={changeBackgroundPicture}>
-                  <Image source={{uri:userInfo.backgroundPicture}} style={Modify.styles.backgroundPicture}/>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={changePP}>
-                  <View style={Modify.styles.viewPP}>
-                    <Image source={{uri:userInfo.pp}} style={Modify.styles.image}/>
-                  </View>
-                </TouchableOpacity>
-                <View style={Modify.styles.personalInfo}>
-                  <Text style={{fontSize:25, marginBottom:5}}>{userInfo.surname} {userInfo.forename}</Text>
-                  <Text style={Modify.styles.averageText}>{userInfo.type} {userInfo.option1 ? " | "+userInfo.option1 : ""}</Text>
-                </View>
-              </View>
-              <View style={Modify.styles.detailsProfile}>
-                  <View style={Modify.styles.personalInfoChange}>
-                    <View style={Modify.styles.bioField}>
-                      <View style={Modify.styles.leftSide}>
-                        <Text style={Modify.styles.averageTextChange}>Bio </Text>
-                      </View>
-                      <TextInput 
-                        style={Modify.styles.inputBio} 
-                        multiline={true} 
-                        maxLength={200} 
-                        placeholderTextColor='#808080'
-                        placeholder='Bio de 200 caractères maximum...'
-                        value={bio}
-                        onChangeText={text => setBio(text)}
-                      />
-                    </View>
-                  </View>
-                {userInfo.type=='Eleve' &&
-                  <>
-                  <View style={Modify.styles.hobbys}>
-                    <Text style={Modify.styles.subtitle}>Centre d'intérêt...</Text>
-                    <View style={{flexDirection:'row', width:'100%'}}>
-                      <View>
-                        <CheckBox title='Jeux Vidéo' checked={videogames} onPress={() => {addVideoGames(),setVideogames(!videogames)}}/>
-                        <CheckBox title='Musique' checked={music} onPress={() => {addMusic(),setMusic(!music)}}/>
-                        <CheckBox title='Informatique' checked={it} onPress={() => {setIT(!it)}}/>
-                      </View>
-                      <View>
-                        <CheckBox title='Voyage' checked={trip} onPress={() => {setTrip(!trip)}}/>
-                        <CheckBox title='Dessiner' checked={draw} onPress={() => {setDraw(!draw)}}/>
-                        <CheckBox title='Sport' checked={sport} onPress={() => {setSport(!sport)}}/>
-                      </View>
-                    </View>
-                  </View>
-                  </>
-                }
-                <View style={Modify.styles.changeView}>
-                  <TouchableOpacity style={Modify.styles.button} onPress={toggleOverlay}>
-                    <Text style={Modify.styles.buttonText}>Annuler</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity style={Modify.styles.button} onPress={handleModification}>
-                    <Text style={Modify.styles.buttonText}>Enregistrer</Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
-            </View>
-          </Overlay>
+         
           <Overlay isVisible={followersVisible} onBackdropPress={toggleFollowersOverlay} fullScreen overlayStyle={{backgroundColor: '#eeeeee',}}>
-            <View style={{marginTop:'5%'}}>
+            <View style={{marginTop:'15%'}}>
               {userInfo.followersCounter<1 && 
                 <>
                   <Text style={styles.noSubscribe}>Vous avez 0 abonné</Text>
@@ -274,7 +230,7 @@ export function ProfileScreen({navigation}){
             </View>
           </Overlay>
           <Overlay isVisible={followingVisible} onBackdropPress={toggleFollowingOverlay} fullScreen overlayStyle={{backgroundColor: '#eeeeee',}}>
-            <View style={{marginTop:'5%'}}>
+            <View style={{marginTop:'15%'}}>
               {userInfo.followingCounter<1 &&
                 <>
                   <Text style={styles.noSubscribe}>Vous êtes abonné à aucun utilisateur</Text>
