@@ -20,7 +20,7 @@ function SearchScreen({navigation}){
 
   const searching = (text) => {
     setSearchInput(text);
-    searchUser(userInfo.email,text,chosenType,domainChosen);
+    searchUser(userInfo.email,text,chosenType);
   }
 
   const verifyIfSubscribed = (userID) => {
@@ -30,14 +30,24 @@ function SearchScreen({navigation}){
 
   const [openType,setOpenType]=useState(false);
   const [typeItems,setTypeItems]=useState([
-    {label: 'Eleve', value: 'eleve'},
-    {label: 'Parent', value: 'parent'},
-    {label: 'Professeur', value: 'professeur'},
-    {label: 'Professionnel', value: 'professionnel'},
-    {label: 'Entreprise', value: 'entreprise'},
+    {label: 'Construction durable, bâtiments, travaux publics', value: 'construction'},
+    {label: 'Etudes et modélisation numérique du bâtiment', value: 'batiment'},
+    {label: 'Relation client', value: 'client'},
+    {label: 'Gestion administrative,transport et logistique', value: 'gestion'},
+    {label: 'Industries graphiques et communication', value: 'comm'},
+    {label: 'Alimentation', value: 'alim'},
+    {label: 'Beauté et bien-être', value: 'beau'},
+    {label: 'Aéronautique', value: 'aero'},
+    {label: 'Hôtellerie-restauration', value: 'resto'},
+    {label: 'Réalisation de produits mécanique', value: 'meca'},
+    {label: 'Métiers de la maintenance', value: 'maintenance'},
+    {label: 'Numérique et transition énergétique', value: 'energie'},
+    {label: "Pilotage d'installations automatisées", value: 'auto'},
+    {label: 'Métiers du bois', value: 'bois'},
   ]);
   const [chosenType,setChosenType]=useState('');
 
+  /*
   const [openDomain,setOpenDomain]=useState(false);
   const [domainItems,setDomainItems]=useState([
     {label: 'Agroalimentaire', value: 'Agroalimentaire'},
@@ -60,6 +70,7 @@ function SearchScreen({navigation}){
     {label: 'Autres', value: 'Autres'}
   ])
   const [domainChosen,setDomainChosen]=useState('');
+  */
 
   const handleSpectate = (email) => {
     spectateProfile(email);
@@ -69,7 +80,7 @@ function SearchScreen({navigation}){
   return (
     <View style={styles.container}>
       
-      <View style={{position:'absolute',left:5,top:'20%'}}>
+      <View style={{position:'absolute',left:5,top:'15%'}}>
         <View style={styles.viewSearchBar}>
           <Ionicons style={{margin:5}} name='search-outline' size={25} color={'#808080'}/>
           <TextInput value={searchInput} onChangeText={text => searching(text)} placeholderTextColor={'#808080'} placeholder='Rechercher un compte...' style={{marginLeft:5,width:'85%'}}></TextInput>
@@ -144,24 +155,30 @@ function SearchScreen({navigation}){
           }
         </View>
       </View>
-      <View style={{position:'absolute',left:'12%',top:'26%'}}>
-        <TouchableOpacity style={styles.rebootFilterButton} onPress={() => {setChosenType(''),setDomainChosen('')}}>
-          <Text style={styles.buttonText}>Réinitialiser les filtres</Text>
+      <View style={{position:'absolute',left:'5%',top:'20%'}}>
+        <TouchableOpacity style={styles.rebootFilterButton} onPress={() => {setChosenType('')}}>
+          <Text style={styles.buttonText}>Réinitialiser le filtre</Text>
         </TouchableOpacity>
       </View>
-      <View style={{marginHorizontal:'5%',marginTop:'15%',alignSelf:'center'}}>
+      <View style={{marginHorizontal:'5%',marginTop:'20%',alignSelf:'center'}}>
         <DropDownPicker
-          style={{width:'50%'}}
+          style={{width:'100%'}}
           open={openType}
           setOpen={setOpenType}
           items={typeItems}
           setItems={setTypeItems}
           value={chosenType}
           setValue={setChosenType}
-          placeholder='Type de compte'
+          placeholder='Filière...'
         />
       </View>
-      {(chosenType=='entreprise') && 
+    </View>
+  );
+  
+}
+
+/*
+{(chosenType=='entreprise') && 
         <View style={{marginHorizontal:'5%',marginTop:'5%',alignSelf:'center'}}>
           <DropDownPicker
             style={{width:'75%'}}
@@ -175,10 +192,6 @@ function SearchScreen({navigation}){
           />
         </View>
       }
-      
-    </View>
-  );
-  
-}
+      */
 
 export default SearchScreen;

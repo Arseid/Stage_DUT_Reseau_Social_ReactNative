@@ -7,7 +7,7 @@
     $EncodedData=file_get_contents('php://input');
     $DecodedData=json_decode($EncodedData,true);
 
-    $pronouns=$DecodedData['pronouns'];
+    $list=implode(' | ',$DecodedData['list']);
     $bio=$DecodedData['bio'];
     $email=$DecodedData['email'];
 
@@ -16,7 +16,7 @@
     $row = mysqli_fetch_row($SQ);
     $user_id=$row[0];
 
-    $MR="UPDATE profile SET gender = '$pronouns', description = '$bio' WHERE profile.user_id = '$user_id'";
+    $MR="UPDATE profile SET description = '$bio', interest = '$list' WHERE profile.user_id = '$user_id'";
     $MQ=mysqli_query($ConnectDB,$MR);
 
     if ($MQ){

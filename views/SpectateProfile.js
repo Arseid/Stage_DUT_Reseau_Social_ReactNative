@@ -7,7 +7,7 @@ import { Overlay } from 'react-native-elements';
 
 export function SpectateProfile({navigation}){
 
-  const {userInfo,spectatedUserInfo,spectatedFollowersList,spectatedFollowingList,followingList,followUser} = useContext(AuthContext);
+  const {userInfo,spectatedUserInfo,spectatedFollowersList,spectatedFollowingList,followingList,followUser,spectateProfile} = useContext(AuthContext);
 
   const [followersVisible, setFollowersVisible] = useState(false);
   const [followingVisible, setFollowingVisible] = useState(false);
@@ -23,6 +23,11 @@ export function SpectateProfile({navigation}){
   const verifyIfSubscribed = (userID) => {
     const verification = followingList.some(item => item.key === userID);
     return verification;
+  }
+    
+  const handleSpectate = (email) => {
+    spectateProfile(email);
+    navigation.navigate('Inspecter Profil');
   }
 
   return(
@@ -52,7 +57,7 @@ export function SpectateProfile({navigation}){
                 <Text style={{fontSize:25, marginBottom:5}}>{spectatedUserInfo.surname} {spectatedUserInfo.forename}</Text>
                 <Text style={styles.averageText}>{spectatedUserInfo.type} {spectatedUserInfo.option1 ? " | "+spectatedUserInfo.option1 : ""}</Text>
               </View>
-              {(verifyIfSubscribed(spectatedUserInfo.userID)==false) &&
+              {(verifyIfSubscribed(spectatedUserInfo.userID)==false && spectatedUserInfo.userID!=userInfo.userID) &&
                 <View style={{alignItems:'center', marginBottom:10}}>
                 <TouchableOpacity style={styles.button} onPress={() => followUser(userInfo.email,spectatedUserInfo.email)}>
                     <Text style={styles.buttonText}>S'abonner</Text>
@@ -74,7 +79,7 @@ export function SpectateProfile({navigation}){
             <>
               <View style={styles.hobbys}>
                 <Text style={styles.subtitle}>Centre d'intérêt</Text>
-                <Text style={styles.bodyText}></Text>
+                <Text style={styles.bodyText}>{spectatedUserInfo.interest}</Text>
               </View>
             </>:<></>}
             </View>
@@ -94,7 +99,9 @@ export function SpectateProfile({navigation}){
                         <View style={styles.dataView}>
                           <View style={styles.dataAlignment}>
                             <Image source={{uri:item.ppPath}} style={styles.imageData}/>  
+                            <TouchableOpacity onPress={() => {toggleFollowersOverlay();handleSpectate(item.email)}}>
                             <Text style={styles.textData}>{item.forename} {item.surname}</Text>
+                            </TouchableOpacity>
                           </View>
                         </View>
                       </>
@@ -113,7 +120,7 @@ export function SpectateProfile({navigation}){
             <View style={{marginTop:'15%'}}>
               {spectatedUserInfo.followingCounter<1 &&
                 <>
-                  <Text style={styles.noSubscribe}>Cet utilisateur est abonné à aucun utilisateur</Text>
+                  <Text style={styles.noSubscribe}>Cet utilisateur n'est abonné à aucun utilisateur</Text>
                 </>
               }
               {spectatedUserInfo.followingCounter>=1 &&
@@ -124,7 +131,9 @@ export function SpectateProfile({navigation}){
                         <View style={styles.dataView}>
                           <View style={styles.dataAlignment}>
                             <Image source={{uri:item.ppPath}} style={styles.imageData}/>  
+                            <TouchableOpacity onPress={() => {toggleFollowingOverlay();handleSpectate(item.email)}}>
                             <Text style={styles.textData}>{item.forename} {item.surname}</Text>
+                            </TouchableOpacity>
                           </View>
                         </View>
                       </>
