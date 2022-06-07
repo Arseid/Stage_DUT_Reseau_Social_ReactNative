@@ -43,6 +43,15 @@ const SearchScreenNavigator = () => {
         </Stack.Navigator>
     )
 }
+const MessageScreenNavigator = () => {
+    return (
+        <Stack.Navigator>
+            <Stack.Screen name="Messages" component={MessageScreen} options={{headerShown: false}}/>
+        </Stack.Navigator>
+    )
+}
+
+
 
 const Navigation = () => {
     
@@ -69,6 +78,9 @@ const Navigation = () => {
                                 } else if (route.name === 'Profil') {
                                     iconName = 'ellipse-outline';
                                 }
+                                else if (route.name === 'Messages') {
+                                    iconName = 'ellipse-outline';
+                                }
                                 else if (route.name === 'Rechercher') {
                                     iconName = 'search-outline';
                                 }
@@ -84,6 +96,7 @@ const Navigation = () => {
                     
                     <Tab.Screen name="Accueil" component={HomeScreenNavigator} options={{headerShown: false}}/>
                     <Tab.Screen name="Rechercher" component={SearchScreenNavigator} options={{headerShown: false}}/>
+                    <Tab.Screen name="Messages" component={MessageScreenNavigator} options={{headerShown: false}}/>
                     <Tab.Screen name="Profil" component={ProfileScreenNavigator} options={{headerShown: false}}/>
                     </Tab.Navigator>
                     </>

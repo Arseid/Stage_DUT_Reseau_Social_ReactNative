@@ -4,7 +4,7 @@ import { AuthContext } from '../context/AuthContext';
 import styles from '../style/messageStyle';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-function MessageScreen({navigation}){
+export function MessageScreen({navigation}){
 
     const {randomProfiles,setRandomProfiles,followUser,userInfo,showUserProfiles} = useContext(AuthContext);
 
@@ -50,4 +50,3 @@ function MessageScreen({navigation}){
     
 }
 
-export default MessageScreen;
