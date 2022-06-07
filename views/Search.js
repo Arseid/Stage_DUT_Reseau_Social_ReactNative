@@ -30,11 +30,21 @@ function SearchScreen({navigation}){
 
   const [openType,setOpenType]=useState(false);
   const [typeItems,setTypeItems]=useState([
-    {label: 'Eleve', value: 'eleve'},
-    {label: 'Parent', value: 'parent'},
-    {label: 'Professeur', value: 'professeur'},
-    {label: 'Professionnel', value: 'professionnel'},
-    {label: 'Entreprise', value: 'entreprise'},
+    {label: 'Construction durable, bâtiments, travaux publics', value: 'construction'},
+    {label: 'Etudes et modélisation numérique du bâtiment', value: 'batiment'},
+    {label: 'Relation client', value: 'client'},
+    {label: 'Gestion administrative,transport et logistique', value: 'gestion'},
+    {label: 'Industries graphiques et communication', value: 'comm'},
+    {label: 'Alimentation', value: 'alim'},
+    {label: 'Beauté et bien-être', value: 'beau'},
+    {label: 'Aéronautique', value: 'aero'},
+    {label: 'Hôtellerie-restauration', value: 'resto'},
+    {label: 'Réalisation de produits mécanique', value: 'meca'},
+    {label: 'Métiers de la maintenance', value: 'maintenance'},
+    {label: 'Numérique et transition énergétique', value: 'energie'},
+    {label: "Pilotage d'installations automatisées", value: 'auto'},
+    {label: 'Métiers du bois', value: 'bois'},
+
   ]);
   const [chosenType,setChosenType]=useState('');
 
@@ -149,16 +159,16 @@ function SearchScreen({navigation}){
           <Text style={styles.buttonText}>Réinitialiser les filtres</Text>
         </TouchableOpacity>
       </View>
-      <View style={{marginHorizontal:'5%',marginTop:'15%',alignSelf:'center'}}>
+      <View style={{marginHorizontal:'5%',marginTop:'15%',alignSelf:'center' }}>
         <DropDownPicker
-          style={{width:'50%'}}
+          style={{width:'100%', backgroundColor: "#FFFAF0"}}
           open={openType}
           setOpen={setOpenType}
           items={typeItems}
           setItems={setTypeItems}
           value={chosenType}
           setValue={setChosenType}
-          placeholder='Type de compte'
+          placeholder='Type de filière'
         />
       </View>
       {(chosenType=='entreprise') && 

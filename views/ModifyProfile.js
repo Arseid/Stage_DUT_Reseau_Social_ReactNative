@@ -171,7 +171,7 @@ export function ModifyScreen({navigation}){
                       <View> 
                         <CheckBox title='Construction durable, bâtiments, travaux publics' checked={construction} onPress={() => {addConstruction(),setConstruction(!construction)}}/>
                         <CheckBox title='Etudes et modélisation numérique du bâtiment' checked={batiment} onPress={() => {addBatiment(),setBatiment(!batiment)}}/>
-                        <CheckBox title='Relation client ' checked={client} onPress={() => {setClient(!client)}}/>
+                        <CheckBox title='Relation client' checked={client} onPress={() => {setClient(!client)}}/>
                         <CheckBox title='Gestion administrative,transport et logistique' checked={gestion} onPress={() => {setGestion(!gestion)}}/>
                         <CheckBox title='Industries graphiques et communication' checked={comm} onPress={() => {setComm(!comm)}}/>
                         <CheckBox title="Alimentation" checked={alim} onPress={() => {setAlim(!alim)}}/>
