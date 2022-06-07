@@ -13,12 +13,12 @@ export function ModifyScreen({navigation}){
   const [pwd, setPwd] = useState ('');
   const {isLoading, login} = useContext(AuthContext);
 
-  const [videogames,setVideogames] = useState(false);
-  const [sport,setSport] = useState(false);
-  const [it,setIT] = useState(false);
-  const [music,setMusic] = useState(false);
-  const [trip,setTrip] = useState(false);
-  const [draw,setDraw] = useState(false);
+  const [construction,setConstruction] = useState(false);
+  const [alim,setAlim] = useState(false);
+  const [client,setClient] = useState(false);
+  const [batiment,setBatiment] = useState(false);
+  const [gestion,setGestion] = useState(false);
+  const [comm,setComm] = useState(false);
   const [foundInterest,setFoundInterest] = useState(false);
   const [interest,setInterest] = useState({});
   var interestList={};
@@ -36,25 +36,25 @@ export function ModifyScreen({navigation}){
  
 
  
-  const addVideoGames = () => {
+  const addConstruction = () => {
 
-    if (videogames){
-      interestList.videogames=true;
+    if (construction){
+      interestList.construction=true;
       setInterest(interestList);
     } else {
-      interestList.videogames=false;
+      interestList.construction=false;
       setInterest(interestList);
     }
     console.log(interestList);
   }
 
-  const addMusic = () => {
+  const addBatiment = () => {
 
-    if (music){
-      interestList.music=true;
+    if (batiment){
+      interestList.batiment=true;
       setInterest(interestList);
     } else {
-      interestList.music=false;
+      interestList.batiment=false;
       setInterest(interestList);
     }
     console.log(interestList);
@@ -166,17 +166,23 @@ export function ModifyScreen({navigation}){
                 {userInfo.type=='Eleve' &&
                   <>
                   <View style={Modify.styles.hobbys}>
-                    <Text style={Modify.styles.subtitle}>Centre d'intérêt...</Text>
+                    <Text style={Modify.styles.subtitle}>Filières favorites</Text>
                     <View style={{flexDirection:'row', width:'100%'}}>
-                      <View>
-                        <CheckBox title='Jeux Vidéo' checked={videogames} onPress={() => {addVideoGames(),setVideogames(!videogames)}}/>
-                        <CheckBox title='Musique' checked={music} onPress={() => {addMusic(),setMusic(!music)}}/>
-                        <CheckBox title='Informatique' checked={it} onPress={() => {setIT(!it)}}/>
-                      </View>
-                      <View>
-                        <CheckBox title='Voyage' checked={trip} onPress={() => {setTrip(!trip)}}/>
-                        <CheckBox title='Dessiner' checked={draw} onPress={() => {setDraw(!draw)}}/>
-                        <CheckBox title='Sport' checked={sport} onPress={() => {setSport(!sport)}}/>
+                      <View> 
+                        <CheckBox title='Construction durable, bâtiments, travaux publics' checked={construction} onPress={() => {addConstruction(),setConstruction(!construction)}}/>
+                        <CheckBox title='Etudes et modélisation numérique du bâtiment' checked={batiment} onPress={() => {addBatiment(),setBatiment(!batiment)}}/>
+                        <CheckBox title='Relation client ' checked={client} onPress={() => {setClient(!client)}}/>
+                        <CheckBox title='Gestion administrative,transport et logistique' checked={gestion} onPress={() => {setGestion(!gestion)}}/>
+                        <CheckBox title='Industries graphiques et communication' checked={comm} onPress={() => {setComm(!comm)}}/>
+                        <CheckBox title="Alimentation" checked={alim} onPress={() => {setAlim(!alim)}}/>
+                        <CheckBox title='Beauté et bien-être'/>
+                        <CheckBox title='Aéronautique'/>
+                        <CheckBox title='Hôtellerie-restauration'/>
+                        <CheckBox title='Réalisation de produits mécanique' />
+                        <CheckBox title='Métiers de la maintenance' />
+                        <CheckBox title="Numérique et transition énergétique" />
+                        <CheckBox title="Pilotage d'installations automatisées"/>
+                        <CheckBox title="Métiers du bois" />
                       </View>
                     </View>
                   </View>
