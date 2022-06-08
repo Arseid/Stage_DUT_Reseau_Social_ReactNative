@@ -86,11 +86,11 @@ function SearchScreen({navigation}){
           <TextInput value={searchInput} onChangeText={text => searching(text)} placeholderTextColor={'#808080'} placeholder='Rechercher un compte...' style={{marginLeft:5,width:'85%'}}></TextInput>
         </View>
         
-        <View style={{marginTop:20}}>
+        <View style={{marginTop:20,}}>
           {(searchInput=='') &&
           <>
             <Text style={styles.textSuggestion}>Voici une liste de personnes que vous pourriez suivre :</Text>
-            <View style={styles.containerSuggestion}>
+            <View style={styles.containerSuggestion2}>
               <FlatList
                 data={randomProfiles} keyExtractor={(item) => item.id.toString()} renderItem={({item}) => 
                   <>
@@ -118,7 +118,7 @@ function SearchScreen({navigation}){
             </View>
             <View style={{alignItems:'center'}}>
               <TouchableOpacity style={styles.buttonReload} onPress={() => {showUserProfiles(userInfo.email)}}>
-                <Text style={styles.buttonText}>Recharger</Text>
+                <Text style={styles.buttonText}>Actualiser</Text>
               </TouchableOpacity>
             </View>
           </>

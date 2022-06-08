@@ -80,12 +80,6 @@ export function ProfileScreen({navigation}){
                 <Text style={styles.bodyText}>{userInfo.interest}</Text>
               </View>
             </>:<></>}
-            {retrievedPosts ?
-            <>
-              <View style={styles.hobbys}>
-                <Text style={styles.subtitle}>Posts publiés</Text>
-              </View>
-            </>:<></>}
             </View>
           </>:<></>}
          

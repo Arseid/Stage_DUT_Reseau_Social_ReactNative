@@ -220,8 +220,7 @@ export const AuthProvider = ({children}) => {
         .then((response) => response.json())  // promise
         .then((response) => {
             console.log(response);
-            setRetrievedInfo(retrievedInfo+1);
-            setIsLoading(false);
+            retrieveUserProfileInfo(email);
         })
         .catch((e)=>{
             console.log("Error"+e);
@@ -249,7 +248,7 @@ export const AuthProvider = ({children}) => {
         .then((response) => response.json())  // promise
         .then((response) => {
             console.log(response);
-            setRetrievedInfo(retrievedInfo+1);
+            retrieveUserProfileInfo(email);
         })
         .catch((e)=>{
             console.log("Error"+e);

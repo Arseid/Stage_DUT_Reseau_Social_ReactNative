@@ -131,22 +131,25 @@ function HomeScreen({navigation}){
             </View>
             <View style={{alignItems:'center'}}>
               <TouchableOpacity style={styles.buttonReload} onPress={() => {showUserProfiles(userInfo.email)}}>
-                <Text style={styles.buttonText}>Recharger</Text>
+                <Text style={styles.buttonText}>Actualiser</Text>
               </TouchableOpacity>
             </View>
           </View>
         } 
         { (retrievedPosts.length>=1) &&
           <>
-            <View style={{marginTop:20}}>
+            <View style={{marginTop:20,flex:2,marginBottom:'20%'}}>
               <View style={styles.containerSuggestion}>
                 <FlatList
                 data={retrievedPosts} renderItem={({item}) => 
                 <>
                     <View style={{borderBottomWidth:1,borderColor:'#d2b48c', marginBottom:20}}>
                       <View style={{flexDirection:'row'}}>
-                        <Image source={{uri:item.pp}} style={{width:'20%',height:'100%',borderRadius:100}}/>  
-                        <Text style={{fontSize:15, height:60, top:20, marginLeft:20}}>{item.forename} {item.surname} | {item.type}</Text>
+                        <Image source={{uri:item.pp}} style={{width:'21%',height:'90%',borderRadius:100}}/>  
+                        <View>
+                          <Text style={{fontSize:15, height:60, top:20, marginLeft:20}}>{item.forename} {item.surname}</Text>
+                          <Text style={{fontSize:15, bottom:15,marginLeft:20}}>{item.type}</Text>
+                        </View>
                       </View>
                       <Text style={{margin:10}}>{item.body}</Text>
                     </View>
@@ -156,7 +159,7 @@ function HomeScreen({navigation}){
               </View>
               <View style={{alignItems:'center'}}>
                 <TouchableOpacity style={styles.buttonReload} onPress={() => {retrievePosts(userInfo.email,userInfo.following)}}>
-                  <Text style={styles.buttonText}>Recharger</Text>
+                  <Text style={styles.buttonText}>Actualiser</Text>
                 </TouchableOpacity>
               </View>
             </View>

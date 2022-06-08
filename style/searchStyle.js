@@ -149,7 +149,7 @@ export default StyleSheet.create({
 
   containerSuggestion:{
     width:'90%',
-    height:'55%',
+    height:'100%',
     borderColor:"#FFFAF0",
     backgroundColor:"#FFFAF0",
     borderWidth:1,
@@ -161,7 +161,7 @@ export default StyleSheet.create({
 
   containerSuggestion2:{
     width:'90%',
-    height:'70%',
+    height:'55%',
     borderColor:"#FFFAF0",
     backgroundColor:"#FFFAF0",
     borderWidth:1,
