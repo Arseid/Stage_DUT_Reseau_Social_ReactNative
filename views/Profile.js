@@ -113,6 +113,7 @@ export function ProfileScreen({navigation}){
               <Text style={styles.bodyText}>Vous n'avez partagé aucunes fillières.</Text>}
             </View>
           </View>
+          {userInfo.type!=='Entreprise' ?
           <View style={styles.detailsProfile}>
             <View style={styles.field}>
               <View style={{flexDirection:'row'}}>
@@ -126,6 +127,7 @@ export function ProfileScreen({navigation}){
               <Text style={styles.bodyText}>Vous n'avez partagé aucun centres d'intérêt.</Text>}
             </View>
           </View>
+          : <></>}
          
           <Overlay isVisible={followersVisible} onBackdropPress={toggleFollowersOverlay} fullScreen overlayStyle={{backgroundColor: '#eeeeee',}}>
             <View style={{marginTop:'15%'}}>
