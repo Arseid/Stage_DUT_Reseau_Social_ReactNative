@@ -134,8 +134,8 @@ export function ModifyScreen({navigation}){
 
   const [openGrade,setOpenGrade]=useState(false);
   const [gradeList, setGradeList] = useState([
-    {label: '4ème', value: '4ème'},
-    {label: '3ème', value: '3ème'}
+    {label: '4e', value: '4e'},
+    {label: '3e', value: '3e'}
   ]);
   const [chosen2ndOption,setChosen2ndOption]=useState(userInfo.option2);
 

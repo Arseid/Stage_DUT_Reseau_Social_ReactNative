@@ -81,7 +81,9 @@ function HomeScreen({navigation}){
           <View style={{marginTop:'15%',padding:5}}>
             <View style={{flexDirection:'row',marginHorizontal:'10%'}}>
               <Ionicons name="close-outline" size={50} color="black" style={{alignSelf:'flex-start'}} onPress={() =>{toggleOverlay()} } />
-              <Ionicons name="image-outline" size={50} color="black" style={{marginLeft:'60%'}} />
+              <TouchableOpacity onPress={() => openImagePickerAsync()}>
+                <Ionicons name="image-outline" size={50} color="black" style={{marginLeft:'60%'}} />
+              </TouchableOpacity>
             </View>
             <TextInput 
               style={{backgroundColor:'white', width:'80%', marginTop:'10%', borderRadius:10, padding:5}} 
