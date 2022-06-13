@@ -234,7 +234,7 @@ export function RegisterScreen(){
       </View>
       </>
       }
-      { selectedUserType == 'Parent' &&
+      { selectedUserType == "Parent d'élève" &&
       <>
       <TouchableOpacity style={styles.button} onPress={handleRegister}>
         <Text style={styles.averageText}>S'inscrire</Text>
