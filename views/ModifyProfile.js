@@ -5,10 +5,11 @@ import { AuthContext } from '../context/AuthContext';
 import * as Modify from '../style/modifyStyle';
 import * as ImagePicker from 'expo-image-picker';
 import { CheckBox } from 'react-native-elements';
+import DropDownPicker from 'react-native-dropdown-picker';
 
 export function ModifyScreen({navigation}){
 
-  const {userInfo,modifyProfilePicture,backgroundPicture,setModifyBio,setModifyFields,setModifyInfo,setModifyInterest,modifyBio,modifyFields,modifyInfo,modifyInterest,changeBio,changeFields,changeInterest} = useContext(AuthContext);
+  const {userInfo,modifyProfilePicture,backgroundPicture,setModifyBio,setModifyFields,setModifyInfo,setModifyInterest,modifyBio,modifyFields,modifyInfo,modifyInterest,changeInfo,changeBio,changeFields,changeInterest} = useContext(AuthContext);
 
   const [bio, setBio] = useState(userInfo.description);
 
@@ -107,8 +108,40 @@ export function ModifyScreen({navigation}){
   if (human) interstList.push('Humanitaire');
   if (medic) interstList.push('Médecine');
 
+  const [openMidSchool,setOpenMidSchool]=useState(false);
+  const [midSchoolList, setMidSchoolList] = useState([
+    {label: 'Collège Carnot (Grasse)', value: 'Collège Carnot (Grasse)'},
+    {label: 'Collège Jules-Verne (Cagnes sur Mer)', value: 'Collège Jules-Verne (Cagnes sur Mer)'},
+    {label: 'Collège Malraux (Cagnes sur Mer)', value: 'Collège Malraux (Cagnes sur Mer)'},
+    {label: 'Collège International (Sophia Antipolis)', value: 'Collège International (Sophia Antipolis)'},
+    {label: 'Collège Notre-Dame de la Tramontane (Antibes)', value: 'Collège Notre-Dame de la Tramontane (Antibes)'},
+    {label: 'Collège Saint Barthélemy (Nice)', value: 'Collège Saint Barthélemy (Nice)'},
+    {label: 'Collège Mont Saint Jean (Antibes)', value: 'Collège Mont Saint Jean (Antibes)'},
+    {label: 'Collège Nazareth (Nice)', value: 'Collège Nazareth (Nice)'},
+    {label: 'Collège Blanche de Castille (Nice)', value: 'Collège Blanche de Castille (Nice)'},
+    {label: 'Collège Baous (Saint Jeannet)', value: 'Collège Baous (Saint Jeannet)'},
+    {label: 'Collège Niki de Saint Phalle (Valbonne)', value: 'Collège Niki de Saint Phalle (Valbonne)'},
+    {label: 'Collège Fénelon (Grasse)', value: 'Collège Fénelon (Grasse)'},
+    {label: 'Collège Sasserno (Nice)', value: 'Collège Sasserno (Nice)'},
+    {label: 'Collège Sainte-Marie (Cannes)', value: 'Collège Sainte-Marie (Cannes)'},
+    {label: 'Collège Albert Camus (Mandelieu)', value: 'Collège Albert Camus (Mandelieu)'},
+    {label: 'Collège Or Torah (Nice)', value: 'Collège Or Torah (Nice)'},
+    {label: 'Collège Saint Philippe Néri (Antibes)', value: 'Collège Saint Philippe Néri (Antibes)'},
+    {label: 'Collège Kerem Menahem (Nice)', value: 'Collège Kerem Menahem (Nice)'},
+    {label: 'Collège Colombier Sainte Thérèse (Nice)', value: 'Collège Colombier Sainte Thérèse (Nice)'}
+  ]);
+  const [chosen1rstOption,setChosen1rstOption]=useState(userInfo.option1);
+
+  const [openGrade,setOpenGrade]=useState(false);
+  const [gradeList, setGradeList] = useState([
+    {label: '4ème', value: '4ème'},
+    {label: '3ème', value: '3ème'}
+  ]);
+  const [chosen2ndOption,setChosen2ndOption]=useState(userInfo.option2);
+
   const handleModification = () =>{
-    if (modifyBio) changeBio(bio,userInfo.email);
+    if (modifyInfo) changeInfo(chosen1rstOption,chosen2ndOption,userInfo.email);
+    else if (modifyBio) changeBio(bio,userInfo.email);
     else if (modifyFields) changeFields(fieldsList,userInfo.email);
     else if (modifyInterest) changeInterest(interstList,userInfo.email);
     Keyboard.dismiss();
@@ -182,7 +215,7 @@ export function ModifyScreen({navigation}){
 
         <View>
             <View>
-              <ScrollView>
+              <View style={{width:350}}>
               {modifyInfo ? 
                 <View style={Modify.styles.focusProfile}>
                   <TouchableOpacity onPress={changeBackgroundPicture}>
@@ -195,10 +228,41 @@ export function ModifyScreen({navigation}){
                   </TouchableOpacity>
                   <View style={Modify.styles.personalInfo}>
                     <Text style={{fontSize:25, marginBottom:5}}>{userInfo.surname} {userInfo.forename}</Text>
+                    {userInfo.type!=='Eleve' ?
                     <Text style={Modify.styles.averageText}>{userInfo.type} {userInfo.type=='Eleve' ? userInfo.option2 : ""} {userInfo.option1 ? " | "+userInfo.option1 : ""}</Text>
+                    : 
+                    <>
+                        <Text style={Modify.styles.averageText}>{userInfo.type}</Text>
+                        <View style={{flexDirection:'row', marginVertical:'5%'}}>
+                        <DropDownPicker
+                          containerStyle={{width:'40%'}}
+                          dropDownDirection="TOP"
+                          open={openGrade}
+                          setOpen={setOpenGrade}
+                          items={gradeList}
+                          setItems={setGradeList}
+                          value={chosen2ndOption}
+                          setValue={setChosen2ndOption}
+                          placeholder='Classe...'
+                        />
+                        <DropDownPicker
+                          containerStyle={{marginLeft:'10%',width:'40%'}}
+                          dropDownDirection="TOP"
+                          open={openMidSchool}
+                          setOpen={setOpenMidSchool}
+                          items={midSchoolList}
+                          setItems={setMidSchoolList}
+                          value={chosen1rstOption}
+                          setValue={setChosen1rstOption}
+                          placeholder='Collège...'
+                        />
+                        </View>
+                    </>}
                   </View>
                 </View>
               :<></>}
+              </View>
+              <ScrollView>
               <View style={Modify.styles.detailsProfile}>
                 {modifyBio ?
                 <>
@@ -284,7 +348,7 @@ export function ModifyScreen({navigation}){
                   <Text style={Modify.styles.subtitle}>Centres d'intérêt</Text>
                   <View style={{width:'100%'}}>
                     <View> 
-                      <CheckBox style={{}} title='Technologie' checked={tech} onPress={() => {setTech(!tech)}}/>
+                      <CheckBox title='Technologie' checked={tech} onPress={() => {setTech(!tech)}}/>
                       <CheckBox title='Sport' checked={sport} onPress={() => {setSport(!sport)}}/>
                       <CheckBox title='Musique' checked={music} onPress={() => {setMusic(!music)}}/>
                       <CheckBox title='Danse' checked={danse} onPress={() => {setDanse(!danse)}}/>

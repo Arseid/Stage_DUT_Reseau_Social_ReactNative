@@ -124,6 +124,37 @@ export const AuthProvider = ({children}) => {
         setIsLoggedIn(false);
     }
 
+    const changeInfo = (option1,option2,email) => {
+        var APIURL=`${BASE_URL}/changeInfo.php`;
+
+        var modifyHeaders={
+            'Accept' : 'application/json',
+            'Content-Type':'application.json'
+        };
+
+        var modifyData={
+            option1:option1,
+            option2:option2,
+            email:email
+        };
+
+        fetch(APIURL,
+            {
+                method:'POST',
+                headers:modifyHeaders,
+                body: JSON.stringify(modifyData)
+            })
+            .then((response)=>response.json())
+            .then((response)=>
+            {
+                console.log(response[0].Message);
+                retrieveUserProfileInfo(email);
+            })
+            .catch((e)=>{
+                console.log("Error"+e);
+            })
+    }
+
     const changeBio = (bio,email) => {
         var APIURL=`${BASE_URL}/changeBio.php`;
 
@@ -742,7 +773,7 @@ export const AuthProvider = ({children}) => {
 
     return(
     <AuthContext.Provider value={{isLoading,userInfo,isLoggedIn,retrievedInfo,showProfiles,followersList,followingList,randomProfiles,retrievedPosts,checkPosts,searchedUsers,spectatedUserInfo,spectatedFollowersList,spectatedFollowingList,modifyBio,modifyFields,modifyInfo,modifyInterest,
-        register,login,logout,changeBio,changeFields,changeInterest,retrieveUserProfileInfo,modifyProfilePicture,backgroundPicture,showUserProfiles,followUser,unfollowUser,removeFollower,refresh,post,getListFollowersFollowing,retrievePosts,setRandomProfiles,searchUser,spectateProfile,setModifyBio,setModifyFields,setModifyInfo,setModifyInterest,test}}>
+        register,login,logout,changeInfo,changeBio,changeFields,changeInterest,retrieveUserProfileInfo,modifyProfilePicture,backgroundPicture,showUserProfiles,followUser,unfollowUser,removeFollower,refresh,post,getListFollowersFollowing,retrievePosts,setRandomProfiles,searchUser,spectateProfile,setModifyBio,setModifyFields,setModifyInfo,setModifyInterest,test}}>
             {children}
     </AuthContext.Provider>
     );
