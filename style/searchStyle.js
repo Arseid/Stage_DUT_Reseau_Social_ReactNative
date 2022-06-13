@@ -26,6 +26,7 @@ export default StyleSheet.create({
     marginBottom:40,
   },
   form2:{
+    flex:1,
     borderColor:"#FFFAF0",
     backgroundColor:"#FFFAF0",
     borderWidth:5,

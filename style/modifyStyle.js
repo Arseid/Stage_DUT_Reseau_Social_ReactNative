@@ -98,6 +98,8 @@ const styles = StyleSheet.create({
   },
 
   changeView:{
+    flexDirection:'row',
+    alignSelf:'center',
     alignItems:'center',
     marginTop:'5%',
     marginBottom:10,

@@ -21,7 +21,7 @@ const ProfileScreenNavigator = () => {
     return (
         <Stack.Navigator>
             <Stack.Screen name="Afficher Profil" component={ProfileScreen} options={{headerShown: false}}/>
-            <Stack.Screen name="Modifier le profil" component={ModifyScreen}/>
+            <Stack.Screen name="Modifier le profil" component={ModifyScreen} options={{headerBackVisible:false}}/>
             <Stack.Screen name="Inspecter Profil" component={SpectateProfile}/>
         </Stack.Navigator>
     )

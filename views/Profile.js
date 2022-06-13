@@ -4,10 +4,13 @@ import { AuthContext } from '../context/AuthContext';
 import styles from '../style/profileStyle';
 import { Overlay } from 'react-native-elements';
 import Spinner from 'react-native-loading-spinner-overlay';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import * as ImagePicker from 'expo-image-picker';
 
 export function ProfileScreen({navigation}){
 
-  const {userInfo,logout,checkPosts,followersList,followingList,unfollowUser,removeFollower,retrievePosts,spectateProfile,retrievedPosts} = useContext(AuthContext);
+  const {userInfo,logout,checkPosts,followersList,followingList,unfollowUser,removeFollower,retrievePosts,spectateProfile,modifyProfilePicture,backgroundPicture,
+  setModifyBio,setModifyFields,setModifyInfo,setModifyInterest} = useContext(AuthContext);
 
   const [followersVisible, setFollowersVisible] = useState(false);
   const [followingVisible, setFollowingVisible] = useState(false);
@@ -27,61 +30,102 @@ export function ProfileScreen({navigation}){
     navigation.navigate('Inspecter Profil');
   }
 
+  const handleModifyInfo = () => {
+    setModifyInfo(true);
+    navigation.navigate('Modifier le profil');
+  }
+
+  const handleModifyBio = () => {
+    setModifyBio(true);
+    navigation.navigate('Modifier le profil');
+  }
+
+  const handleModifyFields = () => {
+    setModifyFields(true);
+    navigation.navigate('Modifier le profil');
+  }
+
+  const handleModifyInterest = () => {
+    setModifyInterest(true);
+    navigation.navigate('Modifier le profil');
+  }
+
   return(
     <View style={styles.container}>
       <Spinner visible={false} textContent={'Loading...'} textStyle={{color: '#FFF'}}/>
         <ScrollView>
           <View style={styles.focusProfile}>
-              <Image source={{uri:userInfo.backgroundPicture}} style={styles.backgroundPicture}/>
-              <View style={styles.viewPP}>
-                <Image source={{uri:userInfo.pp}} style={styles.image}/>
-              </View>
-              <View style={styles.otherInfo}>
-                <View>
-                  <TouchableOpacity onPress={toggleFollowersOverlay}>
-                    <Text style={styles.averageText}>Abonnés</Text>
-                    <Text style={styles.averageText}>{userInfo.followersCounter}</Text>
-                  </TouchableOpacity>
-                </View>
-                <View style={{marginLeft:'5%'}}>
-                  <TouchableOpacity onPress={toggleFollowingOverlay}>
-                    <Text style={styles.averageText}>Abonnements</Text>
-                    <Text style={styles.averageText}>{userInfo.followingCounter}</Text>
-                  </TouchableOpacity>
-                </View>
-                <TouchableOpacity onPress={logout}>
-                  <Image source={{uri:"http://isis.unice.fr/~ey001600/ext/icons/logout.png"}} style={{width:30,height:30,marginLeft:'25%'}}/>
-                </TouchableOpacity>
-              </View>
-              <View style={styles.personalInfo}>
-                <Text style={{fontSize:25, marginBottom:5}}>{userInfo.surname} {userInfo.forename}</Text>
-                <Text style={styles.averageText}>{userInfo.type} {userInfo.option1 ? " | "+userInfo.option1 : ""}</Text>
-              </View>
-              <View style={{alignItems:'center', marginBottom:10}}>
-                <TouchableOpacity style={styles.button} onPress={() => {navigation.navigate('Modifier le profil')}}>
-                  <Text style={styles.buttonText}>Modifier le profil</Text>
-                </TouchableOpacity>
-              </View>
-          </View>
-          {userInfo.description || userInfo.interest || retrievedPosts ? 
-          <>
-            <View style={styles.detailsProfile}>
-            {userInfo.description ? 
-            <>
-              <View style={styles.bio}>
-                <Text style={styles.subtitle}>Bio</Text>
-                <Text style={styles.bodyText}>{userInfo.description}</Text>
-              </View>
-            </>:<></>}
-            {userInfo.interest ? 
-            <>
-              <View style={styles.hobbys}>
-                <Text style={styles.subtitle}>Filières</Text>
-                <Text style={styles.bodyText}>{userInfo.interest}</Text>
-              </View>
-            </>:<></>}
+            <Image source={{uri:userInfo.backgroundPicture}} style={styles.backgroundPicture}/>
+            <View style={styles.viewPP}>
+              <Image source={{uri:userInfo.pp}} style={styles.image}/>
             </View>
-          </>:<></>}
+            <View style={styles.otherInfo}>
+              <View>
+                <TouchableOpacity onPress={toggleFollowersOverlay}>
+                  <Text style={styles.averageText}>Abonnés</Text>
+                  <Text style={styles.averageText}>{userInfo.followersCounter}</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={{marginLeft:'5%'}}>
+                <TouchableOpacity onPress={toggleFollowingOverlay}>
+                  <Text style={styles.averageText}>Abonnements</Text>
+                  <Text style={styles.averageText}>{userInfo.followingCounter}</Text>
+                </TouchableOpacity>
+              </View>
+              <TouchableOpacity onPress={logout}>
+                <Image source={{uri:"http://isis.unice.fr/~ey001600/ext/icons/logout.png"}} style={{width:30,height:30,marginLeft:'25%'}}/>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.personalInfo}>
+              <View style={{flexDirection:'row'}}>
+                <Text style={{fontSize:25, marginBottom:5}}>{userInfo.surname} {userInfo.forename}</Text>
+                <TouchableOpacity onPress={() => handleModifyInfo()}>
+                  <Ionicons name='create-outline' size={15} color="black" style={{marginLeft:5}}/>
+                </TouchableOpacity>
+              </View>
+              <Text style={styles.averageText}>{userInfo.type} {userInfo.type=='Eleve' ? userInfo.option2 : ""} {userInfo.option1 ? " | "+userInfo.option1 : ""}</Text>
+            </View>
+          </View>
+
+          <View style={styles.detailsProfile}>
+            <View style={styles.field}>
+              <View style={{flexDirection:'row'}}>
+                <Text style={styles.subtitle}>Bio</Text>
+                <TouchableOpacity onPress={() => handleModifyBio()}>
+                  <Ionicons name='create-outline' size={15} color="black" style={{marginLeft:5}}/>
+                </TouchableOpacity>
+              </View>
+              {userInfo.description ? 
+              <Text style={styles.bodyText}>{userInfo.description}</Text>:
+              <Text style={styles.bodyText}>Vous n'avez publié aucune bio.</Text>}
+            </View>
+          </View>
+          <View style={styles.detailsProfile}>
+            <View style={styles.field}>
+              <View style={{flexDirection:'row'}}>
+                <Text style={styles.subtitle}>{userInfo.type!=='Enseignant' ? 'Filières' : 'Matières enseignées'}</Text>
+                <TouchableOpacity onPress={() => handleModifyFields()}>
+                  <Ionicons name='create-outline' size={15} color="black" style={{marginLeft:5}}/>
+                </TouchableOpacity>
+              </View>
+              {userInfo.interest ? 
+              <Text style={styles.bodyText}>{userInfo.interest}</Text>:
+              <Text style={styles.bodyText}>Vous n'avez partagé aucunes fillières.</Text>}
+            </View>
+          </View>
+          <View style={styles.detailsProfile}>
+            <View style={styles.field}>
+              <View style={{flexDirection:'row'}}>
+                <Text style={styles.subtitle}>Centres d'intérêt</Text>
+                <TouchableOpacity onPress={() => handleModifyInterest()}>
+                  <Ionicons name='create-outline' size={15} color="black" style={{marginLeft:5}}/>
+                </TouchableOpacity>
+              </View>
+              {userInfo.interest2 ? 
+              <Text style={styles.bodyText}>{userInfo.interest2}</Text>:
+              <Text style={styles.bodyText}>Vous n'avez partagé aucun centres d'intérêt.</Text>}
+            </View>
+          </View>
          
           <Overlay isVisible={followersVisible} onBackdropPress={toggleFollowersOverlay} fullScreen overlayStyle={{backgroundColor: '#eeeeee',}}>
             <View style={{marginTop:'15%'}}>

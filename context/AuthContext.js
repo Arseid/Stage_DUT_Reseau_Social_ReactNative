@@ -18,6 +18,11 @@ export const AuthProvider = ({children}) => {
     const [retrievedPosts,setRetrievedPosts] = useState([]);
     const [checkPosts,setCheckPosts] = useState(0);
 
+    const [modifyInfo,setModifyInfo]=useState(false);
+    const [modifyBio,setModifyBio]=useState(false);
+    const [modifyFields,setModifyFields]=useState(false);
+    const [modifyInterest,setModifyInterest]=useState(false);
+
     const [spectatedUserInfo,setSpectatedUserInfo] = useState({});
     const [spectatedFollowersList,setSpectatedFollowersList] = useState([]);
     const [spectatedFollowingList,setSpectatedFollowingList] = useState([]);
@@ -119,8 +124,38 @@ export const AuthProvider = ({children}) => {
         setIsLoggedIn(false);
     }
 
-    const modify = (list,bio,email) => {
-        var APIURL=`${BASE_URL}/modify.php`;
+    const changeBio = (bio,email) => {
+        var APIURL=`${BASE_URL}/changeBio.php`;
+
+        var modifyHeaders={
+            'Accept' : 'application/json',
+            'Content-Type':'application.json'
+        };
+
+        var modifyData={
+            bio:bio,
+            email:email
+        };
+
+        fetch(APIURL,
+            {
+                method:'POST',
+                headers:modifyHeaders,
+                body: JSON.stringify(modifyData)
+            })
+            .then((response)=>response.json())
+            .then((response)=>
+            {
+                console.log(response[0].Message);
+                retrieveUserProfileInfo(email);
+            })
+            .catch((e)=>{
+                console.log("Error"+e);
+            })
+    }
+
+    const changeFields = (list,email) => {
+        var APIURL=`${BASE_URL}/changeFields.php`;
 
         var modifyHeaders={
             'Accept' : 'application/json',
@@ -129,7 +164,36 @@ export const AuthProvider = ({children}) => {
 
         var modifyData={
             list:list,
-            bio:bio,
+            email:email
+        };
+
+        fetch(APIURL,
+            {
+                method:'POST',
+                headers:modifyHeaders,
+                body: JSON.stringify(modifyData)
+            })
+            .then((response)=>response.json())
+            .then((response)=>
+            {
+                console.log(response[0].Message);
+                retrieveUserProfileInfo(email);
+            })
+            .catch((e)=>{
+                console.log("Error"+e);
+            })
+    }
+
+    const changeInterest = (list,email) => {
+        var APIURL=`${BASE_URL}/changeInterest.php`;
+
+        var modifyHeaders={
+            'Accept' : 'application/json',
+            'Content-Type':'application.json'
+        };
+
+        var modifyData={
+            list:list,
             email:email
         };
 
@@ -189,6 +253,8 @@ export const AuthProvider = ({children}) => {
                 profileData.followingCounter=response[0].FollowingCounter;
                 profileData.interest=response[0].Interest;
                 profileData.interestArray=response[0].InterestArray;
+                profileData.interest2=response[0].Interest2;
+                profileData.interestArray2=response[0].InterestArray2;
 
                 console.log(response[0].Message);
                 console.log(profileData);
@@ -675,8 +741,8 @@ export const AuthProvider = ({children}) => {
     }
 
     return(
-    <AuthContext.Provider value={{isLoading,userInfo,isLoggedIn,retrievedInfo,showProfiles,followersList,followingList,randomProfiles,retrievedPosts,checkPosts,searchedUsers,spectatedUserInfo,spectatedFollowersList,spectatedFollowingList,
-        register,login,logout,modify,retrieveUserProfileInfo,modifyProfilePicture,backgroundPicture,showUserProfiles,followUser,unfollowUser,removeFollower,refresh,post,getListFollowersFollowing,retrievePosts,setRandomProfiles,searchUser,spectateProfile,test}}>
+    <AuthContext.Provider value={{isLoading,userInfo,isLoggedIn,retrievedInfo,showProfiles,followersList,followingList,randomProfiles,retrievedPosts,checkPosts,searchedUsers,spectatedUserInfo,spectatedFollowersList,spectatedFollowingList,modifyBio,modifyFields,modifyInfo,modifyInterest,
+        register,login,logout,changeBio,changeFields,changeInterest,retrieveUserProfileInfo,modifyProfilePicture,backgroundPicture,showUserProfiles,followUser,unfollowUser,removeFollower,refresh,post,getListFollowersFollowing,retrievePosts,setRandomProfiles,searchUser,spectateProfile,setModifyBio,setModifyFields,setModifyInfo,setModifyInterest,test}}>
             {children}
     </AuthContext.Provider>
     );

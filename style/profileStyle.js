@@ -17,6 +17,7 @@ export default StyleSheet.create({
     borderColor:"#FFFAF0",
     backgroundColor:"#FFFAF0",
     borderRadius: 10,
+    paddingBottom:10
   },
 
   detailsProfile:{
@@ -74,21 +75,9 @@ export default StyleSheet.create({
     height:120,
   },
 
-  bio:{
+  field:{
     marginLeft:30,
     marginRight:30,
-    paddingBottom:10,
-    borderBottomColor:'#808080',
-    borderBottomWidth:1
-  },
-
-  hobbys:{
-    marginTop:10,
-    marginLeft:30,
-    marginRight:30,
-    paddingBottom:10,
-    borderBottomColor:'#808080',
-    borderBottomWidth:1
   },
 
   subtitle:{

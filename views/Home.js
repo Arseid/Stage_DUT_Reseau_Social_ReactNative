@@ -95,15 +95,15 @@ function HomeScreen({navigation}){
           </View>
         </Overlay>
       </View>
-      <View>
+      <View style={{flex:1}}>
         <Text style={styles.title}>C'est ton destin</Text>
       </View>
       
         { (retrievedPosts.length<1) &&
-          <View style={{marginTop:20}}>
+          <View style={{marginTop:20,flex:8,marginBottom:'40%',}}>
             <Text style={styles.textSuggestion}>C'est vide par ici...</Text>
             <Text style={styles.textSuggestion}>Postez ou suivez des personnes pour alimenter votre feed!</Text>
-            <View style={styles.containerSuggestion2}>
+            <View style={styles.containerSuggestion}>
               <FlatList
                 data={randomProfiles} keyExtractor={(item) => item.id.toString()} renderItem={({item}) => 
                   <>
@@ -138,7 +138,7 @@ function HomeScreen({navigation}){
         } 
         { (retrievedPosts.length>=1) &&
           <>
-            <View style={{marginTop:20,flex:2,marginBottom:'20%'}}>
+            <View style={{marginTop:20,flex:9,marginBottom:'20%'}}>
               <View style={styles.containerSuggestion}>
                 <FlatList
                 data={retrievedPosts} renderItem={({item}) => 
