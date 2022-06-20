@@ -23,7 +23,7 @@ function MessageScreen({navigation}){
 
     return (
         <View style={styles.container}>
-          <View style={{marginTop:20}}>
+          <View style={{marginTop:'20%'}}>
             <View style={styles.containerSuggestion}>
               <FlatList
                 data={randomProfiles} keyExtractor={(item) => item.id.toString()} renderItem={({item}) => 
@@ -41,7 +41,7 @@ function MessageScreen({navigation}){
             </View>
             <View style={{alignItems:'center'}}>
               <TouchableOpacity style={styles.buttonReload} onPress={() => {showUserProfiles(userInfo.email)}}>
-                <Text style={styles.buttonText}>Recharger</Text>
+                <Text style={styles.buttonText}>Actualiser</Text>
               </TouchableOpacity>
             </View>
           </View>
