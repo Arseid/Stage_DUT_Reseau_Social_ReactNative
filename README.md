@@ -5,7 +5,7 @@ Le projet consiste à développer une application fonctionnant comme un réseau 
 Les pages login et register sont terminés dans leur intégralité.
 Les pages de Profile, Home, Search.
 
-# En cours de développement
+# À faire
 Amélioré la fonctionnalité de Search en mettant un système de filtre afin de mieux cibler notre recherche.
 La suggestion de compte est complètement aléatoire, donc faire en sorte que cette suggestion soi influencée par les centres d'intérêt/filières professionnelles.
 Faire la page de Messagerie (elle n'est pas du tout opérationnelle)
