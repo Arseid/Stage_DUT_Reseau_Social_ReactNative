@@ -7,7 +7,6 @@ Les pages de Profile, Home, Search.
 
 # En cours de développement
 Amélioré la fonctionnalité de Search en mettant un système de filtre afin de mieux cibler notre recherche.
-Régler le problème sur les centres d'intérêt et matières enseignées.
 Faire la page de Messagerie.
 
 # Auteurs
