@@ -26,7 +26,6 @@ export default StyleSheet.create({
     marginBottom:40,
   },
   form2:{
-    flex:1,
     borderColor:"#FFFAF0",
     backgroundColor:"#FFFAF0",
     borderWidth:5,
@@ -162,7 +161,7 @@ export default StyleSheet.create({
 
   containerSuggestion2:{
     width:'90%',
-    height:'55%',
+    height:'65%',
     borderColor:"#FFFAF0",
     backgroundColor:"#FFFAF0",
     borderWidth:1,
@@ -182,7 +181,6 @@ export default StyleSheet.create({
     position:'absolute',
     fontSize:15,
     height:40,
-    top:12,
     left:15
   },
 

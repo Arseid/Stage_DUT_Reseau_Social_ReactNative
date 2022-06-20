@@ -100,7 +100,7 @@ function SearchScreen({navigation}){
                         <View style={{alignItems:'center',height:60}}>
                           <TouchableOpacity onPress={() => handleSpectate(item.email)}>
                             <Text style={styles.textList}>{item.forename} {item.surname}</Text>
-                            <Text style={{bottom:10,left:15,fontSize:15,position:'absolute',marginTop:15}}>{item.type}</Text>
+                            <Text style={{bottom:10,left:15,fontSize:15,position:'absolute',marginTop:15}}>{item.type} {item.type=='Eleve' ? item.option2 : ""}</Text>
                           </TouchableOpacity>
                         </View>
                         {(verifyIfSubscribed(item.id)==false) &&
@@ -155,7 +155,7 @@ function SearchScreen({navigation}){
           }
         </View>
       </View>
-      <View style={{position:'absolute',left:'5%',top:'20%'}}>
+      <View style={{position:'absolute',left:'5%',top:'22%'}}>
         <TouchableOpacity style={styles.rebootFilterButton} onPress={() => {setChosenType('')}}>
           <Text style={styles.buttonText}>Réinitialiser le filtre</Text>
         </TouchableOpacity>

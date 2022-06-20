@@ -138,6 +138,7 @@ export function ProfileScreen({navigation}){
               }
               {userInfo.followersCounter>=1 &&
                 <>
+                  <Text style={{fontSize:25,textAlign:'center'}}>Mes abonnés</Text>
                   <FlatList
                     data={followersList} renderItem={({item}) => 
                       <>
@@ -173,6 +174,7 @@ export function ProfileScreen({navigation}){
               }
               {userInfo.followingCounter>=1 &&
                 <>
+                  <Text style={{fontSize:25,textAlign:'center'}}>Mes abonnements</Text>
                   <FlatList
                     data={followingList} renderItem={({item}) => 
                       <>

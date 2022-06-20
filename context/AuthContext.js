@@ -382,6 +382,7 @@ export const AuthProvider = ({children}) => {
               randomProfile.surname=listRandomProfiles[i][2];
               randomProfile.email=listRandomProfiles[i][3];
               randomProfile.type=listRandomProfiles[i][5];
+              randomProfile.option2=listRandomProfiles[i][7];
               randomProfile.ppPath=listRandomProfiles[i][8][3];
               randomProfilesData.push(randomProfile);
             }

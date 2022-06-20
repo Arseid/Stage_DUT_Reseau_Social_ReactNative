@@ -115,7 +115,7 @@ function HomeScreen({navigation}){
                         <View style={{alignItems:'center',height:60}}>
                           <TouchableOpacity onPress={() => handleSpectate(item.email)}>
                             <Text style={styles.textList}>{item.forename} {item.surname}</Text>
-                            <Text style={{bottom:10,left:15,fontSize:15,position:'absolute',marginTop:15}}>{item.type}</Text>
+                            <Text style={{bottom:10,left:15,fontSize:15,position:'absolute',marginTop:15}}>{item.type} {item.type=='Eleve' ? item.option2 : ""}</Text>
                           </TouchableOpacity>
                         </View>
                         {(verifyIfSubscribed(item.id)==false) &&
@@ -150,7 +150,7 @@ function HomeScreen({navigation}){
                         <Image source={{uri:item.pp}} style={{width:'21%',height:'90%',borderRadius:100}}/>  
                         <View>
                           <Text style={{fontSize:15, height:60, top:20, marginLeft:20}}>{item.forename} {item.surname}</Text>
-                          <Text style={{fontSize:15, bottom:15,marginLeft:20}}>{item.type}</Text>
+                          <Text style={{fontSize:15, bottom:15,marginLeft:20}}>{item.type} {item.type=='Eleve' ? item.option2 : ""}</Text>
                         </View>
                       </View>
                       <Text style={{margin:10}}>{item.body}</Text>
@@ -170,6 +170,8 @@ function HomeScreen({navigation}){
     </SafeAreaView>
   );
 }
+
+
 
 /*
 <View style={{backgroundColor:'#FFFAF0',borderColor:"#FFFAF0",borderWidth:1,borderRadius: 10,marginHorizontal:'10%'}}>
