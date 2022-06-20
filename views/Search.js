@@ -20,7 +20,7 @@ function SearchScreen({navigation}){
 
   const searching = (text) => {
     setSearchInput(text);
-    searchUser(userInfo.email,text,chosenType,domainChosen);
+    searchUser(userInfo.email,text,chosenType);
   }
 
   const verifyIfSubscribed = (userID) => {
@@ -44,10 +44,10 @@ function SearchScreen({navigation}){
     {label: 'Numérique et transition énergétique', value: 'energie'},
     {label: "Pilotage d'installations automatisées", value: 'auto'},
     {label: 'Métiers du bois', value: 'bois'},
-
   ]);
   const [chosenType,setChosenType]=useState('');
 
+  /*
   const [openDomain,setOpenDomain]=useState(false);
   const [domainItems,setDomainItems]=useState([
     {label: 'Agroalimentaire', value: 'Agroalimentaire'},
@@ -70,6 +70,7 @@ function SearchScreen({navigation}){
     {label: 'Autres', value: 'Autres'}
   ])
   const [domainChosen,setDomainChosen]=useState('');
+  */
 
   const handleSpectate = (email) => {
     spectateProfile(email);
@@ -79,17 +80,17 @@ function SearchScreen({navigation}){
   return (
     <View style={styles.container}>
       
-      <View style={{position:'absolute',left:5,top:'20%'}}>
+      <View style={{position:'absolute',left:5,top:'15%'}}>
         <View style={styles.viewSearchBar}>
           <Ionicons style={{margin:5}} name='search-outline' size={25} color={'#808080'}/>
           <TextInput value={searchInput} onChangeText={text => searching(text)} placeholderTextColor={'#808080'} placeholder='Rechercher un compte...' style={{marginLeft:5,width:'85%'}}></TextInput>
         </View>
         
-        <View style={{marginTop:20}}>
+        <View style={{marginTop:20,}}>
           {(searchInput=='') &&
           <>
-            <Text style={styles.textSuggestion}>Voici une liste de personnes que vous pourriez suivre :</Text>
-            <View style={styles.containerSuggestion}>
+            <Text style={styles.textSuggestion}>Voici une liste d'utilisateur suggéré :</Text>
+            <View style={styles.containerSuggestion2}>
               <FlatList
                 data={randomProfiles} keyExtractor={(item) => item.id.toString()} renderItem={({item}) => 
                   <>
@@ -99,7 +100,7 @@ function SearchScreen({navigation}){
                         <View style={{alignItems:'center',height:60}}>
                           <TouchableOpacity onPress={() => handleSpectate(item.email)}>
                             <Text style={styles.textList}>{item.forename} {item.surname}</Text>
-                            <Text style={{bottom:10,left:15,fontSize:15,position:'absolute',marginTop:15}}>{item.type}</Text>
+                            <Text style={{bottom:22,left:15,fontSize:15,position:'absolute',marginTop:15}}>{item.type}</Text>
                           </TouchableOpacity>
                         </View>
                         {(verifyIfSubscribed(item.id)==false) &&
@@ -117,7 +118,7 @@ function SearchScreen({navigation}){
             </View>
             <View style={{alignItems:'center'}}>
               <TouchableOpacity style={styles.buttonReload} onPress={() => {showUserProfiles(userInfo.email)}}>
-                <Text style={styles.buttonText}>Recharger</Text>
+                <Text style={styles.buttonText}>Actualiser</Text>
               </TouchableOpacity>
             </View>
           </>
@@ -154,24 +155,30 @@ function SearchScreen({navigation}){
           }
         </View>
       </View>
-      <View style={{position:'absolute',left:'12%',top:'26%'}}>
-        <TouchableOpacity style={styles.rebootFilterButton} onPress={() => {setChosenType(''),setDomainChosen('')}}>
-          <Text style={styles.buttonText}>Réinitialiser les filtres</Text>
+      <View style={{position:'absolute',left:'5%',top:'20%'}}>
+        <TouchableOpacity style={styles.rebootFilterButton} onPress={() => {setChosenType('')}}>
+          <Text style={styles.buttonText}>Réinitialiser le filtre</Text>
         </TouchableOpacity>
       </View>
-      <View style={{marginHorizontal:'5%',marginTop:'15%',alignSelf:'center' }}>
+      <View style={{marginHorizontal:'5%',marginTop:'20%',alignSelf:'center'}}>
         <DropDownPicker
-          style={{width:'100%', backgroundColor: "#FFFAF0"}}
+          style={{width:'100%'}}
           open={openType}
           setOpen={setOpenType}
           items={typeItems}
           setItems={setTypeItems}
           value={chosenType}
           setValue={setChosenType}
-          placeholder='Type de filière'
+          placeholder='Filière...'
         />
       </View>
-      {(chosenType=='entreprise') && 
+    </View>
+  );
+  
+}
+
+/*
+{(chosenType=='entreprise') && 
         <View style={{marginHorizontal:'5%',marginTop:'5%',alignSelf:'center'}}>
           <DropDownPicker
             style={{width:'75%'}}
@@ -185,10 +192,6 @@ function SearchScreen({navigation}){
           />
         </View>
       }
-      
-    </View>
-  );
-  
-}
+      */
 
 export default SearchScreen;

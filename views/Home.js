@@ -96,18 +96,18 @@ function HomeScreen({navigation}){
         </Overlay>
       </View>
       <View>
-        <Text style={styles.title}>Lorem Ipsum</Text>
+        <Text style={styles.title}>C'est ton destin</Text>
       </View>
       
         { (retrievedPosts.length<1) &&
-          <View style={{marginTop:20}}>
+          <View style={{marginTop:20, height:'100%'}}>
             <Text style={styles.textSuggestion}>C'est vide par ici...</Text>
             <Text style={styles.textSuggestion}>Postez ou suivez des personnes pour alimenter votre feed!</Text>
             <View style={styles.containerSuggestion2}>
               <FlatList
                 data={randomProfiles} keyExtractor={(item) => item.id.toString()} renderItem={({item}) => 
                   <>
-                    <View style={{borderBottomWidth:1,borderColor:'#d2b48c'}}>
+                    <View style={{borderBottomWidth:3,borderColor:'#d2b48c'}}>
                       <View style={{flexDirection:'row',padding:5}}>
                         <Image source={{uri:item.ppPath}} style={styles.imageList}/>  
                         <View style={{alignItems:'center',height:60}}>
@@ -131,22 +131,26 @@ function HomeScreen({navigation}){
             </View>
             <View style={{alignItems:'center'}}>
               <TouchableOpacity style={styles.buttonReload} onPress={() => {showUserProfiles(userInfo.email)}}>
-                <Text style={styles.buttonText}>Recharger</Text>
+                <Text style={styles.buttonText}>Actualiser</Text>
               </TouchableOpacity>
             </View>
           </View>
         } 
         { (retrievedPosts.length>=1) &&
+        
           <>
-            <View style={{marginTop:20}}>
+          
+            <View style={{marginTop:20, height:'65%'}}>
+              
               <View style={styles.containerSuggestion}>
                 <FlatList
                 data={retrievedPosts} renderItem={({item}) => 
                 <>
-                    <View style={{borderBottomWidth:1,borderColor:'#d2b48c', marginBottom:20}}>
+                    <View style={{borderBottomWidth:3,borderColor:'#d2b48c', marginBottom:20}}>
                       <View style={{flexDirection:'row'}}>
                         <Image source={{uri:item.pp}} style={{width:'20%',height:'100%',borderRadius:100}}/>  
-                        <Text style={{fontSize:15, height:60, top:20, marginLeft:20}}>{item.forename} {item.surname} | {item.type}</Text>
+                        <Text style={{fontSize:15, height:60, top:20, marginLeft:20}}>{item.forename} {item.surname} | {item.type} | 3ème</Text>
+                        <Text style={{fontSize:15, height:60, top:70, marginLeft:30}}>15:34</Text>
                       </View>
                       <Text style={{margin:10}}>{item.body}</Text>
                     </View>
@@ -156,7 +160,7 @@ function HomeScreen({navigation}){
               </View>
               <View style={{alignItems:'center'}}>
                 <TouchableOpacity style={styles.buttonReload} onPress={() => {retrievePosts(userInfo.email,userInfo.following)}}>
-                  <Text style={styles.buttonText}>Recharger</Text>
+                  <Text style={styles.buttonText}>Actualiser</Text>
                 </TouchableOpacity>
               </View>
             </View>

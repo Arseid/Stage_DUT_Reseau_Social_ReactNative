@@ -5,70 +5,82 @@ import { AuthContext } from '../context/AuthContext';
 import * as Modify from '../style/modifyStyle';
 import * as ImagePicker from 'expo-image-picker';
 import { CheckBox } from 'react-native-elements';
-import Navigation from '../navigation/Navigation';
 
 export function ModifyScreen({navigation}){
 
-  const [email, setEmail] = useState ('');
-  const [pwd, setPwd] = useState ('');
-  const {isLoading, login} = useContext(AuthContext);
+  const {userInfo,modify,modifyProfilePicture,backgroundPicture} = useContext(AuthContext);
 
+  const [bio, setBio] = useState(userInfo.description);
+
+  // State sector
   const [construction,setConstruction] = useState(false);
   const [alim,setAlim] = useState(false);
   const [client,setClient] = useState(false);
   const [batiment,setBatiment] = useState(false);
   const [gestion,setGestion] = useState(false);
   const [comm,setComm] = useState(false);
-  const [foundInterest,setFoundInterest] = useState(false);
-  const [interest,setInterest] = useState({});
-  var interestList={};
+  const [beauty,setBeauty] = useState(false);
+  const [aeronautic,setAeronautic] = useState(false);
+  const [hotel,setHotel] = useState(false);
+  const [engine,setEngine] = useState(false);
+  const [maintenance,setMaintenance] = useState(false);
+  const [digital,setDigital] = useState(false);
+  const [autoInstall,setAutoInstall] = useState(false);
+  const [wood,setWood] = useState(false);
 
-  const toggleOverlay = () => {
-    setVisible(!visible);
-  };
-
-  const [pronouns, setPronouns] = useState(userInfo?._gender);
-
-  const [visible, setVisible] = useState(false);
-  const [followersVisible, setFollowersVisible] = useState(false);
-  const [followingVisible, setFollowingVisible] = useState(false);
-
- 
-
- 
-  const addConstruction = () => {
-
-    if (construction){
-      interestList.construction=true;
-      setInterest(interestList);
-    } else {
-      interestList.construction=false;
-      setInterest(interestList);
-    }
-    console.log(interestList);
+  /*
+  for (let i=0;i<userInfo.interestArray.length;i++){
+    if (userInfo.interestArray[i]=='Construction durable, bâtiments, travaux publics') setConstruction(true);
+    if (userInfo.interestArray[i]=='Alimentation') setAlim(true);
+    if (userInfo.interestArray[i]=='Relation client') setClient(true);
+    if (userInfo.interestArray[i]=='Etudes et modélisation numérique du bâtiment') setBatiment(true);
+    if (userInfo.interestArray[i]=='Gestion administrative,transport et logistique') setGestion(true);
+    if (userInfo.interestArray[i]=='Industries graphiques et communication') setComm(true);
+    if (userInfo.interestArray[i]=='Beauté et bien-être') setBeauty(true);
+    if (userInfo.interestArray[i]=='Aéronautique') setAeronautic(true);
+    if (userInfo.interestArray[i]=='Hôtellerie-restauration') setHotel(true);
+    if (userInfo.interestArray[i]=='Réalisation de produits mécanique') setEngine(true);
+    if (userInfo.interestArray[i]=='Métiers de la maintenance') setMaintenance(true);
+    if (userInfo.interestArray[i]=='Numérique et transition énergétique') setDigital(true);
+    if (userInfo.interestArray[i]=="Pilotage d'installations automatisées") setAutoInstall(true);
+    if (userInfo.interestArray[i]=='Métiers du bois') setWood(true);
   }
+  */
 
-  const addBatiment = () => {
+  var interestList=[]; 
+  if (construction) interestList.push('Construction durable, bâtiments, travaux publics');
+  if (alim) interestList.push('Alimentation');
+  if (client) interestList.push('Relation client');
+  if (batiment) interestList.push('Etudes et modélisation numérique du bâtiment');
+  if (gestion) interestList.push('Gestion administrative,transport et logistique');
+  if (comm) interestList.push('Industries graphiques et communication');
+  if (beauty) interestList.push('Beauté et bien-être');
+  if (aeronautic) interestList.push('Aéronautique');
+  if (hotel) interestList.push('Hôtellerie-restauration');
+  if (engine) interestList.push('Réalisation de produits mécanique');
+  if (maintenance) interestList.push('Métiers de la maintenance');
+  if (digital) interestList.push('Numérique et transition énergétique');
+  if (autoInstall) interestList.push("Pilotage d'installations automatisées");
+  if (wood) interestList.push('Métiers du bois');
 
-    if (batiment){
-      interestList.batiment=true;
-      setInterest(interestList);
-    } else {
-      interestList.batiment=false;
-      setInterest(interestList);
-    }
-    console.log(interestList);
-  }
-
-  const handleLogin = () =>{
-    login(email,pwd);
-    Keyboard.dismiss();
-  }
+  // State subjects
+  const [french,setFrench] = useState(false);
+  const [math,setMath] = useState(false);
+  const [history,setHistory] = useState(false);
+  const [english,setEnglish] = useState(false);
+  const [german,setGerman] = useState(false);
+  const [spanish,setSpanish] = useState(false);
+  const [earthScience,setEarthScience] = useState(false);
+  const [physics,setPhysics] = useState(false);
+  const [technology,setTechnology] = useState(false);
+  const [musicLearning,setMusicLearning] = useState(false);
+  const [artLearning,setArtLearning] = useState(false);
+  const [pe,setPe] = useState(false);
 
   const handleModification = () =>{
-    modify(pronouns,bio,userInfo.email);
+    modify(interestList,bio,userInfo.email);
     Keyboard.dismiss();
-    toggleOverlay();
+    navigation.goBack();
   }
 
   let changeBackgroundPicture = async () => {
@@ -117,12 +129,6 @@ export function ModifyScreen({navigation}){
     }
   };
 
-  const [bio, setBio] = useState(userInfo?._description);
-
-
- 
-
-  const {userInfo,logout,modify,modifyProfilePicture,backgroundPicture,checkPosts,followersList,followingList,unfollowUser,removeFollower,retrievePosts,showUserProfiles} = useContext(AuthContext);
   return (
 
     <View style={styles.container}>
@@ -169,20 +175,20 @@ export function ModifyScreen({navigation}){
                     <Text style={Modify.styles.subtitle}>Filières favorites</Text>
                     <View style={{flexDirection:'row', width:'100%'}}>
                       <View> 
-                        <CheckBox title='Construction durable, bâtiments, travaux publics' checked={construction} onPress={() => {addConstruction(),setConstruction(!construction)}}/>
-                        <CheckBox title='Etudes et modélisation numérique du bâtiment' checked={batiment} onPress={() => {addBatiment(),setBatiment(!batiment)}}/>
-                        <CheckBox title='Relation client' checked={client} onPress={() => {setClient(!client)}}/>
+                        <CheckBox title='Construction durable, bâtiments, travaux publics' checked={construction} onPress={() => {setConstruction(!construction)}}/>
+                        <CheckBox title='Etudes et modélisation numérique du bâtiment' checked={batiment} onPress={() => {setBatiment(!batiment)}}/>
+                        <CheckBox title='Relation client ' checked={client} onPress={() => {setClient(!client)}}/>
                         <CheckBox title='Gestion administrative,transport et logistique' checked={gestion} onPress={() => {setGestion(!gestion)}}/>
                         <CheckBox title='Industries graphiques et communication' checked={comm} onPress={() => {setComm(!comm)}}/>
                         <CheckBox title="Alimentation" checked={alim} onPress={() => {setAlim(!alim)}}/>
-                        <CheckBox title='Beauté et bien-être'/>
-                        <CheckBox title='Aéronautique'/>
-                        <CheckBox title='Hôtellerie-restauration'/>
-                        <CheckBox title='Réalisation de produits mécanique' />
-                        <CheckBox title='Métiers de la maintenance' />
-                        <CheckBox title="Numérique et transition énergétique" />
-                        <CheckBox title="Pilotage d'installations automatisées"/>
-                        <CheckBox title="Métiers du bois" />
+                        <CheckBox title='Beauté et bien-être' checked={beauty} onPress={() => {setBeauty(!beauty)}}/>
+                        <CheckBox title='Aéronautique' checked={aeronautic} onPress={() => {setAeronautic(!aeronautic)}}/>
+                        <CheckBox title='Hôtellerie-restauration' checked={hotel} onPress={() => {setHotel(!hotel)}}/>
+                        <CheckBox title='Réalisation de produits mécanique' checked={engine} onPress={() => {setEngine(!engine)}}/>
+                        <CheckBox title='Métiers de la maintenance' checked={maintenance} onPress={() => {setMaintenance(!maintenance)}} />
+                        <CheckBox title="Numérique et transition énergétique" checked={digital} onPress={() => {setDigital(!digital)}}/>
+                        <CheckBox title="Pilotage d'installations automatisées" checked={autoInstall} onPress={() => {setAutoInstall(!autoInstall)}}/>
+                        <CheckBox title="Métiers du bois" checked={wood} onPress={() => {setWood(!wood)}}/>
                       </View>
                     </View>
                   </View>
@@ -214,10 +220,7 @@ export function ModifyScreen({navigation}){
                   </>
                 }
                 <View style={Modify.styles.changeView}>
-                  <TouchableOpacity style={Modify.styles.button} onPress={navigation.navigate('Profil')}>
-                    <Text style={Modify.styles.buttonText}>Annuler</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity style={Modify.styles.button} onPress={() => navigation.navigate('Profil')}>
+                  <TouchableOpacity style={Modify.styles.button} onPress={() => {handleModification()}}>
                     <Text style={Modify.styles.buttonText}>Enregistrer</Text>
                   </TouchableOpacity>
                 </View>
@@ -229,4 +232,4 @@ export function ModifyScreen({navigation}){
       </View> 
     </View>
   );
-}
+} 

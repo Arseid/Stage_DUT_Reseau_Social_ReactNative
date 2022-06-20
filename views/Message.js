@@ -4,7 +4,7 @@ import { AuthContext } from '../context/AuthContext';
 import styles from '../style/messageStyle';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-export function MessageScreen({navigation}){
+function MessageScreen({navigation}){
 
     const {randomProfiles,setRandomProfiles,followUser,userInfo,showUserProfiles} = useContext(AuthContext);
 
@@ -41,7 +41,7 @@ export function MessageScreen({navigation}){
             </View>
             <View style={{alignItems:'center'}}>
               <TouchableOpacity style={styles.buttonReload} onPress={() => {showUserProfiles(userInfo.email)}}>
-                <Text style={styles.buttonText}>Recharger</Text>
+                <Text style={styles.buttonText}>Actualiser</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -50,3 +50,4 @@ export function MessageScreen({navigation}){
     
 }
 
+export default MessageScreen;

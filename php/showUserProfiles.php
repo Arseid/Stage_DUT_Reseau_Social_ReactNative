@@ -19,8 +19,9 @@
     $row = mysqli_fetch_row($SQ);
     $listFollowing=$row[6];
     $arrayFollowing=explode(',',$listFollowing);
+    $interestArray=explode(' | ',$row[7]);
 
-    $SR="SELECT * from users WHERE email!='$email' AND user_id NOT IN ('" . implode( "', '", $arrayFollowing ) . "') ORDER BY RAND() LIMIT 15";
+    $SR="SELECT * from users  WHERE email!='$email' AND user_id NOT IN ('" . implode( "', '", $arrayFollowing ) . "') ORDER BY RAND() LIMIT 10";
     $SQ=mysqli_query($ConnectDB,$SR);
     $rows=mysqli_fetch_all($SQ);
 

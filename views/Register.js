@@ -12,8 +12,8 @@ const PROP = [
 		value: 'Elève',
 	},
 	{
-		label: 'Parent',
-		value: 'Parent',
+		label: "Parent d'élève",
+		value: "Parent d'élève",
 	},
 	{
 		label: 'Enseignant',
@@ -154,7 +154,7 @@ export function RegisterScreen(){
 
       <View style={styles.upside}>
         <View style={styles.form}>
-          <Text style={styles.title}>Lorem Ipsum</Text>
+          <Text style={styles.title}>C'est ton destin</Text>
 
           <View style={styles.cut}/>
 
@@ -234,7 +234,7 @@ export function RegisterScreen(){
       </View>
       </>
       }
-      { selectedUserType == 'Parent' &&
+      { selectedUserType == "Parent d'élève" &&
       <>
       <TouchableOpacity style={styles.button} onPress={handleRegister}>
         <Text style={styles.averageText}>S'inscrire</Text>
@@ -349,4 +349,4 @@ export function RegisterScreen(){
       </View> 
     </View>
   );
-}
+} 

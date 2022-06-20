@@ -119,7 +119,7 @@ export const AuthProvider = ({children}) => {
         setIsLoggedIn(false);
     }
 
-    const modify = (pronouns,bio,email) => {
+    const modify = (list,bio,email) => {
         var APIURL=`${BASE_URL}/modify.php`;
 
         var modifyHeaders={
@@ -128,7 +128,7 @@ export const AuthProvider = ({children}) => {
         };
 
         var modifyData={
-            pronouns:pronouns,
+            list:list,
             bio:bio,
             email:email
         };
@@ -143,7 +143,7 @@ export const AuthProvider = ({children}) => {
             .then((response)=>
             {
                 console.log(response[0].Message);
-                setRetrievedInfo(retrievedInfo+1);
+                retrieveUserProfileInfo(email);
             })
             .catch((e)=>{
                 console.log("Error"+e);
@@ -188,6 +188,7 @@ export const AuthProvider = ({children}) => {
                 profileData.following=response[0].Following;
                 profileData.followingCounter=response[0].FollowingCounter;
                 profileData.interest=response[0].Interest;
+                profileData.interestArray=response[0].InterestArray;
 
                 console.log(response[0].Message);
                 console.log(profileData);
@@ -219,8 +220,7 @@ export const AuthProvider = ({children}) => {
         .then((response) => response.json())  // promise
         .then((response) => {
             console.log(response);
-            setRetrievedInfo(retrievedInfo+1);
-            setIsLoading(false);
+            retrieveUserProfileInfo(email);
         })
         .catch((e)=>{
             console.log("Error"+e);
@@ -248,7 +248,7 @@ export const AuthProvider = ({children}) => {
         .then((response) => response.json())  // promise
         .then((response) => {
             console.log(response);
-            setRetrievedInfo(retrievedInfo+1);
+            retrieveUserProfileInfo(email);
         })
         .catch((e)=>{
             console.log("Error"+e);
@@ -507,7 +507,7 @@ export const AuthProvider = ({children}) => {
         })
     }
 
-    const searchUser = (email,text,option1,option2) => {
+    const searchUser = (email,text,option1) => {
         var APIURL=`${BASE_URL}/searchUser.php`;
 
         let data={
@@ -516,7 +516,6 @@ export const AuthProvider = ({children}) => {
                 email:email,
                 text:text,
                 option1:option1,
-                option2:option2,
             }),
             headers: {
                 'Accept':       'application/json',
@@ -654,7 +653,6 @@ export const AuthProvider = ({children}) => {
         setSpinnerLoading(!spinnerLoading);
         /*
         var APIURL=`${BASE_URL}/test.php`;
-
         let data={
             method: 'POST',
             body : JSON.stringify({
@@ -665,7 +663,6 @@ export const AuthProvider = ({children}) => {
                 'Content-Type': 'application/json',
             }
         }
-
         fetch(APIURL, data)
         .then((response) => response.json())
         .then((response) => {

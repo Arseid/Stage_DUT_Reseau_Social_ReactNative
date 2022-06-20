@@ -1,5 +1,5 @@
 import React, {useState,useContext} from 'react';
-import {Text, TextInput, View, TouchableOpacity, Keyboard } from 'react-native';
+import {Text, TextInput, View, TouchableOpacity, Keyboard,Image } from 'react-native';
 import styles from '../style/loginStyle';
 import { AuthContext } from '../context/AuthContext';
 
@@ -20,8 +20,10 @@ export function LoginScreen({navigation}){
 
       <View style={styles.upside}>
 
+        <Image source={require('../assets/splash.png')}/>
+
         <View style={styles.form}>
-          <Text style={styles.title}>Lorem Ipsum</Text>
+          <Text style={styles.title}>C'est ton destin</Text>
 
           <TextInput style={styles.infoInput} placeholderTextColor={'#808080'} placeholder="Email" value={email} onChangeText={text => setEmail(text)}/>
           <TextInput style={styles.infoInput} placeholderTextColor={'#808080'} placeholder="Mot de passe" secureTextEntry value={pwd} onChangeText={text => setPwd(text)}/>

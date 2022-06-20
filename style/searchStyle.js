@@ -98,7 +98,7 @@ export default StyleSheet.create({
   },
 
   rebootFilterButton:{
-    width:'200%',
+    width:'265%',
     borderRadius: 4,
     backgroundColor: '#ffaf7a',
     padding:5,
@@ -149,7 +149,7 @@ export default StyleSheet.create({
 
   containerSuggestion:{
     width:'90%',
-    height:'60%',
+    height:'100%',
     borderColor:"#FFFAF0",
     backgroundColor:"#FFFAF0",
     borderWidth:1,
@@ -161,7 +161,7 @@ export default StyleSheet.create({
 
   containerSuggestion2:{
     width:'90%',
-    height:'70%',
+    height:'55%',
     borderColor:"#FFFAF0",
     backgroundColor:"#FFFAF0",
     borderWidth:1,
@@ -181,7 +181,6 @@ export default StyleSheet.create({
     position:'absolute',
     fontSize:15,
     height:40,
-    top:12,
     left:15
   },
 
