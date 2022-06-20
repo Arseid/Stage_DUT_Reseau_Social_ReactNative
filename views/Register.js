@@ -12,8 +12,8 @@ const PROP = [
 		value: 'Elève',
 	},
 	{
-		label: 'Parent',
-		value: 'Parent',
+		label: "Parent d'élève",
+		value: "Parent d'élève",
 	},
 	{
 		label: 'Enseignant',
@@ -107,8 +107,8 @@ export function RegisterScreen(){
   ]);
 
   const [items2, setItems2] = useState([
-    {label: '4ème', value: '4ème'},
-    {label: '3ème', value: '3ème'}
+    {label: '4e', value: '4e'},
+    {label: '3è', value: '3e'}
   ]);
 
   const [items3, setItems3] = useState([
@@ -141,7 +141,7 @@ export function RegisterScreen(){
     }
     else{
       if (selectedUserType=='Elève') setType('Eleve');
-      else if (selectedUserType=='Parent') setType('Parent');
+      else if (selectedUserType=="Parent d'élève") setType("Parent d'élève");
       else if (selectedUserType=='Enseignant') setType('Enseignant');
       else if (selectedUserType=='Professionnel') setType('Professionnel');
       else if (selectedUserType=='Entreprise') setType('Entreprise');
@@ -154,7 +154,7 @@ export function RegisterScreen(){
 
       <View style={styles.upside}>
         <View style={styles.form}>
-          <Text style={styles.title}>Lorem Ipsum</Text>
+          <Text style={styles.title}>C'est ton destin</Text>
 
           <View style={styles.cut}/>
 
@@ -234,7 +234,7 @@ export function RegisterScreen(){
       </View>
       </>
       }
-      { selectedUserType == 'Parent' &&
+      { selectedUserType == "Parent d'élève" &&
       <>
       <TouchableOpacity style={styles.button} onPress={handleRegister}>
         <Text style={styles.averageText}>S'inscrire</Text>
@@ -349,4 +349,4 @@ export function RegisterScreen(){
       </View> 
     </View>
   );
-}
+} 

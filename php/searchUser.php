@@ -10,18 +10,14 @@
     $email=$DecodedData['email'];
     $text=$DecodedData['text'];
     $option1=$DecodedData['option1'];
-    $option2=$DecodedData['option2'];
 
     $listUsers=array();
 
-    if ($option1=='' && $option2==''){
+    if ($option1==''){
         $SR="SELECT * from users WHERE email!='$email' AND (forename LIKE '%$text%' OR surname LIKE '%$text%')";
     }
-    elseif ($option1!=='' && $option2==''){
-        $SR="SELECT * from users WHERE email!='$email' AND type='$option1' AND (forename LIKE '%$text%' OR surname LIKE '%$text%')";
-    }
-    elseif ($option1!=='' && $option2!==''){
-        $SR="SELECT * from users WHERE email!='$email' AND type='$option1' AND option2='$option2' AND (forename LIKE '%$text%' OR surname LIKE '%$text%')";
+    else{
+        $SR="SELECT * from users INNER JOIN profile ON users.user_id=profile.user_id WHERE users.email!='$email' AND FIND_IN_SET('$option1', profile.interest) AND (forename LIKE '%$text%' OR surname LIKE '%$text%')";
     }
 
     $SQ=mysqli_query($ConnectDB,$SR);

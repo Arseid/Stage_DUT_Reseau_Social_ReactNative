@@ -7,20 +7,15 @@
     $EncodedData=file_get_contents('php://input');
     $DecodedData=json_decode($EncodedData,true);
 
-    $list=implode(' | ',$DecodedData['list']);
-    $bio=$DecodedData['bio'];
+    $option1=$DecodedData['option1'];
+    $option2=$DecodedData['option2'];
     $email=$DecodedData['email'];
 
-    $SR="SELECT * from users WHERE email LIKE '$email'";
-    $SQ=mysqli_query($ConnectDB,$SR);
-    $row = mysqli_fetch_row($SQ);
-    $user_id=$row[0];
-
-    $MR="UPDATE profile SET description = '$bio', interest = '$list' WHERE profile.user_id = '$user_id'";
+    $MR="UPDATE users SET option1 = '$option1', option2 = '$option2' WHERE users.email = '$email'";
     $MQ=mysqli_query($ConnectDB,$MR);
 
     if ($MQ){
-        $Message="user successfully modified";
+        $Message="user's info successfully modified";
     }
     else{
         $Message="modification failed";

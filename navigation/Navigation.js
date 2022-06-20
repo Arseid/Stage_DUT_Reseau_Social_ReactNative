@@ -12,6 +12,7 @@ import { LoadingScreen } from '../views/Loading';
 import SearchScreen from '../views/Search';
 import { ModifyScreen } from '../views/ModifyProfile';
 import { SpectateProfile } from '../views/SpectateProfile';
+import MessageScreen from '../views/Message';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -20,7 +21,8 @@ const ProfileScreenNavigator = () => {
     return (
         <Stack.Navigator>
             <Stack.Screen name="Afficher Profil" component={ProfileScreen} options={{headerShown: false}}/>
-            <Stack.Screen name="Modifier le profil" component={ModifyScreen}/>
+            <Stack.Screen name="Modifier le profil" component={ModifyScreen} options={{headerShown: false}}/>
+            <Stack.Screen name="Inspecter Profil" component={SpectateProfile}/>
         </Stack.Navigator>
     )
 }
@@ -37,11 +39,21 @@ const HomeScreenNavigator = () => {
 const SearchScreenNavigator = () => {
     return (
         <Stack.Navigator>
-            <Stack.Screen name="Afficher Acceuil" component={SearchScreen} options={{headerShown: false}}/>
+            <Stack.Screen name="Afficher Accueil" component={SearchScreen} options={{headerShown: false}}/>
             <Stack.Screen name="Inspecter Profil" component={SpectateProfile}/>
         </Stack.Navigator>
     )
 }
+
+const MessageScreenNavigator = () => {
+    return (
+        <Stack.Navigator>
+            <Stack.Screen name="Messages" component={MessageScreen} options={{headerShown: false}}/>
+        </Stack.Navigator>
+    )
+}
+
+
 
 const Navigation = () => {
     
@@ -63,24 +75,31 @@ const Navigation = () => {
                         screenOptions={({ route }) => ({
                             tabBarIcon: ({ focused, color, size }) => {
                                 let iconName;
-                                if (route.name === 'Acceuil') {
+                                if (route.name === 'Accueil') {
                                     iconName = 'home-outline';
                                 } else if (route.name === 'Profil') {
                                     iconName = 'ellipse-outline';
                                 }
+                                else if (route.name === 'Messages') {
+                                    iconName = 'chatbubble-outline';
+                                }
                                 else if (route.name === 'Rechercher') {
                                     iconName = 'search-outline';
                                 }
+                               
+                                
                                 return <Ionicons name={iconName} size={size} color={color} />;
                             },
                             tabBarStyle: {
                                 backgroundColor: '#FFFAF0',
-                            },
+                            }, 
                         })}
                     >
-                    <Tab.Screen name="Acceuil" component={HomeScreenNavigator} options={{headerShown: false}}/>
-                    <Tab.Screen name="Rechercher" component={SearchScreenNavigator} options={{headerShown: false}}/>
-                    <Tab.Screen name="Profil" component={ProfileScreenNavigator} options={{headerShown: false}}/>
+                    
+                    <Tab.Screen  name="Accueil" component={HomeScreenNavigator} options={{headerShown: false, tabBarActiveTintColor:'#ffaf7a'}}/>
+                    <Tab.Screen  name="Rechercher" component={SearchScreenNavigator} options={{headerShown: false, tabBarActiveTintColor:'#ffaf7a'}}/>
+                    <Tab.Screen name="Messages" component={MessageScreenNavigator} options={{headerShown: false, tabBarActiveTintColor:'#ffaf7a'}}/>
+                    <Tab.Screen name="Profil" component={ProfileScreenNavigator} options={{headerShown: false, tabBarActiveTintColor:'#ffaf7a'}}/>
                     </Tab.Navigator>
                     </>
                     ) : (

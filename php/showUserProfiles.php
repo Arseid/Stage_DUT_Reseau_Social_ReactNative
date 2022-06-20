@@ -19,8 +19,9 @@
     $row = mysqli_fetch_row($SQ);
     $listFollowing=$row[6];
     $arrayFollowing=explode(',',$listFollowing);
+    $interestArray=explode(' | ',$row[7]);
 
-    $SR="SELECT * from users WHERE email!='$email' AND user_id NOT IN ('" . implode( "', '", $arrayFollowing ) . "') ORDER BY RAND() LIMIT 15";
+    $SR="SELECT * from users  WHERE email!='$email' AND user_id NOT IN ('" . implode( "', '", $arrayFollowing ) . "') ORDER BY RAND() LIMIT 15";
     $SQ=mysqli_query($ConnectDB,$SR);
     $rows=mysqli_fetch_all($SQ);
 
@@ -31,6 +32,16 @@
         $SQ=mysqli_query($ConnectDB,$SR);
         $row = mysqli_fetch_row($SQ);
         array_push($rows[$i],$row);
+
+        $randomInterestArray=explode(' | ',$rows[8][7]);
+        $intersect=array();
+        $intersect=array_intersect($interestArray,$randomInterestArray);
+        if (sizeof($intersect)>=1) {
+            $temp=array();
+            $temp=$rows[0];
+            $rows[0]=$rows[$i];
+            $rows[$i]=$temp;
+        }
     }
 
     echo json_encode($rows);

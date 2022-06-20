@@ -52,6 +52,10 @@
         }
 
         $interest = $row[7];
+        $interestArray = explode(' | ',$interest);
+
+        $interest2 = $row[8];
+        $interest2Array = explode(' | ',$interest2);
     }
     else{
         $Message="not found";
@@ -75,6 +79,9 @@
         "Following"=>$following,
         "FollowingCounter"=>$followingCounter,
         "Interest"=>$interest,
+        "InterestArray"=>$interestArray,
+        "Interest2"=>$interest2,
+        "InterestArray2"=>$interestArray2,
     );
 
     echo json_encode($Response);

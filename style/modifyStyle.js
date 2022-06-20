@@ -99,10 +99,11 @@ const styles = StyleSheet.create({
 
   changeView:{
     flexDirection:'row',
+    justifyContent:'flex-end',
+    alignSelf:'center',
     alignItems:'center',
     marginTop:'5%',
     marginBottom:10,
-    marginLeft:'12%'
   },
 
   button:{

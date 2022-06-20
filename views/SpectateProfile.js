@@ -7,7 +7,7 @@ import { Overlay } from 'react-native-elements';
 
 export function SpectateProfile({navigation}){
 
-  const {userInfo,spectatedUserInfo,spectatedFollowersList,spectatedFollowingList,followingList,followUser} = useContext(AuthContext);
+  const {userInfo,spectatedUserInfo,spectatedFollowersList,spectatedFollowingList,followingList,followUser,spectateProfile} = useContext(AuthContext);
 
   const [followersVisible, setFollowersVisible] = useState(false);
   const [followingVisible, setFollowingVisible] = useState(false);
@@ -23,6 +23,11 @@ export function SpectateProfile({navigation}){
   const verifyIfSubscribed = (userID) => {
     const verification = followingList.some(item => item.key === userID);
     return verification;
+  }
+    
+  const handleSpectate = (email) => {
+    spectateProfile(email);
+    navigation.navigate('Inspecter Profil');
   }
 
   return(
@@ -50,35 +55,48 @@ export function SpectateProfile({navigation}){
               </View>
               <View style={styles.personalInfo}>
                 <Text style={{fontSize:25, marginBottom:5}}>{spectatedUserInfo.surname} {spectatedUserInfo.forename}</Text>
-                <Text style={styles.averageText}>{spectatedUserInfo.type} {spectatedUserInfo.option1 ? " | "+spectatedUserInfo.option1 : ""}</Text>
+                <Text style={styles.averageText}>{spectatedUserInfo.type} {spectatedUserInfo.type=='Eleve' ? spectatedUserInfo.option2 : ""} {spectatedUserInfo.option1 ? " | "+spectatedUserInfo.option1 : ""}</Text>
               </View>
-              {(verifyIfSubscribed(spectatedUserInfo.userID)==false) &&
-                <View style={{alignItems:'center', marginBottom:10}}>
+              {(verifyIfSubscribed(spectatedUserInfo.userID)==false && spectatedUserInfo.userID!=userInfo.userID) &&
+                <View style={{alignItems:'center',}}>
                 <TouchableOpacity style={styles.button} onPress={() => followUser(userInfo.email,spectatedUserInfo.email)}>
                     <Text style={styles.buttonText}>S'abonner</Text>
                 </TouchableOpacity>
                 </View>
                }
           </View>
-          {spectatedUserInfo.description || spectatedUserInfo.interest ? 
-          <>
-            <View style={styles.detailsProfile}>
-            {spectatedUserInfo.description ? 
-            <>
-              <View style={styles.bio}>
+          <View style={styles.detailsProfile}>
+            <View style={styles.field}>
+              <View style={{flexDirection:'row'}}>
                 <Text style={styles.subtitle}>Bio</Text>
-                <Text style={styles.bodyText}>{spectatedUserInfo.description}</Text>
               </View>
-            </>:<></>}
-            {spectatedUserInfo.interest ? 
-            <>
-              <View style={styles.hobbys}>
-                <Text style={styles.subtitle}>Centre d'intérêt</Text>
-                <Text style={styles.bodyText}></Text>
-              </View>
-            </>:<></>}
+              {spectatedUserInfo.description ? 
+              <Text style={styles.bodyText}>{spectatedUserInfo.description}</Text>:
+              <Text style={styles.bodyText}>Cet utilisateur n'a publié aucune bio.</Text>}
             </View>
-          </>:<></>}
+          </View>
+          <View style={styles.detailsProfile}>
+            <View style={styles.field}>
+              <View style={{flexDirection:'row'}}>
+                <Text style={styles.subtitle}>{spectatedUserInfo.type!=='Enseignant' ? 'Filières' : 'Matières enseignées'}</Text>
+              </View>
+              {spectatedUserInfo.interest ? 
+              <Text style={styles.bodyText}>{spectatedUserInfo.interest}</Text>:
+              <Text style={styles.bodyText}>Cet utilisateur n'a partagé aucunes fillières.</Text>}
+            </View>
+          </View>
+          {spectatedUserInfo.type!=='Entreprise' ?
+          <View style={styles.detailsProfile}>
+            <View style={styles.field}>
+              <View style={{flexDirection:'row'}}>
+                <Text style={styles.subtitle}>Centres d'intérêt</Text>
+              </View>
+              {spectatedUserInfo.interest2 ? 
+              <Text style={styles.bodyText}>{spectatedUserInfo.interest2}</Text>:
+              <Text style={styles.bodyText}>Cet utilisateur n'a partagé aucun centres d'intérêt.</Text>}
+            </View>
+          </View>
+          : <></>}
           <Overlay isVisible={followersVisible} onBackdropPress={toggleFollowersOverlay} fullScreen overlayStyle={{backgroundColor: '#eeeeee',}}>
             <View style={{marginTop:'15%'}}>
               {spectatedUserInfo.followersCounter<1 && 
@@ -94,7 +112,9 @@ export function SpectateProfile({navigation}){
                         <View style={styles.dataView}>
                           <View style={styles.dataAlignment}>
                             <Image source={{uri:item.ppPath}} style={styles.imageData}/>  
+                            <TouchableOpacity onPress={() => {toggleFollowersOverlay();handleSpectate(item.email)}}>
                             <Text style={styles.textData}>{item.forename} {item.surname}</Text>
+                            </TouchableOpacity>
                           </View>
                         </View>
                       </>
@@ -113,7 +133,7 @@ export function SpectateProfile({navigation}){
             <View style={{marginTop:'15%'}}>
               {spectatedUserInfo.followingCounter<1 &&
                 <>
-                  <Text style={styles.noSubscribe}>Cet utilisateur est abonné à aucun utilisateur</Text>
+                  <Text style={styles.noSubscribe}>Cet utilisateur n'est abonné à aucun utilisateur</Text>
                 </>
               }
               {spectatedUserInfo.followingCounter>=1 &&
@@ -124,7 +144,9 @@ export function SpectateProfile({navigation}){
                         <View style={styles.dataView}>
                           <View style={styles.dataAlignment}>
                             <Image source={{uri:item.ppPath}} style={styles.imageData}/>  
+                            <TouchableOpacity onPress={() => {toggleFollowingOverlay();handleSpectate(item.email)}}>
                             <Text style={styles.textData}>{item.forename} {item.surname}</Text>
+                            </TouchableOpacity>
                           </View>
                         </View>
                       </>

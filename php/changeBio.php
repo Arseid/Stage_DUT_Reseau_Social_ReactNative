@@ -7,7 +7,6 @@
     $EncodedData=file_get_contents('php://input');
     $DecodedData=json_decode($EncodedData,true);
 
-    $list=implode(' | ',$DecodedData['list']);
     $bio=$DecodedData['bio'];
     $email=$DecodedData['email'];
 
@@ -16,11 +15,11 @@
     $row = mysqli_fetch_row($SQ);
     $user_id=$row[0];
 
-    $MR="UPDATE profile SET description = '$bio', interest = '$list' WHERE profile.user_id = '$user_id'";
+    $MR="UPDATE profile SET description = '$bio' WHERE profile.user_id = '$user_id'";
     $MQ=mysqli_query($ConnectDB,$MR);
 
     if ($MQ){
-        $Message="user successfully modified";
+        $Message="user's bio successfully modified";
     }
     else{
         $Message="modification failed";
