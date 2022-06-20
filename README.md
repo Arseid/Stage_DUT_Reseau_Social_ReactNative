@@ -7,10 +7,11 @@ Les pages de Profile, Home, Search.
 
 # En cours de développement
 Amélioré la fonctionnalité de Search en mettant un système de filtre afin de mieux cibler notre recherche.
-Faire la page de Messagerie.
+La suggestion de compte est complètement aléatoire, donc faire en sorte que cette suggestion soi influencée par les centres d'intérêt/filières professionnelles.
+Faire la page de Messagerie (elle n'est pas du tout opérationnelle)
 
 # Auteurs
-- Front end: Nicolas Giliberto
+- Front end: Nicolas Giliberto / Yves-Robert Estrada
 - Back end: Yves-Robert Estrada
 - Aide d'un enseignant chercheur de l'INRIA: M.Amar Bouali
 
