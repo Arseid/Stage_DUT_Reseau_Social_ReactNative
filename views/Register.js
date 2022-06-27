@@ -108,7 +108,7 @@ export function RegisterScreen(){
 
   const [items2, setItems2] = useState([
     {label: '4e', value: '4e'},
-    {label: '3è', value: '3e'}
+    {label: '3e', value: '3e'}
   ]);
 
   const [items3, setItems3] = useState([
