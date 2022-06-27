@@ -19,7 +19,7 @@
     $body = $DecodedData['body'];
     $date = $DecodedData['date'];
 
-    $IR="INSERT INTO post(user_id,date,body,file,like_number) VALUES ('$user_id','$date','$body','','0')";
+    $IR="INSERT INTO post(user_id,date,body,file,like_list) VALUES ('$user_id','$date','$body','','')";
     $IQ=mysqli_query($ConnectDB,$IR);
 
     /*
