@@ -542,7 +542,9 @@ export const AuthProvider = ({children}) => {
               post.forename=response[i][6];
               post.surname=response[i][7];
               post.type=response[i][8];
-              post.pp=response[i][9];
+              post.option1=response[i][9];
+              post.option2=response[i][10];
+              post.pp=response[i][11];
               postsData.push(post);
             }
             setRetrievedPosts(postsData);

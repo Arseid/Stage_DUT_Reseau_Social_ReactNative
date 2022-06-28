@@ -145,7 +145,7 @@ export function ProfileScreen({navigation}){
                         <View style={styles.dataView}>
                           <View style={styles.dataAlignment}>
                             <Image source={{uri:item.ppPath}} style={styles.imageData}/>  
-                            <TouchableOpacity onPress={() => handleSpectate(item.email)}>
+                            <TouchableOpacity onPress={() => {toggleFollowersOverlay();handleSpectate(item.email)}}>
                             <Text style={styles.textData}>{item.forename} {item.surname}</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.buttonData} onPress={() => removeFollower(userInfo.email,item.email)}>
@@ -181,7 +181,7 @@ export function ProfileScreen({navigation}){
                         <View style={styles.dataView}>
                           <View style={styles.dataAlignment}>
                             <Image source={{uri:item.ppPath}} style={styles.imageData}/>  
-                            <TouchableOpacity onPress={() => handleSpectate(item.email)}>
+                            <TouchableOpacity onPress={() => {toggleFollowingOverlay(),handleSpectate(item.email)}}>
                             <Text style={styles.textData}>{item.forename} {item.surname}</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.buttonData} onPress={()=>unfollowUser(userInfo.email,item.email)}>

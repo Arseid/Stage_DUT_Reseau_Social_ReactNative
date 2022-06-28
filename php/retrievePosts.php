@@ -65,6 +65,8 @@
         array_push($listPosts[$i],$row[1]);
         array_push($listPosts[$i],$row[2]);
         array_push($listPosts[$i],$row[5]);
+        array_push($listPosts[$i],$row[6]);
+        array_push($listPosts[$i],$row[7]);
 
         $SR="SELECT * from profile WHERE user_id='$post_user_id'";
         $SQ=mysqli_query($ConnectDB,$SR);

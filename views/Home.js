@@ -5,6 +5,9 @@ import * as ImagePicker from 'expo-image-picker';
 import styles from '../style/searchStyle';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Overlay } from 'react-native-elements';
+import { LogBox } from 'react-native';
+LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
+LogBox.ignoreAllLogs();//Ignore all log notifications
 
 function HomeScreen({navigation}){
 
